@@ -24,20 +24,20 @@
         body {
             background-color: #f5f7fa;
             color: #333;
-            line-height: 1.4;
-            font-size: 12px;
+            line-height: 1.3; /* 减小行高 */
+            font-size: 11px; /* 减小基础字体大小 */
         }
         
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 10px;
+            padding: 8px; /* 减小内边距 */
         }
         
         header {
             text-align: center;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
+            margin-bottom: 12px; /* 减小间距 */
+            padding-bottom: 6px; /* 减小内边距 */
             border-bottom: 1px solid #ddd;
             position: sticky;
             top: 0;
@@ -47,117 +47,120 @@
         
         h1 {
             color: var(--primary);
-            margin-bottom: 3px;
-            font-size: 1.2rem;
+            margin-bottom: 2px; /* 减小间距 */
+            font-size: 1.1rem; /* 减小字体大小 */
         }
         
         h2 {
-            font-size: 1rem;
-            margin-bottom: 8px;
+            font-size: 0.9rem; /* 减小字体大小 */
+            margin-bottom: 6px; /* 减小间距 */
             color: var(--primary);
-            padding-bottom: 5px;
+            padding-bottom: 4px; /* 减小内边距 */
             border-bottom: 1px solid #eee;
         }
         
         h3 {
-            font-size: 0.9rem;
-            margin-bottom: 6px;
+            font-size: 0.8rem; /* 减小字体大小 */
+            margin-bottom: 4px; /* 减小间距 */
         }
         
         .page {
             background: white;
             border-radius: 4px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            margin-bottom: 20px;
+            padding: 12px; /* 减小内边距 */
+            margin-bottom: 15px;
             min-height: 400px;
         }
         
-        /* 紧凑布局样式 - 调整最小宽度以适应小屏幕 */
+        /* 紧凑布局样式 - 进一步减小最小宽度以适应窄屏手机 */
         .compact-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 8px; /* 减小间隙 */
+            margin-bottom: 12px; /* 减小间距 */
         }
         
         .compact-item {
             flex: 1;
-            min-width: 140px; /* 从180px减少到140px，适应小屏幕 */
+            min-width: 110px; /* 进一步减小最小宽度 */
             background: white;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            padding: 10px;
+            border-radius: 3px; /* 减小圆角 */
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* 减小阴影 */
+            padding: 8px; /* 减小内边距 */
         }
         
         .compact-item h3 {
             color: var(--dark);
-            margin-bottom: 6px;
-            font-size: 0.8rem;
+            margin-bottom: 4px; /* 减小间距 */
+            font-size: 0.75rem; /* 减小字体大小 */
+            letter-spacing: -0.2px; /* 减小字间距 */
         }
         
         .balance {
-            font-size: 1.1rem;
+            font-size: 1rem; /* 减小字体大小 */
             font-weight: bold;
             color: var(--primary);
         }
         
         .currency {
-            font-size: 0.7rem;
+            font-size: 0.65rem; /* 减小字体大小 */
             color: #666;
         }
         
         .total-card {
             background: #e8f4fd;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            padding: 10px;
+            border-radius: 3px; /* 减小圆角 */
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* 减小阴影 */
+            padding: 8px; /* 减小内边距 */
             flex: 1;
-            min-width: 140px; /* 从180px减少到140px，适应小屏幕 */
+            min-width: 110px; /* 进一步减小最小宽度 */
         }
         
         .total-card h3 {
             color: var(--dark);
-            margin-bottom: 6px;
-            font-size: 0.8rem;
+            margin-bottom: 4px; /* 减小间距 */
+            font-size: 0.75rem; /* 减小字体大小 */
+            letter-spacing: -0.2px; /* 减小字间距 */
         }
         
-        /* 表单样式 - 调整最小宽度以适应小屏幕 */
+        /* 表单样式 - 进一步减小最小宽度 */
         .form-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 8px;
+            gap: 6px; /* 减小间隙 */
+            margin-bottom: 6px; /* 减小间距 */
         }
         
         .form-group {
             flex: 1;
-            min-width: 100px; /* 从120px减少到100px，适应小屏幕 */
+            min-width: 90px; /* 进一步减小最小宽度 */
         }
         
         label {
             display: block;
-            margin-bottom: 2px;
+            margin-bottom: 1px; /* 减小间距 */
             font-weight: 500;
-            font-size: 0.75rem;
+            font-size: 0.7rem; /* 减小字体大小 */
+            letter-spacing: -0.1px; /* 减小字间距 */
         }
         
         input, select, textarea {
             width: 100%;
-            padding: 5px;
+            padding: 4px; /* 减小内边距 */
             border: 1px solid #ddd;
-            border-radius: 3px;
-            font-size: 0.75rem;
+            border-radius: 2px; /* 减小圆角 */
+            font-size: 0.7rem; /* 减小字体大小 */
         }
         
         button {
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 6px 10px;
-            border-radius: 3px;
+            padding: 5px 8px; /* 减小内边距 */
+            border-radius: 2px; /* 减小圆角 */
             cursor: pointer;
-            font-size: 0.75rem;
+            font-size: 0.7rem; /* 减小字体大小 */
             transition: background-color 0.3s;
         }
         
@@ -192,12 +195,12 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.75rem;
-            margin-top: 10px;
+            font-size: 0.7rem; /* 减小字体大小 */
+            margin-top: 8px; /* 减小间距 */
         }
         
         th, td {
-            padding: 6px 8px;
+            padding: 5px 6px; /* 减小内边距 */
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
@@ -205,6 +208,7 @@
         th {
             background-color: #f8f9fa;
             font-weight: 600;
+            font-size: 0.7rem; /* 减小字体大小 */
         }
         
         .income {
@@ -229,17 +233,17 @@
         
         .exchange-rates {
             background: white;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            padding: 10px;
-            margin-bottom: 15px;
+            border-radius: 3px; /* 减小圆角 */
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* 减小阴影 */
+            padding: 8px; /* 减小内边距 */
+            margin-bottom: 12px; /* 减小间距 */
         }
         
         .rate-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 6px 0;
+            padding: 5px 0; /* 减小内边距 */
             border-bottom: 1px solid #eee;
         }
         
@@ -249,25 +253,25 @@
         
         footer {
             text-align: center;
-            margin-top: 20px;
-            padding-top: 10px;
+            margin-top: 15px;
+            padding-top: 8px; /* 减小内边距 */
             border-top: 1px solid #ddd;
             color: #666;
-            font-size: 0.7rem;
+            font-size: 0.65rem; /* 减小字体大小 */
         }
         
         .summary {
             background: white;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            padding: 10px;
-            margin-bottom: 15px;
+            border-radius: 3px; /* 减小圆角 */
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* 减小阴影 */
+            padding: 8px; /* 减小内边距 */
+            margin-bottom: 12px; /* 减小间距 */
         }
         
         .summary-row {
             display: flex;
             justify-content: space-between;
-            padding: 5px 0;
+            padding: 4px 0; /* 减小内边距 */
             border-bottom: 1px solid #eee;
         }
         
@@ -277,23 +281,23 @@
         
         .summary-label {
             font-weight: 500;
-            font-size: 0.75rem;
+            font-size: 0.7rem; /* 减小字体大小 */
         }
         
         .summary-value {
             font-weight: bold;
-            font-size: 0.75rem;
+            font-size: 0.7rem; /* 减小字体大小 */
         }
         
         .checkbox-group {
             display: flex;
             align-items: center;
-            margin-top: 3px;
+            margin-top: 2px; /* 减小间距 */
         }
         
         .checkbox-group input {
             width: auto;
-            margin-right: 4px;
+            margin-right: 3px; /* 减小间距 */
         }
         
         .checkbox-group label {
@@ -304,23 +308,24 @@
         .nav-menu {
             display: flex;
             justify-content: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px; /* 减小间距 */
             background: white;
-            padding: 10px;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 8px; /* 减小内边距 */
+            border-radius: 3px; /* 减小圆角 */
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* 减小阴影 */
             position: sticky;
-            top: 60px;
+            top: 50px; /* 调整粘性位置 */
             z-index: 99;
         }
         
         .nav-item {
-            padding: 8px 15px;
-            margin: 0 5px;
+            padding: 6px 10px; /* 减小内边距 */
+            margin: 0 3px; /* 减小间距 */
             cursor: pointer;
-            border-radius: 3px;
-            font-size: 0.8rem;
+            border-radius: 2px; /* 减小圆角 */
+            font-size: 0.7rem; /* 减小字体大小 */
             transition: all 0.3s;
+            letter-spacing: -0.1px; /* 减小字间距 */
         }
         
         .nav-item:hover {
@@ -332,23 +337,24 @@
             color: white;
         }
         
-        /* 调整响应式断点，使在500px宽度下也能保持一行多列 */
+        /* 调整响应式断点，使在窄屏手机上也能保持一行多列 */
         @media (max-width: 600px) {
             .form-row {
-                flex-direction: column;
+                flex-direction: row; /* 保持水平排列 */
             }
             
             .form-group {
-                min-width: 100%;
+                min-width: calc(50% - 3px); /* 两列布局 */
+                flex: 0 0 calc(50% - 3px);
             }
             
             .compact-row {
-                flex-direction: row; /* 保持水平排列，而不是垂直 */
+                flex-direction: row; /* 保持水平排列 */
             }
             
             .compact-item, .total-card {
-                min-width: calc(50% - 5px); /* 两列布局，每列占50%减去间隙的一半 */
-                flex: 0 0 calc(50% - 5px);
+                min-width: calc(50% - 4px); /* 两列布局，每列占50%减去间隙的一半 */
+                flex: 0 0 calc(50% - 4px);
             }
             
             .nav-menu {
@@ -356,15 +362,20 @@
             }
             
             .nav-item {
-                margin-bottom: 5px;
+                margin-bottom: 4px; /* 减小间距 */
                 flex: 1;
                 text-align: center;
-                min-width: 80px;
+                min-width: 70px; /* 减小最小宽度 */
             }
         }
         
-        @media (max-width: 400px) {
+        @media (max-width: 350px) {
             .compact-item, .total-card {
+                min-width: 100%; /* 在非常小的屏幕上切换到单列 */
+                flex: 0 0 100%;
+            }
+            
+            .form-group {
                 min-width: 100%; /* 在非常小的屏幕上切换到单列 */
                 flex: 0 0 100%;
             }
@@ -372,7 +383,7 @@
         
         .goods-table-container, .expenses-table-container, .freight-table-container, .payment-table-container {
             overflow-x: auto;
-            margin-top: 10px;
+            margin-top: 8px; /* 减小间距 */
         }
         
         .total-row {
@@ -382,26 +393,26 @@
         
         .filter-row {
             background-color: #f8f9fa;
-            padding: 8px;
-            margin-bottom: 10px;
-            border-radius: 4px;
+            padding: 6px; /* 减小内边距 */
+            margin-bottom: 8px; /* 减小间距 */
+            border-radius: 3px; /* 减小圆角 */
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px; /* 减小间隙 */
         }
         
         .filter-group {
             flex: 1;
-            min-width: 120px; /* 从150px减少到120px，适应小屏幕 */
+            min-width: 100px; /* 进一步减小最小宽度 */
         }
         
         .freight-calculation-table {
-            margin-top: 15px;
+            margin-top: 12px; /* 减小间距 */
             width: 100%;
         }
         
         .freight-calculation-table th, .freight-calculation-table td {
-            padding: 5px;
+            padding: 4px; /* 减小内边距 */
             text-align: center;
         }
         
@@ -412,8 +423,8 @@
         .checkbox-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 10px;
+            gap: 8px; /* 减小间隙 */
+            margin-bottom: 8px; /* 减小间距 */
         }
         
         .checkbox-item {
@@ -423,13 +434,13 @@
         
         .checkbox-item input {
             width: auto;
-            margin-right: 5px;
+            margin-right: 4px; /* 减小间距 */
         }
         
         .form-actions {
             display: flex;
-            gap: 10px;
-            margin-top: 10px;
+            gap: 8px; /* 减小间隙 */
+            margin-top: 8px; /* 减小间距 */
         }
     </style>
 </head>
@@ -437,7 +448,7 @@
     <div class="container">
         <header>
             <h1>电商合伙账簿系统</h1>
-            <p style="font-size: 0.8rem;">基于您的货物清单、收支记录和运费支出表</p>
+            <p style="font-size: 0.75rem;">基于您的货物清单、收支记录和运费支出表</p>
         </header>
         
         <div class="nav-menu">
@@ -522,7 +533,7 @@
             </div>
         </div>
         
-        <!-- 其他页面保持不变 -->
+        <!-- 其他页面保持不变，但会继承新的紧凑样式 -->
         <!-- 货物清单页面 -->
         <div class="page" id="page-goods" style="display: none;">
             <h2>货物清单</h2>
@@ -566,7 +577,7 @@
                     <label for="goods-notes">备注</label>
                     <input type="text" id="goods-notes" placeholder="例如：给小米代理拉走">
                 </div>
-                <button type="button" id="add-goods" style="margin-top: 20px;">添加货物</button>
+                <button type="button" id="add-goods" style="margin-top: 15px;">添加货物</button>
             </div>
             
             <div class="form-row">
@@ -617,7 +628,7 @@
                             <th>数量</th>
                             <th>单价(¥)</th>
                             <th>金额(¥)</th>
-                            <th style="min-width: 200px;">备注</th>
+                            <th style="min-width: 150px;">备注</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -699,7 +710,7 @@
                     <label for="expense-notes">注释</label>
                     <input type="text" id="expense-notes" placeholder="例如：打到账号里垫付">
                 </div>
-                <button type="button" id="add-expense" style="margin-top: 20px;">添加记录</button>
+                <button type="button" id="add-expense" style="margin-top: 15px;">添加记录</button>
             </div>
             
             <h3>收支记录列表</h3>
@@ -788,7 +799,7 @@
                     <label for="freight-notes">备注</label>
                     <input type="text" id="freight-notes" placeholder="例如：总已付人民币5285元">
                 </div>
-                <button type="button" id="add-freight" style="margin-top: 20px;">添加运费</button>
+                <button type="button" id="add-freight" style="margin-top: 15px;">添加运费</button>
             </div>
             
             <h3>运费均摊计算</h3>
@@ -891,7 +902,7 @@
                     <label for="payment-notes">备注</label>
                     <input type="text" id="payment-notes" placeholder="可选的备注信息">
                 </div>
-                <button type="button" id="add-payment" style="margin-top: 20px;">添加记录</button>
+                <button type="button" id="add-payment" style="margin-top: 15px;">添加记录</button>
             </div>
             
             <h3>货款支付记录列表</h3>
@@ -1239,7 +1250,7 @@
                     <td>${item.quantity}</td>
                     <td>${item.price.toFixed(2)}</td>
                     <td>${item.amount.toFixed(2)}</td>
-                    <td style="min-width: 200px;">${item.notes}</td>
+                    <td style="min-width: 150px;">${item.notes}</td>
                     <td><button class="btn-danger" onclick="deleteGoods(${item.id})">删除</button></td>
                 `;
                 
