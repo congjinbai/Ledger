@@ -2,1006 +2,1646 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>机票信息生成器</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电商合伙账簿系统</title>
     <style>
-        /* 基础样式重置与通用设置 */
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            font-family: Arial, sans-serif;
-            width: 100%;
-            min-width: 320px;
-            margin: 0 auto;
-            padding: 12px;
-            background-color: #f5f5f5;
-            -webkit-text-size-adjust: 100%;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.4;
+            font-size: 12px;
         }
         
         .container {
-            background-color: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            background-color: #f5f7fa;
+            z-index: 100;
         }
         
         h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 18px;
-            font-size: 20px;
-            line-height: 1.3;
+            color: var(--primary);
+            margin-bottom: 3px;
+            font-size: 1.2rem;
+        }
+        
+        h2 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        h3 {
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+        
+        .page {
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 20px;
+            min-height: 400px;
+        }
+        
+        /* 紧凑布局样式 - 调整最小宽度以适应小屏幕 */
+        .compact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .compact-item {
+            flex: 1;
+            min-width: 140px; /* 从180px减少到140px，适应小屏幕 */
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+        }
+        
+        .compact-item h3 {
+            color: var(--dark);
+            margin-bottom: 6px;
+            font-size: 0.8rem;
+        }
+        
+        .balance {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .currency {
+            font-size: 0.7rem;
+            color: #666;
+        }
+        
+        .total-card {
+            background: #e8f4fd;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            flex: 1;
+            min-width: 140px; /* 从180px减少到140px，适应小屏幕 */
+        }
+        
+        .total-card h3 {
+            color: var(--dark);
+            margin-bottom: 6px;
+            font-size: 0.8rem;
+        }
+        
+        /* 表单样式 - 调整最小宽度以适应小屏幕 */
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 8px;
         }
         
         .form-group {
-            margin-bottom: 14px;
+            flex: 1;
+            min-width: 100px; /* 从120px减少到100px，适应小屏幕 */
         }
         
         label {
             display: block;
-            margin-bottom: 4px;
-            font-weight: bold;
-            color: #3498db;
-            font-size: 14px;
+            margin-bottom: 2px;
+            font-weight: 500;
+            font-size: 0.75rem;
         }
         
         input, select, textarea {
             width: 100%;
-            padding: 10px 8px;
+            padding: 5px;
             border: 1px solid #ddd;
-            border-radius: 5px;
-            box-sizing: border-box;
-            margin-bottom: 6px;
-            font-size: 15px;
-        }
-        
-        select {
-            height: 42px;
-            -webkit-appearance: none;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-            background-size: 16px;
-        }
-        
-        textarea {
-            height: 120px;
-            resize: vertical;
-            font-family: Consolas, monospace;
+            border-radius: 3px;
+            font-size: 0.75rem;
         }
         
         button {
-            background-color: #3498db;
+            background-color: var(--primary);
             color: white;
-            padding: 11px 16px;
             border: none;
-            border-radius: 5px;
+            padding: 6px 10px;
+            border-radius: 3px;
             cursor: pointer;
-            font-size: 15px;
+            font-size: 0.75rem;
             transition: background-color 0.3s;
-            min-height: 42px;
         }
         
         button:hover {
             background-color: #2980b9;
         }
         
-        .flight-segment {
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 6px;
-            position: relative;
-            background-color: #f9f9f9;
+        .btn-danger {
+            background-color: var(--danger);
         }
         
-        .add-segment {
-            background-color: #2ecc71;
-            margin-bottom: 15px;
-            width: 100%;
-        }
-        
-        .add-segment:hover {
-            background-color: #27ae60;
-        }
-        
-        .remove-segment {
-            background-color: #e74c3c;
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            padding: 4px 8px;
-            font-size: 14px;
-        }
-        
-        .remove-segment:hover {
+        .btn-danger:hover {
             background-color: #c0392b;
         }
         
-        .output {
-            margin-top: 20px;
-            white-space: pre-wrap;
-            background-color: #f0f7ff;
-            padding: 15px;
-            border-radius: 6px;
-            border: 1px solid #d6e4f0;
-            font-family: Consolas, monospace;
-            line-height: 1.5;
-            font-size: 14px;
-            max-height: 300px;
-            overflow-y: auto;
+        .btn-success {
+            background-color: var(--secondary);
         }
         
-        .copy-btn {
-            background-color: #9b59b6;
+        .btn-success:hover {
+            background-color: #27ae60;
+        }
+        
+        .btn-warning {
+            background-color: var(--warning);
+        }
+        
+        .btn-warning:hover {
+            background-color: #e67e22;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.75rem;
             margin-top: 10px;
+        }
+        
+        th, td {
+            padding: 6px 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+        
+        .income {
+            color: var(--secondary);
+        }
+        
+        .expense {
+            color: var(--danger);
+        }
+        
+        .advance {
+            color: var(--warning);
+        }
+        
+        .settlement {
+            color: #9b59b6;
+        }
+        
+        .returnable {
+            color: #e67e22;
+        }
+        
+        .exchange-rates {
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .rate-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .rate-item:last-child {
+            border-bottom: none;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+            color: #666;
+            font-size: 0.7rem;
+        }
+        
+        .summary {
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+        
+        .summary-label {
+            font-weight: 500;
+            font-size: 0.75rem;
+        }
+        
+        .summary-value {
+            font-weight: bold;
+            font-size: 0.75rem;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-top: 3px;
+        }
+        
+        .checkbox-group input {
+            width: auto;
+            margin-right: 4px;
+        }
+        
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: normal;
+        }
+        
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 60px;
+            z-index: 99;
+        }
+        
+        .nav-item {
+            padding: 8px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+        
+        .nav-item:hover {
+            background-color: #e8f4fd;
+        }
+        
+        .nav-item.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* 调整响应式断点，使在500px宽度下也能保持一行多列 */
+        @media (max-width: 600px) {
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .form-group {
+                min-width: 100%;
+            }
+            
+            .compact-row {
+                flex-direction: row; /* 保持水平排列，而不是垂直 */
+            }
+            
+            .compact-item, .total-card {
+                min-width: calc(50% - 5px); /* 两列布局，每列占50%减去间隙的一半 */
+                flex: 0 0 calc(50% - 5px);
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+            }
+            
+            .nav-item {
+                margin-bottom: 5px;
+                flex: 1;
+                text-align: center;
+                min-width: 80px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .compact-item, .total-card {
+                min-width: 100%; /* 在非常小的屏幕上切换到单列 */
+                flex: 0 0 100%;
+            }
+        }
+        
+        .goods-table-container, .expenses-table-container, .freight-table-container, .payment-table-container {
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+        
+        .total-row {
+            background-color: #f0f8ff;
+            font-weight: bold;
+        }
+        
+        .filter-row {
+            background-color: #f8f9fa;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 120px; /* 从150px减少到120px，适应小屏幕 */
+        }
+        
+        .freight-calculation-table {
+            margin-top: 15px;
             width: 100%;
         }
         
-        .copy-btn:hover {
-            background-color: #8e44ad;
-        }
-        
-        .flex-row {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 14px;
-        }
-        
-        .flex-row > div {
-            flex: 1;
+        .freight-calculation-table th, .freight-calculation-table td {
+            padding: 5px;
+            text-align: center;
         }
         
         .hidden {
             display: none;
         }
         
-        .airport-select {
-            display: flex;
-            gap: 4px;
-            align-items: center;
-        }
-        
-        .airport-select select {
-            flex: 3;
-            font-size: 14px;
-        }
-        
-        .airport-select input {
-            flex: 2;
-            font-size: 14px;
-        }
-        
-        .airport-select button {
-            flex: 1;
-            padding: 0;
-            font-size: 13px;
-        }
-        
-        .terminal-input {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        
-        .terminal-input input {
-            width: 70px;
-        }
-        
-        .luggage-input {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        
-        .luggage-input input {
-            width: 60px;
-        }
-        
-        .time-input {
-            position: relative;
-        }
-        
-        .night-notice {
-            font-size: 12px;
-            color: #7f8c8d;
-            margin-top: 3px;
-        }
-        
-        .segment-date {
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 8px;
-        }
-        
-        .return-date {
-            color: #e74c3c;
-            font-weight: bold;
-        }
-        
-        .time-warning {
-            color: #e74c3c;
-            font-size: 12px;
-            margin-top: 3px;
-            display: none;
-        }
-        
-        .auto-fill-btn {
-            background-color: #f39c12;
-            margin-top: 5px;
-            width: 100%;
-        }
-        
-        .auto-fill-btn:hover {
-            background-color: #d35400;
-        }
-        
-        /* 备注选项样式 - 优化移动端显示 */
-        .notes-container {
-            margin-top: 10px;
-            width: 100%;
-        }
-        
-        .note-options {
+        .checkbox-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 10px;
             margin-bottom: 10px;
-            width: 100%;
         }
         
-        .note-option {
-            background-color: #e0e0e0;
-            border: none;
-            border-radius: 15px;
-            padding: 4px 10px;
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-            white-space: nowrap;
+        .checkbox-item {
+            display: flex;
+            align-items: center;
         }
         
-        .note-option:hover {
-            background-color: #d0d0d0;
+        .checkbox-item input {
+            width: auto;
+            margin-right: 5px;
         }
         
-        .note-option.selected {
-            background-color: #3498db;
-            color: white;
-        }
-        
-        .note-input-container {
+        .form-actions {
+            display: flex;
+            gap: 10px;
             margin-top: 10px;
-        }
-        
-        #additionalNotes {
-            width: 100%;
-            box-sizing: border-box;
-        }
-        
-        /* 中转提示和选座信息的布局 */
-        .transfer-seat-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        @media (min-width: 768px) {
-            .transfer-seat-container {
-                flex-direction: row;
-                gap: 12px;
-            }
-            
-            .transfer-container, .seat-container {
-                flex: 1;
-            }
-        }
-        
-        .seat-input {
-            text-transform: uppercase;
-        }
-        
-        /* 底部按钮区域 */
-        .bottom-buttons {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-        }
-        
-        .bottom-buttons button {
-            flex: 1;
-            padding: 12px;
-        }
-        
-        /* 横屏适配 */
-        @media (orientation: landscape) {
-            body {
-                max-width: 900px;
-                padding: 20px;
-                margin: 0 auto;
-            }
-            
-            .container {
-                padding: 25px;
-            }
-            
-            h1 {
-                font-size: 24px;
-                margin-bottom: 25px;
-            }
-            
-            .transfer-seat-container {
-                flex-direction: row;
-            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>✈️ 机票信息生成器 ✈️</h1>
+        <header>
+            <h1>电商合伙账簿系统</h1>
+            <p style="font-size: 0.8rem;">基于您的货物清单、收支记录和运费支出表</p>
+        </header>
         
-        <div class="form-group">
-            <label for="passengerNames">乘客姓名(格式：拼音字母):</label>
-            <input type="text" id="passengerNames" placeholder="例如: WANG/YAMEI">
+        <div class="nav-menu">
+            <div class="nav-item active" data-target="page-overview">概览</div>
+            <div class="nav-item" data-target="page-accounts">账户余额</div>
+            <div class="nav-item" data-target="page-goods">货物清单</div>
+            <div class="nav-item" data-target="page-expenses">收支记录</div>
+            <div class="nav-item" data-target="page-freight">运费支出</div>
+            <div class="nav-item" data-target="page-payment">货款支付记录</div>
+            <div class="nav-item" data-target="page-settings">设置</div>
         </div>
         
-        <div class="form-group">
-            <label for="tripType">行程类型:</label>
-            <select id="tripType">
-                <option value="的行程如下:">单程</option>
-                <option value="的往返行程如下:">往返</option>
-                <option value="的行程更改如下:">更改行程</option>
-                <option value="的往返行程更改如下:">往返行程更改</option>
-            </select>
-        </div>
-        
-        <div class="flex-row">
-            <div class="form-group">
-                <label for="departureCity">出发城市:</label>
-                <div class="airport-select">
-                    <select id="departureCity-select" onchange="updateAirportInput('departureCity', this.value)">
-                        <option value="">选择常用机场</option>
-                    </select>
-                    <input type="text" id="departureCity" placeholder="输入出发城市">
-                    <button onclick="saveAirport('departureCity')">保存</button>
+        <!-- 概览页面 -->
+        <div class="page" id="page-overview">
+            <h2>概览</h2>
+            
+            <div class="compact-row">
+                <div class="compact-item">
+                    <h3>OZON账户余额 (₽)</h3>
+                    <div class="balance" id="ozon-balance-display">0.00</div>
+                </div>
+                <div class="compact-item">
+                    <h3>WB账户余额 (₽)</h3>
+                    <div class="balance" id="wb-balance-display">0.00</div>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="arrivalCity">到达城市:</label>
-                <div class="airport-select">
-                    <select id="arrivalCity-select" onchange="updateAirportInput('arrivalCity', this.value)">
-                        <option value="">选择常用机场</option>
-                    </select>
-                    <input type="text" id="arrivalCity" placeholder="输入到达城市">
-                    <button onclick="saveAirport('arrivalCity')">保存</button>
+            
+            <div class="compact-row">
+                <div class="compact-item">
+                    <h3>个体账户余额 (₽)</h3>
+                    <div class="balance" id="business-balance-display">0.00</div>
+                </div>
+                <div class="compact-item">
+                    <h3>现金余额 (₽)</h3>
+                    <div class="balance" id="cash-balance-display">0.00</div>
                 </div>
             </div>
-        </div>
-        
-        <div id="flightSegments">
-            <!-- 航班段将在这里动态添加 -->
-        </div>
-        
-        <button class="add-segment" onclick="addFlightSegment()">+ 添加航班段</button>
-        
-        <div class="flex-row">
-            <div class="form-group">
-                <label for="handLuggage">手提行李要求:</label>
-                <select id="handLuggage">
-                    <option value="尺寸要求严格36*30*27厘米">尺寸要求严格36*30*27厘米</option>
-                    <option value="尺寸要求严格40*30*20厘米">尺寸要求严格40*30*20厘米</option>
-                    <option value="5公斤">5公斤</option>
-                    <option value="10公斤">10公斤</option>
-                    <option value="各5公斤">各5公斤</option>
-                    <option value="各10公斤">各10公斤</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="checkedLuggage">托运行李要求:</label>
-                <select id="checkedLuggage" onchange="toggleLuggageInput()">
-                    <option value="无">无</option>
-                    <option value="1件，共20公斤">1件，共20公斤</option>
-                    <option value="1件，共23公斤">1件，共23公斤</option>
-                    <option value="各1件，每件20公斤">各1件，每件20公斤</option>
-                    <option value="各1件，每件23公斤">各1件，每件23公斤</option>
-                    <option value="multiple-20">共*件，每件20公斤</option>
-                    <option value="multiple-23">共*件，每件23公斤</option>
-                </select>
-                <div id="luggageCountInput" class="hidden">
-                    <div class="luggage-input">
-                        <span>共</span>
-                        <input type="number" id="luggageCount" min="1" value="1">
-                        <span>件行李</span>
-                    </div>
+            
+            <div class="compact-row">
+                <div class="total-card">
+                    <h3>总金额 (₽)</h3>
+                    <div class="balance" id="total-balance">0.00</div>
                 </div>
             </div>
         </div>
         
-        <!-- 备注信息区域 - 优化排列顺序 -->
-        <div class="form-group">
-            <label>备注信息:</label>
-            <div class="note-options">
-                <button class="note-option" onclick="toggleNote(this, '锂电池随身携带')">锂电池</button>
-                <button class="note-option" onclick="toggleNote(this, '液体不超过100ml')">液体限制</button>
-                <button class="note-option" onclick="toggleNote(this, '贵重物品随身携带')">贵重物品</button>
-                <button class="note-option" onclick="toggleNote(this, '药品需处方')">药品处方</button>
-                <button class="note-option" onclick="toggleNote(this, '免税品单独包装')">免税品</button>
-                <button class="note-option" onclick="toggleNote(this, '易碎物品')">易碎品</button>
-                <button class="note-option" onclick="toggleNote(this, '电子产品需取出')">电子产品</button>
+        <!-- 账户余额页面 -->
+        <div class="page" id="page-accounts" style="display: none;">
+            <h2>账户余额管理</h2>
+            
+            <div class="compact-row">
+                <div class="compact-item">
+                    <h3>OZON账户余额 (₽)</h3>
+                    <input type="number" id="ozon-balance" step="0.01" placeholder="0.00" value="0">
+                </div>
+                <div class="compact-item">
+                    <h3>WB账户余额 (₽)</h3>
+                    <input type="number" id="wb-balance" step="0.01" placeholder="0.00" value="0">
+                </div>
             </div>
-            <input type="text" id="additionalNotes" placeholder="可手动输入其他备注信息，多个信息用逗号隔开" 
-                   oninput="syncNotesFromInput()" style="width: 100%;">
+            
+            <div class="compact-row">
+                <div class="compact-item">
+                    <h3>个体账户余额 (₽)</h3>
+                    <input type="number" id="business-balance" step="0.01" placeholder="0.00" value="0">
+                </div>
+                <div class="compact-item">
+                    <h3>现金余额 (₽)</h3>
+                    <input type="number" id="cash-balance" step="0.01" placeholder="0.00" value="0">
+                </div>
+            </div>
+            
+            <div class="compact-row">
+                <button id="save-balances" class="btn-success">保存余额</button>
+            </div>
+            
+            <div class="compact-row">
+                <div class="total-card">
+                    <h3>总金额 (₽)</h3>
+                    <div class="balance" id="total-balance-accounts">0.00</div>
+                </div>
+            </div>
         </div>
         
-        <div class="bottom-buttons">
-            <button onclick="generateMessage()" style="background-color: #2ecc71;">生成信息</button>
-            <button onclick="resetForm()" style="background-color: #e74c3c;">重置表单</button>
-        </div>
-        
-        <div class="output" id="output"></div>
-        <button class="copy-btn" onclick="copyToClipboard()">复制到剪贴板</button>
-    </div>
-
-    <script>
-        // 常用机场数据
-        const commonAirports = [
-            "奥斯", "埃里温", "巴尔瑙尔", "布市", "布拉格维申斯克", "车里雅宾斯克", "格罗兹尼", "海参崴", "哈巴", "哈巴罗夫斯克", 
-            "克市", "克拉斯诺亚尔斯克", "马嘎斯", "莫斯科", "莫斯科Шереметьево", "莫斯科Домодедово", "莫斯科Внуково", 
-            "圣彼得堡", "索契", "新西伯利亚", "叶卡","叶卡捷琳堡", "北京", "北京首都", "北京大兴", "上海", "广州", 
-            "西安", "杭州", "沈阳", "哈尔滨", "重庆", "青岛", "成都", "三亚", "深圳", "长春"
-        ];
-        
-        // 常用航班号数据
-        const commonFlightNumbers = [
-            "SU-", "U6-", "S7-", "DP-", "UT-", "WZ-", "IO-", "N4-", "YC-", "HZ-", "5N-", "A4-", 
-            "3U-3887", "3U-3888", "CA-910", "CA-960", "CZ-310", "CZ-342", "CZ-656", "DP-6904", "DP-6903", "DP-6569", 
-            "DP-6570", "DP-413", "DP-414", "GS-7942", "HU-7962", "HU-6972", "HU-7986", "JD-495", "JD-496", "JD-608",
-            "MU-2076", "MU-6019", "SU-1498", "SU-1499", "SU-1496", "SU-1497", "SU-208", "SU-204" 
-        ];
-        
-        // 存储选中的备注
-        let selectedNotes = new Set();
-        
-        let segmentCount = 0;
-        let savedAirports = [...commonAirports];
-        let savedFlightNumbers = [...commonFlightNumbers];
-        let previousArrivalTime = null;
-        
-        // 初始化机场选择框
-        function initAirportSelects() {
-            const selects = [
-                "departureCity-select", "arrivalCity-select"
-            ];
+        <!-- 其他页面保持不变 -->
+        <!-- 货物清单页面 -->
+        <div class="page" id="page-goods" style="display: none;">
+            <h2>货物清单</h2>
             
-            selects.forEach(selectId => {
-                const select = document.getElementById(selectId);
-                select.innerHTML = '<option value="">选择常用机场</option>' + 
-                    savedAirports.map(airport => 
-                        `<option value="${airport}">${airport}</option>`
-                    ).join('');
-            });
-        }
-        
-        // 自动将乘客姓名转为大写并将空格替换为/
-        document.getElementById('passengerNames').addEventListener('input', function(e) {
-            this.value = this.value.replace(/\s+/g, '/').toUpperCase();
-        });
-        
-        // 日期输入自动格式化
-        function formatDateInput(input) {
-            const value = input.value.replace(/\D/g, '');
-            if (value.length === 4) {
-                input.value = `${value.substr(0, 2)}月${value.substr(2, 2)}日`;
-            }
-        }
-        
-        // 时间输入自动格式化（4位数字转时间格式）
-        function formatTimeInput(input) {
-            // 移除所有非数字字符
-            let value = input.value.replace(/\D/g, '');
-            // 限制长度为4位
-            if (value.length > 4) {
-                value = value.substring(0, 4);
-            }
-            // 格式化时间
-            if (value.length === 2) {
-                input.value = value + ':';
-            } else if (value.length > 2) {
-                input.value = value.substring(0, 2) + ':' + value.substring(2);
-            } else {
-                input.value = value;
-            }
-        }
-        
-        // 计算前一天日期（用于后半夜提示）
-        function getPreviousDay(dateStr) {
-            // 解析"MM月DD日"格式
-            const match = dateStr.match(/(\d+)月(\d+)日/);
-            if (!match) return '';
-            const month = parseInt(match[1], 10);
-            const day = parseInt(match[2], 10);
-            
-            // 创建日期对象（使用当前年份，不影响日计算）
-            const date = new Date();
-            date.setMonth(month - 1); // 月份从0开始
-            date.setDate(day);
-            // 减去一天
-            date.setDate(date.getDate() - 1);
-            
-            // 返回日部分
-            return `${date.getDate()}日`;
-        }
-        
-        function addFlightSegment() {
-            segmentCount++;
-            const segmentsDiv = document.getElementById('flightSegments');
-            
-            const segmentDiv = document.createElement('div');
-            segmentDiv.className = 'flight-segment';
-            segmentDiv.id = 'segment' + segmentCount;
-            
-            segmentDiv.innerHTML = `
-                <button class="remove-segment" onclick="removeSegment('segment${segmentCount}')">× 删除</button>
-                
+            <div class="form-row">
                 <div class="form-group">
-                    <label>起飞日期:</label>
-                    <input type="text" id="segment${segmentCount}-date" placeholder="例如: 0822" oninput="formatDateInput(this)">
+                    <label for="goods-date">到货日期</label>
+                    <input type="text" id="goods-date" placeholder="20251122" maxlength="8">
                 </div>
-                
+                <div class="form-group" style="flex: 2;">
+                    <label for="goods-name">产品名称</label>
+                    <input type="text" id="goods-name" placeholder="例如：电镀盒子Android99TV" required>
+                </div>
+            </div>
+            <div class="form-row">
                 <div class="form-group">
-                    <label>出发机场:</label>
-                    <div class="airport-select">
-                        <select id="segment${segmentCount}-from-select" onchange="updateAirportInput('segment${segmentCount}-from', this.value)">
-                            <option value="">选择常用机场</option>
-                            ${savedAirports.map(airport => `<option value="${airport}">${airport}</option>`).join('')}
-                        </select>
-                        <input type="text" id="segment${segmentCount}-from" placeholder="输入出发机场">
-                        <button onclick="saveAirport('segment${segmentCount}-from')">保存</button>
-                    </div>
+                    <label for="goods-color">颜色</label>
+                    <input type="text" id="goods-color" placeholder="例如：黑">
                 </div>
-                
                 <div class="form-group">
-                    <label>到达机场:</label>
-                    <div class="airport-select">
-                        <select id="segment${segmentCount}-to-select" onchange="updateAirportInput('segment${segmentCount}-to', this.value)">
-                            <option value="">选择常用机场</option>
-                            ${savedAirports.map(airport => `<option value="${airport}">${airport}</option>`).join('')}
-                        </select>
-                        <input type="text" id="segment${segmentCount}-to" placeholder="输入到达机场">
-                        <button onclick="saveAirport('segment${segmentCount}-to')">保存</button>
-                    </div>
+                    <label for="goods-unit">单位</label>
+                    <input type="text" id="goods-unit" placeholder="例如：PCS">
                 </div>
-                
                 <div class="form-group">
-                    <label>航班号:</label>
-                    <div class="airport-select">
-                        <select id="segment${segmentCount}-flightNo-select" onchange="updateFlightNoInput('segment${segmentCount}-flightNo', this.value)">
-                            <option value="">选择常用航班号</option>
-                            ${savedFlightNumbers.map(num => `<option value="${num}">${num}</option>`).join('')}
-                        </select>
-                        <input type="text" id="segment${segmentCount}-flightNo" placeholder="输入航班号">
-                        <button onclick="saveFlightNo('segment${segmentCount}-flightNo')">保存</button>
-                    </div>
-                    <button class="auto-fill-btn" onclick="autoFillFlightInfo('segment${segmentCount}')">自动填写航班信息</button>
+                    <label for="goods-quantity">数量</label>
+                    <input type="number" id="goods-quantity" placeholder="0" required>
                 </div>
-                
-                <div class="flex-row">
-                    <div class="form-group time-input">
-                        <label>起飞时间(当地时间):</label>
-                        <input type="text" id="segment${segmentCount}-departureTime" placeholder="输入4位数字，如1230" oninput="formatTimeInput(this)">
-                    </div>
-                    <div class="form-group">
-                        <label>值机截止时间:</label>
-                        <select id="segment${segmentCount}-checkinTime">
-                            <option value="">空白</option>
-                            <option value="起飞前45分钟停办">起飞前45分钟停办</option>
-                            <option value="起飞前1小时停办">起飞前1小时停办</option>
-                        </select>
-                    </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="goods-price">单价 (¥)</label>
+                    <input type="number" id="goods-price" step="0.01" placeholder="0.00" required>
                 </div>
-                
-                <div class="flex-row">
-                    <div class="form-group time-input">
-                        <label>抵达时间(当地时间):</label>
-                        <input type="text" id="segment${segmentCount}-arrivalTime" placeholder="输入4位数字，如1230" oninput="formatTimeInput(this)">
-                        <div id="segment${segmentCount}-timeWarning" class="time-warning"></div>
-                    </div>
-                    <div class="form-group">
-                        <label>抵达日期:</label>
-                        <select id="segment${segmentCount}-arrivalDay">
-                            <option value="当日">当日</option>
-                            <option value="次日">次日</option>
-                        </select>
-                    </div>
+                <div class="form-group">
+                    <label for="goods-amount">金额 (¥)</label>
+                    <input type="number" id="goods-amount" step="0.01" placeholder="0.00" readonly>
                 </div>
-                
-                <!-- 修改：竖屏时转为垂直布局 -->
-                <div class="transfer-seat-container">
-                    <div class="form-group transfer-container">
-                        <label>中转与行李提示:</label>
-                        <select id="segment${segmentCount}-transferBaggageNote" onchange="toggleTransferBaggageInput('segment${segmentCount}')">
-                            <option value="">无提示</option>
-                            <option value="extract">⚠️提取行李⚠️</option>
-                            <option value="no-extract">⚠️无需提取行李⚠️</option>
-                            <option value="extract-transfer">⚠️提取行李，中转到</option>
-                            <option value="transfer">⚠️中转到</option>
-                            <option value="extract-transfer-to">⚠️提取行李，中转至</option>
-                            <option value="transfer-to">⚠️中转至</option>
-                        </select>
-                        <div id="segment${segmentCount}-terminalDiv" class="hidden" style="margin-top: 8px;">
-                            <div class="terminal-input">
-                                <input type="text" id="segment${segmentCount}-terminal" placeholder="输入航站楼或机场">
-                                <span id="segment${segmentCount}-terminalSuffix">航站楼⚠️</span>
-                            </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group" style="flex: 2;">
+                    <label for="goods-notes">备注</label>
+                    <input type="text" id="goods-notes" placeholder="例如：给小米代理拉走">
+                </div>
+                <button type="button" id="add-goods" style="margin-top: 20px;">添加货物</button>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="goods-rub-rate">折成卢布 (₽)</label>
+                    <input type="number" id="goods-rub-rate" step="0.0001" value="12.50">
+                </div>
+                <div class="form-group">
+                    <label for="goods-freight-ratio">运费平摊</label>
+                    <input type="number" id="goods-freight-ratio" step="0.0001" value="1.00">
+                </div>
+                <div class="form-group">
+                    <label for="goods-rub-price">卢布单价 (₽)</label>
+                    <input type="number" id="goods-rub-price" step="0.01" readonly>
+                </div>
+            </div>
+            
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="filter-date">日期筛选:</label>
+                    <input type="text" id="filter-date" placeholder="20251122">
+                </div>
+                <div class="filter-group">
+                    <label for="filter-name">名称筛选:</label>
+                    <input type="text" id="filter-name">
+                </div>
+                <div class="filter-group">
+                    <label for="filter-color">颜色筛选:</label>
+                    <input type="text" id="filter-color">
+                </div>
+                <div class="filter-group">
+                    <label for="filter-notes">备注筛选:</label>
+                    <input type="text" id="filter-notes">
+                </div>
+                <button id="apply-filter">应用筛选</button>
+                <button id="clear-filter" class="btn-warning">清除筛选</button>
+            </div>
+            
+            <h3>货物记录</h3>
+            <div class="goods-table-container">
+                <table id="goods-table">
+                    <thead>
+                        <tr>
+                            <th>到货日期</th>
+                            <th>产品名称</th>
+                            <th>颜色</th>
+                            <th>单位</th>
+                            <th>数量</th>
+                            <th>单价(¥)</th>
+                            <th>金额(¥)</th>
+                            <th style="min-width: 200px;">备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="goods-body">
+                        <!-- 货物记录将在这里动态生成 -->
+                    </tbody>
+                    <tfoot>
+                        <tr class="total-row">
+                            <td colspan="4">总计</td>
+                            <td id="total-quantity">0</td>
+                            <td></td>
+                            <td id="total-amount">0.00</td>
+                            <td colspan="2"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        
+        <!-- 其他页面保持不变 -->
+        <!-- 收支记录页面 -->
+        <div class="page" id="page-expenses" style="display: none;">
+            <h2>收支记录</h2>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="expense-date">日期</label>
+                    <input type="text" id="expense-date" placeholder="20251122" maxlength="8">
+                </div>
+                <div class="form-group">
+                    <label>收支类型</label>
+                    <div class="checkbox-container">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="expense-type-sales" name="expense-type" value="sales">
+                            <label for="expense-type-sales">销售货款</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="expense-type-expense" name="expense-type" value="expense">
+                            <label for="expense-type-expense">费用支出</label>
                         </div>
                     </div>
-                    
-                    <div class="form-group seat-container">
-                        <label>选座：</label>
-                        <input type="text" id="segment${segmentCount}-seat" placeholder="输入座位号，如6F" 
-                               class="seat-input" oninput="this.value = this.value.toUpperCase()">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>支付及存储</label>
+                    <div class="checkbox-container">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="expense-payment-public-income" name="expense-payment" value="public-income">
+                            <label for="expense-payment-public-income">公账收入</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="expense-payment-cash-income" name="expense-payment" value="cash-income">
+                            <label for="expense-payment-cash-income">现金收入</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="expense-payment-public-expense" name="expense-payment" value="public-expense">
+                            <label for="expense-payment-public-expense">公账支付</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="expense-payment-cash-expense" name="expense-payment" value="cash-expense">
+                            <label for="expense-payment-cash-expense">现金支付</label>
+                        </div>
                     </div>
                 </div>
-            `;
+            </div>
+            <div class="form-row">
+                <div class="form-group" style="flex: 2;">
+                    <label for="expense-description">描述</label>
+                    <input type="text" id="expense-description" placeholder="例如：5-6月2个月租金+1个月押金每月16800卢布" required>
+                </div>
+                <div class="form-group">
+                    <label for="expense-amount">金额 (₽)</label>
+                    <input type="number" id="expense-amount" step="0.01" placeholder="0.00" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group" style="flex: 2;">
+                    <label for="expense-notes">注释</label>
+                    <input type="text" id="expense-notes" placeholder="例如：打到账号里垫付">
+                </div>
+                <button type="button" id="add-expense" style="margin-top: 20px;">添加记录</button>
+            </div>
             
-            segmentsDiv.appendChild(segmentDiv);
-            
-            // 初始化机场选择框
-            updateAirportSelects();
-        }
+            <h3>收支记录列表</h3>
+            <div class="expenses-table-container">
+                <table id="expenses-table">
+                    <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>收支类型</th>
+                            <th>支付及存储</th>
+                            <th>描述</th>
+                            <th>金额(₽)</th>
+                            <th>注释</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expenses-body">
+                        <!-- 收支记录将在这里动态生成 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
         
-        // 备注相关功能 - 优化了显示文本长度
-        function toggleNote(button, noteText) {
-            // 切换选中状态
-            button.classList.toggle('selected');
+        <!-- 运费支出页面 -->
+        <div class="page" id="page-freight" style="display: none;">
+            <h2>运费支出</h2>
             
-            // 更新选中的备注集合
-            if (button.classList.contains('selected')) {
-                selectedNotes.add(noteText);
-            } else {
-                selectedNotes.delete(noteText);
-            }
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="freight-date">日期</label>
+                    <input type="text" id="freight-date" placeholder="20251122" maxlength="8">
+                </div>
+                <div class="form-group" style="flex: 2;">
+                    <label for="freight-product">产品名称</label>
+                    <input type="text" id="freight-product" placeholder="例如：电镀盒子Android99TV" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="freight-weight">重量 (公斤)</label>
+                    <input type="number" id="freight-weight" step="0.01" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label for="freight-volume">体积 (立方米)</label>
+                    <input type="number" id="freight-volume" step="0.01" placeholder="0.00">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="freight-amount">运费</label>
+                    <input type="number" id="freight-amount" step="0.01" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label for="freight-currency">币种</label>
+                    <select id="freight-currency">
+                        <option value="RUB">卢布</option>
+                        <option value="CNY">人民币</option>
+                        <option value="USD">美金</option>
+                    </select>
+                </div>
+                <div class="form-group" id="exchange-rate-group" style="display: none;">
+                    <label for="freight-exchange-rate">汇率</label>
+                    <input type="number" id="freight-exchange-rate" step="0.0001" placeholder="0.0000">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="freight-pallet">托盘费 (₽)</label>
+                    <input type="number" id="freight-pallet" step="0.01" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label for="freight-cubic">立方费 (₽)</label>
+                    <input type="number" id="freight-cubic" step="0.01" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label for="freight-delivery">运输车费 (₽)</label>
+                    <input type="number" id="freight-delivery" step="0.01" placeholder="0.00">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="freight-total">费用总计 (₽)</label>
+                    <input type="number" id="freight-total" step="0.01" placeholder="0.00" readonly>
+                </div>
+                <div class="form-group" style="flex: 2;">
+                    <label for="freight-notes">备注</label>
+                    <input type="text" id="freight-notes" placeholder="例如：总已付人民币5285元">
+                </div>
+                <button type="button" id="add-freight" style="margin-top: 20px;">添加运费</button>
+            </div>
             
-            // 同步更新输入框
-            syncNotesToInput();
-        }
+            <h3>运费均摊计算</h3>
+            <div class="freight-table-container">
+                <table class="freight-calculation-table">
+                    <thead>
+                        <tr>
+                            <th>产品名称</th>
+                            <th>单价 (¥)</th>
+                            <th>数量</th>
+                            <th>重量 (克)</th>
+                            <th>折成卢布单价 (₽)</th>
+                            <th>含运费价格 (₽)</th>
+                            <th>
+                                <button type="button" id="add-freight-row" class="btn-success">添加行</button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="freight-calculation-body">
+                        <tr>
+                            <td><input type="text" class="calc-product" placeholder="产品名称"></td>
+                            <td><input type="number" class="calc-price" step="0.01" placeholder="0.00"></td>
+                            <td><input type="number" class="calc-quantity" placeholder="0"></td>
+                            <td><input type="number" class="calc-weight" step="0.01" placeholder="0.00"></td>
+                            <td><input type="number" class="calc-rub-price" step="0.01" placeholder="0.00" readonly></td>
+                            <td><input type="number" class="calc-total-price" step="0.01" placeholder="0.00" readonly></td>
+                            <td><button type="button" class="btn-danger remove-freight-row">删除</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>运费记录列表</h3>
+            <div class="freight-table-container">
+                <table id="freight-table">
+                    <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>产品名称</th>
+                            <th>重量(公斤)</th>
+                            <th>体积(立方米)</th>
+                            <th>运费</th>
+                            <th>币种</th>
+                            <th>汇率</th>
+                            <th>托盘费(₽)</th>
+                            <th>立方费(₽)</th>
+                            <th>运输车费(₽)</th>
+                            <th>费用总计(₽)</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="freight-body">
+                        <!-- 运费记录将在这里动态生成 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
         
-        function syncNotesToInput() {
-            const notesInput = document.getElementById('additionalNotes');
-            const notesArray = Array.from(selectedNotes);
-            notesInput.value = notesArray.join(', ');
-        }
-        
-        function syncNotesFromInput() {
-            const notesInput = document.getElementById('additionalNotes');
-            const inputValue = notesInput.value.trim();
+        <!-- 货款支付记录页面 -->
+        <div class="page" id="page-payment" style="display: none;">
+            <h2>货款支付记录</h2>
             
-            // 清空当前选中状态
-            selectedNotes.clear();
-            document.querySelectorAll('.note-option').forEach(btn => {
-                btn.classList.remove('selected');
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="payment-date">日期</label>
+                    <input type="text" id="payment-date" placeholder="20251122" maxlength="8">
+                </div>
+                <div class="form-group">
+                    <label for="payment-amount">打款数额 (¥)</label>
+                    <input type="number" id="payment-amount" step="0.01" placeholder="0.00" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="payment-recipient">收款人</label>
+                    <input type="text" id="payment-recipient" placeholder="收款人姓名" required>
+                </div>
+                <div class="form-group">
+                    <label for="payment-account">账户</label>
+                    <input type="text" id="payment-account" placeholder="收款账户" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group" style="flex: 2;">
+                    <label for="payment-description">打款款项说明</label>
+                    <input type="text" id="payment-description" placeholder="例如：移动硬盘货款" required>
+                </div>
+                <div class="form-group">
+                    <label for="payment-arrived">是否到货</label>
+                    <select id="payment-arrived">
+                        <option value="no">未到货</option>
+                        <option value="yes">已到货</option>
+                        <option value="partial">部分到货</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group" style="flex: 2;">
+                    <label for="payment-notes">备注</label>
+                    <input type="text" id="payment-notes" placeholder="可选的备注信息">
+                </div>
+                <button type="button" id="add-payment" style="margin-top: 20px;">添加记录</button>
+            </div>
+            
+            <h3>货款支付记录列表</h3>
+            <div class="payment-table-container">
+                <table id="payment-table">
+                    <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>打款数额(¥)</th>
+                            <th>收款人</th>
+                            <th>账户</th>
+                            <th>打款款项说明</th>
+                            <th>是否到货</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="payment-body">
+                        <!-- 货款支付记录将在这里动态生成 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- 设置页面 -->
+        <div class="page" id="page-settings" style="display: none;">
+            <h2>设置</h2>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="setting-default-currency">默认币种</label>
+                    <select id="setting-default-currency">
+                        <option value="RUB">卢布 (₽)</option>
+                        <option value="CNY">人民币 (¥)</option>
+                        <option value="USD">美金 ($)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="setting-default-exchange-rate">默认汇率 (1CNY=₽)</label>
+                    <input type="number" id="setting-default-exchange-rate" step="0.0001" value="12.50">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="setting-freight-ratio">默认运费平摊比率</label>
+                    <input type="number" id="setting-freight-ratio" step="0.0001" value="1.00">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <button id="save-settings" class="btn-success">保存设置</button>
+                </div>
+                <div class="form-group">
+                    <button id="reset-data" class="btn-danger">重置所有数据</button>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>电商合伙账簿系统 &copy; 2023 - 基于您的货物清单、收支记录和运费支出表</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript部分保持不变 -->
+    <script>
+        // 初始化数据
+        let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        let goods = JSON.parse(localStorage.getItem('goods')) || [];
+        let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+        let freight = JSON.parse(localStorage.getItem('freight')) || [];
+        let payments = JSON.parse(localStorage.getItem('payments')) || [];
+        let accountBalances = JSON.parse(localStorage.getItem('accountBalances')) || {
+            ozon: 0,
+            wb: 0,
+            business: 0,
+            cash: 0
+        };
+        let settings = JSON.parse(localStorage.getItem('settings')) || {
+            defaultCurrency: 'RUB',
+            defaultExchangeRate: 12.50,
+            freightRatio: 1.00
+        };
+
+        // 确保所有值都是数字
+        accountBalances.ozon = parseFloat(accountBalances.ozon) || 0;
+        accountBalances.wb = parseFloat(accountBalances.wb) || 0;
+        accountBalances.business = parseFloat(accountBalances.business) || 0;
+        accountBalances.cash = parseFloat(accountBalances.cash) || 0;
+
+        // DOM元素
+        const navItems = document.querySelectorAll('.nav-item');
+        const pages = document.querySelectorAll('.page');
+        
+        // 账户余额输入框
+        const ozonBalanceInput = document.getElementById('ozon-balance');
+        const wbBalanceInput = document.getElementById('wb-balance');
+        const businessBalanceInput = document.getElementById('business-balance');
+        const cashBalanceInput = document.getElementById('cash-balance');
+        
+        // 余额显示
+        const ozonBalanceDisplay = document.getElementById('ozon-balance-display');
+        const wbBalanceDisplay = document.getElementById('wb-balance-display');
+        const businessBalanceDisplay = document.getElementById('business-balance-display');
+        const cashBalanceDisplay = document.getElementById('cash-balance-display');
+        const totalBalanceEl = document.getElementById('total-balance');
+        const totalBalanceAccountsEl = document.getElementById('total-balance-accounts');
+        
+        // 货物表单
+        const addGoodsBtn = document.getElementById('add-goods');
+        const goodsBody = document.getElementById('goods-body');
+        const goodsPriceInput = document.getElementById('goods-price');
+        const goodsQuantityInput = document.getElementById('goods-quantity');
+        const goodsAmountInput = document.getElementById('goods-amount');
+        const goodsRubRateInput = document.getElementById('goods-rub-rate');
+        const goodsFreightRatioInput = document.getElementById('goods-freight-ratio');
+        const goodsRubPriceInput = document.getElementById('goods-rub-price');
+        
+        // 货物筛选
+        const filterDateInput = document.getElementById('filter-date');
+        const filterNameInput = document.getElementById('filter-name');
+        const filterColorInput = document.getElementById('filter-color');
+        const filterNotesInput = document.getElementById('filter-notes');
+        const applyFilterBtn = document.getElementById('apply-filter');
+        const clearFilterBtn = document.getElementById('clear-filter');
+        
+        // 支出表单
+        const addExpenseBtn = document.getElementById('add-expense');
+        const expensesBody = document.getElementById('expenses-body');
+        
+        // 运费表单
+        const addFreightBtn = document.getElementById('add-freight');
+        const freightBody = document.getElementById('freight-body');
+        const freightCurrencySelect = document.getElementById('freight-currency');
+        const exchangeRateGroup = document.getElementById('exchange-rate-group');
+        const freightAmountInput = document.getElementById('freight-amount');
+        const freightExchangeRateInput = document.getElementById('freight-exchange-rate');
+        const freightPalletInput = document.getElementById('freight-pallet');
+        const freightCubicInput = document.getElementById('freight-cubic');
+        const freightDeliveryInput = document.getElementById('freight-delivery');
+        const freightTotalInput = document.getElementById('freight-total');
+        
+        // 运费计算表格
+        const addFreightRowBtn = document.getElementById('add-freight-row');
+        const freightCalculationBody = document.getElementById('freight-calculation-body');
+        
+        // 货款支付表单
+        const addPaymentBtn = document.getElementById('add-payment');
+        const paymentBody = document.getElementById('payment-body');
+        
+        // 设置表单
+        const saveSettingsBtn = document.getElementById('save-settings');
+        const resetDataBtn = document.getElementById('reset-data');
+        const settingDefaultCurrencySelect = document.getElementById('setting-default-currency');
+        const settingDefaultExchangeRateInput = document.getElementById('setting-default-exchange-rate');
+        const settingFreightRatioInput = document.getElementById('setting-freight-ratio');
+        
+        // 保存余额按钮
+        const saveBalancesBtn = document.getElementById('save-balances');
+
+        // 初始化数据
+        ozonBalanceInput.value = accountBalances.ozon;
+        wbBalanceInput.value = accountBalances.wb;
+        businessBalanceInput.value = accountBalances.business;
+        cashBalanceInput.value = accountBalances.cash;
+        
+        settingDefaultCurrencySelect.value = settings.defaultCurrency;
+        settingDefaultExchangeRateInput.value = settings.defaultExchangeRate;
+        settingFreightRatioInput.value = settings.freightRatio;
+        
+        goodsRubRateInput.value = settings.defaultExchangeRate;
+        goodsFreightRatioInput.value = settings.freightRatio;
+
+        // 初始化显示
+        updateTotalBalance();
+        renderGoods();
+        renderExpenses();
+        renderFreight();
+        renderPayments();
+
+        // 导航菜单事件
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const target = item.getAttribute('data-target');
+                
+                navItems.forEach(nav => nav.classList.remove('active'));
+                pages.forEach(page => page.style.display = 'none');
+                
+                item.classList.add('active');
+                document.getElementById(target).style.display = 'block';
             });
+        });
+
+        // 保存账户余额
+        saveBalancesBtn.addEventListener('click', updateAccountBalances);
+        
+        // 账户余额变化时更新
+        ozonBalanceInput.addEventListener('change', updateAccountBalances);
+        wbBalanceInput.addEventListener('change', updateAccountBalances);
+        businessBalanceInput.addEventListener('change', updateAccountBalances);
+        cashBalanceInput.addEventListener('change', updateAccountBalances);
+
+        // 更新账户余额
+        function updateAccountBalances() {
+            accountBalances.ozon = parseFloat(ozonBalanceInput.value) || 0;
+            accountBalances.wb = parseFloat(wbBalanceInput.value) || 0;
+            accountBalances.business = parseFloat(businessBalanceInput.value) || 0;
+            accountBalances.cash = parseFloat(cashBalanceInput.value) || 0;
             
-            // 如果输入框有内容，解析并更新选中状态
-            if (inputValue) {
-                const notesArray = inputValue.split(',').map(note => note.trim());
-                notesArray.forEach(note => {
-                    if (note) {
-                        selectedNotes.add(note);
-                        // 检查是否有匹配的预设选项并选中
-                        document.querySelectorAll('.note-option').forEach(btn => {
-                            if (btn.textContent.trim() === note) {
-                                btn.classList.add('selected');
-                            }
-                        });
-                    }
-                });
-            }
+            localStorage.setItem('accountBalances', JSON.stringify(accountBalances));
+            updateTotalBalance();
         }
         
-        function autoFillFlightInfo(segmentId) {
-            const flightNo = document.getElementById(`${segmentId}-flightNo`).value;
-            const date = document.getElementById(`${segmentId}-date`).value;
+        // 更新总余额
+        function updateTotalBalance() {
+            const totalBalance = accountBalances.ozon + accountBalances.wb + accountBalances.business + accountBalances.cash;
+            totalBalanceEl.textContent = totalBalance.toFixed(2);
+            totalBalanceAccountsEl.textContent = totalBalance.toFixed(2);
             
-            if (flightNo && date) {
-                alert("自动填写功能需要集成航班信息API");
-            } else {
-                alert("请先输入航班号和日期");
+            // 更新余额显示
+            ozonBalanceDisplay.textContent = accountBalances.ozon.toFixed(2);
+            wbBalanceDisplay.textContent = accountBalances.wb.toFixed(2);
+            businessBalanceDisplay.textContent = accountBalances.business.toFixed(2);
+            cashBalanceDisplay.textContent = accountBalances.cash.toFixed(2);
+        }
+
+        // 日期格式化函数
+        function formatDate(dateStr) {
+            if (dateStr.length === 8) {
+                return dateStr.substring(0, 4) + '/' + dateStr.substring(4, 6) + '/' + dateStr.substring(6, 8);
             }
+            return dateStr;
+        }
+
+        // 货物金额自动计算
+        goodsPriceInput.addEventListener('input', calculateGoodsAmount);
+        goodsQuantityInput.addEventListener('input', calculateGoodsAmount);
+        
+        function calculateGoodsAmount() {
+            const price = parseFloat(goodsPriceInput.value) || 0;
+            const quantity = parseInt(goodsQuantityInput.value) || 0;
+            const amount = price * quantity;
+            goodsAmountInput.value = amount.toFixed(2);
+            
+            // 计算卢布单价
+            const rubRate = parseFloat(goodsRubRateInput.value) || 0;
+            const freightRatio = parseFloat(goodsFreightRatioInput.value) || 0;
+            const rubPrice = price * rubRate * freightRatio;
+            goodsRubPriceInput.value = rubPrice.toFixed(2);
         }
         
-        function checkTimeLogic(segmentId) {
-            const arrivalTime = document.getElementById(`${segmentId}-arrivalTime`).value;
-            const warningDiv = document.getElementById(`${segmentId}-timeWarning`);
+        // 卢布汇率和运费平摊变化时更新卢布单价
+        goodsRubRateInput.addEventListener('input', calculateGoodsAmount);
+        goodsFreightRatioInput.addEventListener('input', calculateGoodsAmount);
+
+        // 添加货物记录
+        addGoodsBtn.addEventListener('click', function() {
+            const date = formatDate(document.getElementById('goods-date').value);
+            const name = document.getElementById('goods-name').value;
+            const color = document.getElementById('goods-color').value;
+            const unit = document.getElementById('goods-unit').value;
+            const quantity = parseInt(document.getElementById('goods-quantity').value) || 0;
+            const price = parseFloat(document.getElementById('goods-price').value) || 0;
+            const amount = parseFloat(document.getElementById('goods-amount').value) || 0;
+            const notes = document.getElementById('goods-notes').value;
             
-            if (!arrivalTime) {
-                warningDiv.style.display = 'none';
+            const goodsItem = {
+                id: Date.now(),
+                date,
+                name,
+                color,
+                unit,
+                quantity,
+                price,
+                amount,
+                notes
+            };
+            
+            goods.push(goodsItem);
+            saveGoods();
+            renderGoods();
+            
+            // 重置表单
+            document.getElementById('goods-date').value = '';
+            document.getElementById('goods-name').value = '';
+            document.getElementById('goods-color').value = '';
+            document.getElementById('goods-unit').value = '';
+            document.getElementById('goods-quantity').value = '';
+            document.getElementById('goods-price').value = '';
+            document.getElementById('goods-amount').value = '';
+            document.getElementById('goods-notes').value = '';
+        });
+
+        // 删除货物记录
+        function deleteGoods(id) {
+            goods = goods.filter(g => g.id !== id);
+            saveGoods();
+            renderGoods();
+        }
+
+        // 渲染货物记录
+        function renderGoods() {
+            goodsBody.innerHTML = '';
+            
+            if (goods.length === 0) {
+                goodsBody.innerHTML = '<tr><td colspan="9" style="text-align: center;">暂无货物记录</td></tr>';
+                updateGoodsTotal();
                 return;
             }
             
-            // 检查与前一段航班的抵达时间是否有冲突
-            const segments = document.querySelectorAll('.flight-segment');
-            const currentIndex = Array.from(segments).findIndex(seg => seg.id === segmentId);
+            // 应用筛选
+            let filteredGoods = [...goods];
+            const filterDate = filterDateInput.value;
+            const filterName = filterNameInput.value.toLowerCase();
+            const filterColor = filterColorInput.value.toLowerCase();
+            const filterNotes = filterNotesInput.value.toLowerCase();
             
-            if (currentIndex > 0) {
-                const prevSegment = segments[currentIndex - 1];
-                const prevArrivalTime = document.getElementById(`${prevSegment.id}-arrivalTime`).value;
+            if (filterDate) {
+                const formattedFilterDate = formatDate(filterDate);
+                filteredGoods = filteredGoods.filter(item => item.date.includes(formattedFilterDate));
+            }
+            
+            if (filterName) {
+                filteredGoods = filteredGoods.filter(item => item.name.toLowerCase().includes(filterName));
+            }
+            
+            if (filterColor) {
+                filteredGoods = filteredGoods.filter(item => item.color.toLowerCase().includes(filterColor));
+            }
+            
+            if (filterNotes) {
+                filteredGoods = filteredGoods.filter(item => item.notes.toLowerCase().includes(filterNotes));
+            }
+            
+            // 按日期排序，最新的在前面
+            const sortedGoods = filteredGoods.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            sortedGoods.forEach(item => {
+                const row = document.createElement('tr');
                 
-                if (prevArrivalTime && arrivalTime < prevArrivalTime) {
-                    warningDiv.textContent = '⚠️ 时间早于前段航班抵达时间，请检查';
-                    warningDiv.style.display = 'block';
+                row.innerHTML = `
+                    <td>${item.date}</td>
+                    <td>${item.name}</td>
+                    <td>${item.color}</td>
+                    <td>${item.unit}</td>
+                    <td>${item.quantity}</td>
+                    <td>${item.price.toFixed(2)}</td>
+                    <td>${item.amount.toFixed(2)}</td>
+                    <td style="min-width: 200px;">${item.notes}</td>
+                    <td><button class="btn-danger" onclick="deleteGoods(${item.id})">删除</button></td>
+                `;
+                
+                goodsBody.appendChild(row);
+            });
+            
+            updateGoodsTotal();
+        }
+
+        // 更新货物总计
+        function updateGoodsTotal() {
+            const totalQuantity = goods.reduce((sum, item) => sum + (parseInt(item.quantity) || 0), 0);
+            const totalAmount = goods.reduce((sum, item) => sum + (parseFloat(item.amount) || 0), 0);
+            
+            document.getElementById('total-quantity').textContent = totalQuantity;
+            document.getElementById('total-amount').textContent = totalAmount.toFixed(2);
+        }
+
+        // 应用筛选
+        applyFilterBtn.addEventListener('click', renderGoods);
+        
+        // 清除筛选
+        clearFilterBtn.addEventListener('click', function() {
+            filterDateInput.value = '';
+            filterNameInput.value = '';
+            filterColorInput.value = '';
+            filterNotesInput.value = '';
+            renderGoods();
+        });
+
+        // 添加收支记录
+        addExpenseBtn.addEventListener('click', function() {
+            const date = formatDate(document.getElementById('expense-date').value);
+            
+            // 获取收支类型
+            const expenseTypeElements = document.querySelectorAll('input[name="expense-type"]:checked');
+            if (expenseTypeElements.length === 0) {
+                alert('请选择收支类型');
+                return;
+            }
+            const expenseType = Array.from(expenseTypeElements).map(el => el.value).join(',');
+            
+            // 获取支付及存储
+            const expensePaymentElements = document.querySelectorAll('input[name="expense-payment"]:checked');
+            if (expensePaymentElements.length === 0) {
+                alert('请选择支付及存储方式');
+                return;
+            }
+            const expensePayment = Array.from(expensePaymentElements).map(el => el.value).join(',');
+            
+            const description = document.getElementById('expense-description').value;
+            const amount = parseFloat(document.getElementById('expense-amount').value) || 0;
+            const notes = document.getElementById('expense-notes').value;
+            
+            const expenseItem = {
+                id: Date.now(),
+                date,
+                expenseType,
+                expensePayment,
+                description,
+                amount,
+                notes
+            };
+            
+            expenses.push(expenseItem);
+            saveExpenses();
+            renderExpenses();
+            
+            // 重置表单
+            document.getElementById('expense-date').value = '';
+            document.querySelectorAll('input[name="expense-type"]').forEach(el => el.checked = false);
+            document.querySelectorAll('input[name="expense-payment"]').forEach(el => el.checked = false);
+            document.getElementById('expense-description').value = '';
+            document.getElementById('expense-amount').value = '';
+            document.getElementById('expense-notes').value = '';
+        });
+
+        // 删除收支记录
+        function deleteExpense(id) {
+            expenses = expenses.filter(e => e.id !== id);
+            saveExpenses();
+            renderExpenses();
+        }
+
+        // 渲染收支记录
+        function renderExpenses() {
+            expensesBody.innerHTML = '';
+            
+            if (expenses.length === 0) {
+                expensesBody.innerHTML = '<tr><td colspan="7" style="text-align: center;">暂无收支记录</td></tr>';
+                return;
+            }
+            
+            // 按日期排序，最新的在前面
+            const sortedExpenses = [...expenses].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            sortedExpenses.forEach(expense => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${expense.date}</td>
+                    <td>${expense.expenseType === 'sales' ? '销售货款' : '费用支出'}</td>
+                    <td>${getPaymentDisplayText(expense.expensePayment)}</td>
+                    <td>${expense.description}</td>
+                    <td>${expense.amount.toFixed(2)}</td>
+                    <td>${expense.notes}</td>
+                    <td><button class="btn-danger" onclick="deleteExpense(${expense.id})">删除</button></td>
+                `;
+                
+                expensesBody.appendChild(row);
+            });
+        }
+
+        // 获取支付方式显示文本
+        function getPaymentDisplayText(payment) {
+            const paymentMap = {
+                'public-income': '公账收入',
+                'cash-income': '现金收入',
+                'public-expense': '公账支付',
+                'cash-expense': '现金支付'
+            };
+            
+            return payment.split(',').map(p => paymentMap[p]).join(', ');
+        }
+
+        // 运费币种变化事件
+        freightCurrencySelect.addEventListener('change', function() {
+            if (this.value === 'RUB') {
+                exchangeRateGroup.style.display = 'none';
+            } else {
+                exchangeRateGroup.style.display = 'block';
+            }
+            calculateFreightTotal();
+        });
+
+        // 运费计算
+        freightAmountInput.addEventListener('input', calculateFreightTotal);
+        freightExchangeRateInput.addEventListener('input', calculateFreightTotal);
+        freightPalletInput.addEventListener('input', calculateFreightTotal);
+        freightCubicInput.addEventListener('input', calculateFreightTotal);
+        freightDeliveryInput.addEventListener('input', calculateFreightTotal);
+
+        function calculateFreightTotal() {
+            const amount = parseFloat(freightAmountInput.value) || 0;
+            const currency = freightCurrencySelect.value;
+            const exchangeRate = parseFloat(freightExchangeRateInput.value) || 0;
+            const pallet = parseFloat(freightPalletInput.value) || 0;
+            const cubic = parseFloat(freightCubicInput.value) || 0;
+            const delivery = parseFloat(freightDeliveryInput.value) || 0;
+            
+            let amountInRub = amount;
+            
+            if (currency === 'CNY' || currency === 'USD') {
+                if (exchangeRate < 1) {
+                    amountInRub = amount / exchangeRate;
                 } else {
-                    warningDiv.style.display = 'none';
+                    amountInRub = amount * exchangeRate;
                 }
-            } else {
-                warningDiv.style.display = 'none';
             }
+            
+            const total = amountInRub + pallet + cubic + delivery;
+            freightTotalInput.value = total.toFixed(2);
         }
-        
-        function updateAirportInput(inputId, value) {
-            if (value) {
-                document.getElementById(inputId).value = value;
+
+        // 添加运费记录
+        addFreightBtn.addEventListener('click', function() {
+            const date = formatDate(document.getElementById('freight-date').value);
+            const product = document.getElementById('freight-product').value;
+            const weight = parseFloat(document.getElementById('freight-weight').value) || 0;
+            const volume = parseFloat(document.getElementById('freight-volume').value) || 0;
+            const amount = parseFloat(document.getElementById('freight-amount').value) || 0;
+            const currency = freightCurrencySelect.value;
+            const exchangeRate = parseFloat(freightExchangeRateInput.value) || 0;
+            const pallet = parseFloat(freightPalletInput.value) || 0;
+            const cubic = parseFloat(freightCubicInput.value) || 0;
+            const delivery = parseFloat(freightDeliveryInput.value) || 0;
+            const total = parseFloat(freightTotalInput.value) || 0;
+            const notes = document.getElementById('freight-notes').value;
+            
+            const freightItem = {
+                id: Date.now(),
+                date,
+                product,
+                weight,
+                volume,
+                amount,
+                currency,
+                exchangeRate,
+                pallet,
+                cubic,
+                delivery,
+                total,
+                notes
+            };
+            
+            freight.push(freightItem);
+            saveFreight();
+            renderFreight();
+            
+            // 重置表单
+            document.getElementById('freight-date').value = '';
+            document.getElementById('freight-product').value = '';
+            document.getElementById('freight-weight').value = '';
+            document.getElementById('freight-volume').value = '';
+            document.getElementById('freight-amount').value = '';
+            freightCurrencySelect.value = 'RUB';
+            exchangeRateGroup.style.display = 'none';
+            freightExchangeRateInput.value = '';
+            freightPalletInput.value = '';
+            freightCubicInput.value = '';
+            freightDeliveryInput.value = '';
+            freightTotalInput.value = '';
+            document.getElementById('freight-notes').value = '';
+        });
+
+        // 删除运费记录
+        function deleteFreight(id) {
+            freight = freight.filter(f => f.id !== id);
+            saveFreight();
+            renderFreight();
+        }
+
+        // 渲染运费记录
+        function renderFreight() {
+            freightBody.innerHTML = '';
+            
+            if (freight.length === 0) {
+                freightBody.innerHTML = '<tr><td colspan="13" style="text-align: center;">暂无运费记录</td></tr>';
+                return;
             }
-        }
-        
-        function updateFlightNoInput(inputId, value) {
-            if (value) {
-                document.getElementById(inputId).value = value;
-            }
-        }
-        
-        function saveAirport(inputId) {
-            const airport = document.getElementById(inputId).value.trim();
-            if (airport && !savedAirports.includes(airport)) {
-                savedAirports.push(airport);
-                updateAirportSelects();
-            }
-        }
-        
-        function saveFlightNo(inputId) {
-            const flightNo = document.getElementById(inputId).value.trim();
-            if (flightNo && !savedFlightNumbers.includes(flightNo)) {
-                savedFlightNumbers.push(flightNo);
-                updateFlightNoSelects();
-            }
-        }
-        
-        function updateAirportSelects() {
-            const selects = document.querySelectorAll('select[id$="-from-select"], select[id$="-to-select"], #departureCity-select, #arrivalCity-select');
-            selects.forEach(select => {
-                const currentValue = select.value;
-                select.innerHTML = '<option value="">选择常用机场</option>' + 
-                    savedAirports.map(airport => `<option value="${airport}">${airport}</option>`).join('');
-                if (currentValue && savedAirports.includes(currentValue)) {
-                    select.value = currentValue;
-                }
+            
+            // 按日期排序，最新的在前面
+            const sortedFreight = [...freight].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            sortedFreight.forEach(item => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${item.date}</td>
+                    <td>${item.product}</td>
+                    <td>${item.weight.toFixed(2)}</td>
+                    <td>${item.volume.toFixed(2)}</td>
+                    <td>${item.amount.toFixed(2)}</td>
+                    <td>${item.currency}</td>
+                    <td>${item.exchangeRate.toFixed(4)}</td>
+                    <td>${item.pallet.toFixed(2)}</td>
+                    <td>${item.cubic.toFixed(2)}</td>
+                    <td>${item.delivery.toFixed(2)}</td>
+                    <td>${item.total.toFixed(2)}</td>
+                    <td>${item.notes}</td>
+                    <td><button class="btn-danger" onclick="deleteFreight(${item.id})">删除</button></td>
+                `;
+                
+                freightBody.appendChild(row);
             });
         }
-        
-        function updateFlightNoSelects() {
-            const selects = document.querySelectorAll('select[id$="-flightNo-select"]');
-            selects.forEach(select => {
-                const currentValue = select.value;
-                select.innerHTML = '<option value="">选择常用航班号</option>' + 
-                    savedFlightNumbers.map(num => `<option value="${num}">${num}</option>`).join('');
-                if (currentValue && savedFlightNumbers.includes(currentValue)) {
-                    select.value = currentValue;
-                }
+
+        // 添加运费计算行
+        addFreightRowBtn.addEventListener('click', function() {
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="text" class="calc-product" placeholder="产品名称"></td>
+                <td><input type="number" class="calc-price" step="0.01" placeholder="0.00"></td>
+                <td><input type="number" class="calc-quantity" placeholder="0"></td>
+                <td><input type="number" class="calc-weight" step="0.01" placeholder="0.00"></td>
+                <td><input type="number" class="calc-rub-price" step="0.01" placeholder="0.00" readonly></td>
+                <td><input type="number" class="calc-total-price" step="0.01" placeholder="0.00" readonly></td>
+                <td><button type="button" class="btn-danger remove-freight-row">删除</button></td>
+            `;
+            freightCalculationBody.appendChild(newRow);
+            
+            // 添加删除行事件
+            newRow.querySelector('.remove-freight-row').addEventListener('click', function() {
+                newRow.remove();
+            });
+        });
+
+        // 添加货款支付记录
+        addPaymentBtn.addEventListener('click', function() {
+            const date = formatDate(document.getElementById('payment-date').value);
+            const amount = parseFloat(document.getElementById('payment-amount').value) || 0;
+            const recipient = document.getElementById('payment-recipient').value;
+            const account = document.getElementById('payment-account').value;
+            const description = document.getElementById('payment-description').value;
+            const arrived = document.getElementById('payment-arrived').value;
+            const notes = document.getElementById('payment-notes').value;
+            
+            const paymentItem = {
+                id: Date.now(),
+                date,
+                amount,
+                recipient,
+                account,
+                description,
+                arrived,
+                notes
+            };
+            
+            payments.push(paymentItem);
+            savePayments();
+            renderPayments();
+            
+            // 重置表单
+            document.getElementById('payment-date').value = '';
+            document.getElementById('payment-amount').value = '';
+            document.getElementById('payment-recipient').value = '';
+            document.getElementById('payment-account').value = '';
+            document.getElementById('payment-description').value = '';
+            document.getElementById('payment-arrived').value = 'no';
+            document.getElementById('payment-notes').value = '';
+        });
+
+        // 删除货款支付记录
+        function deletePayment(id) {
+            payments = payments.filter(p => p.id !== id);
+            savePayments();
+            renderPayments();
+        }
+
+        // 渲染货款支付记录
+        function renderPayments() {
+            paymentBody.innerHTML = '';
+            
+            if (payments.length === 0) {
+                paymentBody.innerHTML = '<tr><td colspan="8" style="text-align: center;">暂无货款支付记录</td></tr>';
+                return;
+            }
+            
+            // 按日期排序，最新的在前面
+            const sortedPayments = [...payments].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            sortedPayments.forEach(item => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${item.date}</td>
+                    <td>${item.amount.toFixed(2)}</td>
+                    <td>${item.recipient}</td>
+                    <td>${item.account}</td>
+                    <td>${item.description}</td>
+                    <td>${item.arrived === 'yes' ? '已到货' : item.arrived === 'partial' ? '部分到货' : '未到货'}</td>
+                    <td>${item.notes}</td>
+                    <td><button class="btn-danger" onclick="deletePayment(${item.id})">删除</button></td>
+                `;
+                
+                paymentBody.appendChild(row);
             });
         }
-        
-        function toggleTransferBaggageInput(segmentId) {
-            const select = document.getElementById(`${segmentId}-transferBaggageNote`);
-            const terminalDiv = document.getElementById(`${segmentId}-terminalDiv`);
-            const terminalSuffix = document.getElementById(`${segmentId}-terminalSuffix`);
+
+        // 保存设置
+        saveSettingsBtn.addEventListener('click', function() {
+            settings.defaultCurrency = settingDefaultCurrencySelect.value;
+            settings.defaultExchangeRate = parseFloat(settingDefaultExchangeRateInput.value) || 12.50;
+            settings.freightRatio = parseFloat(settingFreightRatioInput.value) || 1.00;
             
-            if (select.value === "extract-transfer" || select.value === "transfer") {
-                terminalDiv.style.display = "block";
-                terminalSuffix.textContent = "航站楼⚠️";
-            } else if (select.value === "extract-transfer-to" || select.value === "transfer-to") {
-                terminalDiv.style.display = "block";
-                terminalSuffix.textContent = "机场⚠️";
-            } else {
-                terminalDiv.style.display = "none";
+            localStorage.setItem('settings', JSON.stringify(settings));
+            
+            // 更新货物页面的默认值
+            goodsRubRateInput.value = settings.defaultExchangeRate;
+            goodsFreightRatioInput.value = settings.freightRatio;
+            
+            alert('设置已保存！');
+        });
+
+        // 重置所有数据
+        resetDataBtn.addEventListener('click', function() {
+            if (confirm('确定要重置所有数据吗？此操作不可恢复！')) {
+                localStorage.clear();
+                location.reload();
             }
+        });
+
+        // 保存货物记录到本地存储
+        function saveGoods() {
+            localStorage.setItem('goods', JSON.stringify(goods));
         }
-        
-        function getTransferBaggageNote(segmentId) {
-            const select = document.getElementById(`${segmentId}-transferBaggageNote`);
-            const terminal = document.getElementById(`${segmentId}-terminal`).value.trim();
-            
-            switch(select.value) {
-                case "extract":
-                    return "⚠️提取行李⚠️";
-                case "no-extract":
-                    return "⚠️无需提取行李⚠️";
-                case "extract-transfer":
-                    return terminal ? `⚠️提取行李，中转到${terminal}航站楼⚠️` : "";
-                case "transfer":
-                    return terminal ? `⚠️中转到${terminal}航站楼⚠️` : "";
-                case "extract-transfer-to":
-                    return terminal ? `⚠️提取行李，中转至${terminal}机场⚠️` : "";
-                case "transfer-to":
-                    return terminal ? `⚠️中转至${terminal}机场⚠️` : "";
-                default:
-                    return "";
-            }
+
+        // 保存支出记录到本地存储
+        function saveExpenses() {
+            localStorage.setItem('expenses', JSON.stringify(expenses));
         }
-        
-        function toggleLuggageInput() {
-            const select = document.getElementById('checkedLuggage');
-            const luggageDiv = document.getElementById('luggageCountInput');
-            luggageDiv.style.display = (select.value === 'multiple-20' || select.value === 'multiple-23') ? 'block' : 'none';
+
+        // 保存运费记录到本地存储
+        function saveFreight() {
+            localStorage.setItem('freight', JSON.stringify(freight));
         }
-        
-        function removeSegment(id) {
-            const segment = document.getElementById(id);
-            segment.remove();
+
+        // 保存货款支付记录到本地存储
+        function savePayments() {
+            localStorage.setItem('payments', JSON.stringify(payments));
         }
+
+        // 初始化日期为今天
+        const today = new Date();
+        const todayStr = today.getFullYear() + 
+                        String(today.getMonth() + 1).padStart(2, '0') + 
+                        String(today.getDate()).padStart(2, '0');
         
-        function getFormattedDate(dateStr) {
-            if (!dateStr) return '';
-            // 处理两种日期格式: "MM月DD日" 或 "YYYY-MM-DD"
-            if (dateStr.includes('月') && dateStr.includes('日')) {
-                return dateStr;
-            }
-            
-            try {
-                const date = new Date(dateStr);
-                const month = (date.getMonth() + 1).toString().padStart(2, '0');
-                const day = date.getDate().toString().padStart(2, '0');
-                return `${month}月${day}日`;
-            } catch (e) {
-                return dateStr;
-            }
-        }
-        
-        function getCityName(airportStr) {
-            // 提取城市名称（去掉航站楼信息）
-            return airportStr.split(' ')[0].replace(/T\d+$/, '').replace(/[A-Za-zА-Яа-я]+$/, '');
-        }
-        
-        function generateMessage() {
-            const passengerNames = document.getElementById('passengerNames').value;
-            const tripType = document.getElementById('tripType').value;
-            const departureCity = document.getElementById('departureCity').value;
-            const arrivalCity = document.getElementById('arrivalCity').value;
-            const handLuggage = document.getElementById('handLuggage').value;
-            
-            // 获取备注信息
-            const additionalNotes = document.getElementById('additionalNotes').value.trim();
-            
-            // 处理托运行李
-            let checkedLuggage = document.getElementById('checkedLuggage').value;
-            if (checkedLuggage === 'multiple-20' || checkedLuggage === 'multiple-23') {
-                const count = document.getElementById('luggageCount').value || '1';
-                const weight = checkedLuggage === 'multiple-20' ? '20' : '23';
-                checkedLuggage = `共${count}件，每件${weight}公斤`;
-            }
-            
-            let message = `乘客${passengerNames}您好：\n`;
-            message += `${departureCity}➡️${arrivalCity}${tripType}\n\n`;
-            
-            // 处理每个航班段
-            const segments = document.querySelectorAll('.flight-segment');
-            let isReturnTrip = false;
-            let lastDate = null;
-            
-            segments.forEach((segment, index) => {
-                const id = segment.id;
-                
-                const date = getFormattedDate(document.getElementById(`${id}-date`).value);
-                const from = document.getElementById(`${id}-from`).value;
-                const to = document.getElementById(`${id}-to`).value;
-                const flightNo = document.getElementById(`${id}-flightNo`).value;
-                const departureTime = document.getElementById(`${id}-departureTime`).value;
-                const checkinTime = document.getElementById(`${id}-checkinTime`).value;
-                const arrivalTime = document.getElementById(`${id}-arrivalTime`).value;
-                const arrivalDay = document.getElementById(`${id}-arrivalDay`).value;
-                const transferBaggageNote = getTransferBaggageNote(id);
-                const seatInfo = document.getElementById(`${id}-seat`).value.trim(); // 获取选座信息
-                
-                // 检查是否是返程航班
-                const isReturnSegment = tripType.includes("往返") && index >= segments.length / 2;
-                if (isReturnSegment && !isReturnTrip) {
-                    message += `返程日期：${date}\n`;
-                    isReturnTrip = true;
-                    lastDate = null; // 重置日期显示
-                }
-                
-                // 只在日期变化或首次显示日期
-                if (date !== lastDate && !isReturnSegment) {
-                    message += `${date}\n`;
-                    lastDate = date;
-                }
-                
-                message += `${from}➡️${to}\n`;
-                message += `航班号:【${flightNo}】\n`;
-                
-                // 处理起飞时间（添加前一日后半夜提示）
-                let departureText = `🛫起飞:${getCityName(from)}时间${departureTime}`;
-                const [hours] = departureTime.split(':').map(Number);
-                if (hours >= 0 && hours < 4 && date) {
-                    const prevDay = getPreviousDay(date);
-                    departureText += `(${prevDay}后半夜)`;
-                }
-                message += `${departureText}\n`;
-                
-                // 只有当值机时间有选择时才显示
-                if (checkinTime) {
-                    message += `🎫值机: ${checkinTime}\n`;
-                }
-                
-                // 添加选座信息（如果有）
-                if (seatInfo) {
-                    message += `💺选座: ${seatInfo}\n`;
-                }
-                
-                // 处理抵达时间
-                let arrivalText = `🛬抵达:`;
-                if (arrivalDay === "次日") {
-                    arrivalText += "次日";
-                }
-                arrivalText += `${getCityName(to)}时间${arrivalTime}\n\n`;
-                message += arrivalText;
-                
-                if (transferBaggageNote) message += `${transferBaggageNote}\n\n`;
-            });
-            
-            message += `手提要求：${handLuggage}\n`;
-            message += `托运要求：${checkedLuggage}\n`;
-            // 添加备注信息（如果有）
-            if (additionalNotes) {
-                message += `备注：${additionalNotes}\n`;
-            }
-            message += `\n`;
-            
-            message += `🔔温馨提示：\n`;
-            message += `起降时间均为当地时间；\n`;
-            message += `时间为24小时制；\n`;
-            message += `凭护照办理值机。\n`;
-            message += `长城票务：89128915882\n`;
-            message += `✈️祝您旅途愉快！✈️`;
-            
-            document.getElementById('output').textContent = message;
-        }
-        
-        function resetForm() {
-            document.getElementById('flightSegments').innerHTML = '';
-            segmentCount = 0;
-            document.getElementById('passengerNames').value = '';
-            document.getElementById('departureCity').value = '';
-            document.getElementById('arrivalCity').value = '';
-            document.getElementById('output').textContent = '';
-            document.getElementById('additionalNotes').value = '';
-            
-            // 重置备注选择
-            selectedNotes.clear();
-            document.querySelectorAll('.note-option').forEach(btn => {
-                btn.classList.remove('selected');
-            });
-            
-            addFlightSegment();
-        }
-        
-        function copyToClipboard() {
-            const output = document.getElementById('output');
-            navigator.clipboard.writeText(output.textContent)
-                .then(() => alert('已复制到剪贴板!'))
-                .catch(err => alert('复制失败: ' + err));
-        }
-        
-        // 初始化
-        window.onload = function() {
-            initAirportSelects();
-            addFlightSegment();
-        };
+        document.getElementById('goods-date').value = todayStr;
+        document.getElementById('expense-date').value = todayStr;
+        document.getElementById('freight-date').value = todayStr;
+        document.getElementById('payment-date').value = todayStr;
     </script>
 </body>
 </html>
