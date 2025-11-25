@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -718,12 +719,12 @@
                 <div class="form-group form-group-quarter">
                     <label for="goods-date" class="required">到货日期</label>
                     <!-- 调整：到货日期输入框默认设置为空 -->
-                    <input type="text" id="goods-date" placeholder="20251125" maxlength="8" value="">
+                    <input type="text" id="goods-date" placeholder="xxxx/xx/xx" maxlength="8" value="">
                 </div>
                 <div class="form-group" style="flex: 3;">
                     <label for="goods-name" class="required">产品名称</label>
                     <div class="autocomplete">
-                        <input type="text" id="goods-name" placeholder="例如：电镀盒子Android99TV" required>
+                        <input type="text" id="goods-name" placeholder="例如：移动硬盘" required>
                     </div>
                 </div>
             </div>
@@ -864,7 +865,7 @@
                 <div class="form-group form-group-half">
                     <label for="expense-date">日期</label>
                     <!-- 调整：日期输入框默认设置为空 -->
-                    <input type="text" id="expense-date" placeholder="20251122" maxlength="8" value="">
+                    <input type="text" id="expense-date" placeholder="xxxx/xx/xx" maxlength="8" value="">
                 </div>
                 <div class="form-group form-group-half">
                     <label for="expense-type">收支类型</label>
@@ -894,7 +895,7 @@
             <div class="form-row">
                 <div class="form-group form-group-full">
                     <label for="expense-notes">备注</label>
-                    <textarea id="expense-notes" placeholder="例如：5-6月2个月租金+1个月押金每月16800卢布" rows="2"></textarea>
+                    <textarea id="expense-notes" placeholder="备注" rows="2"></textarea>
                 </div>
             </div>
             
@@ -952,12 +953,12 @@
                 <div class="form-group form-group-quarter">
                     <label for="freight-date" class="required">日期</label>
                     <!-- 调整：日期输入框默认设置为空 -->
-                    <input type="text" id="freight-date" placeholder="20251125" maxlength="8" value="">
+                    <input type="text" id="freight-date" placeholder="xxxx/xx/xx" maxlength="8" value="">
                 </div>
                 <div class="form-group" style="flex: 3;">
                     <label for="freight-name" class="required">产品名称</label>
                     <div class="autocomplete">
-                        <input type="text" id="freight-name" placeholder="例如：电镀盒子Android99TV" required>
+                        <input type="text" id="freight-name" placeholder="例如：电视盒子" required>
                     </div>
                 </div>
             </div>
@@ -997,7 +998,7 @@
             <div class="form-row">
                 <div class="form-group form-group-full">
                     <label for="freight-notes">备注</label>
-                    <textarea id="freight-notes" placeholder="例如：运输到莫斯科仓库" rows="2"></textarea>
+                    <textarea id="freight-notes" placeholder="描述" rows="2"></textarea>
                 </div>
             </div>
             
@@ -1024,7 +1025,7 @@
                 <div class="form-group form-group-full">
                     <label for="payment-date">日期</label>
                     <!-- 调整：日期输入框默认设置为空 -->
-                    <input type="text" id="payment-date" placeholder="20251125" maxlength="8" value="">
+                    <input type="text" id="payment-date" placeholder="xxxx/xx/xx" maxlength="8" value="">
                 </div>
             </div>
             
@@ -1032,7 +1033,7 @@
                 <div class="form-group form-group-full">
                     <label for="payment-account">账号</label>
                     <div class="autocomplete">
-                        <input type="text" id="payment-account" placeholder="例如：621700001234567890">
+                        <input type="text" id="payment-account" placeholder="">
                     </div>
                 </div>
             </div>
@@ -1053,7 +1054,7 @@
                 <div class="form-group form-group-full">
                     <label for="payment-recipient">收款人</label>
                     <div class="autocomplete">
-                        <input type="text" id="payment-recipient" placeholder="例如：张三">
+                        <input type="text" id="payment-recipient" placeholder="">
                     </div>
                 </div>
             </div>
@@ -1170,15 +1171,13 @@
         };
         
         let settings = JSON.parse(localStorage.getItem('settings')) || {
-            defaultCurrency: 'RUB',
-            defaultExchangeRate: 12.50,
-            productNames: ["移动硬盘", "电镀盒子Android99TV", "硬件", "电镀盒子", "Android99TV"],
-            colors: ["黑色", "白色", "金色", "红色"],
+            productNames: ["KESU移动硬盘250G", "KESU移动硬盘500G", "吹风机透明版", "吹风机欧版", "摄像头X2", "摄像头豌豆荚", "摄像头CS11", "电视盒子Android99TV", "手表M99", "手表M88", "K手表M78", "手表M61"],
+            colors: ["黑色", "白色", "金色", "透明", "紫色"],
             units: ["件", "个", "套", "支", "只", "对", "盒"],
             expenseTypes: ["费用支出", "销售货款"],
             paymentTypes: ["现金支付", "现金收入", "公账支付", "公账收入"],
-            recipients: ["张三", "李四", "王五"],
-            accounts: ["621700001234567890", "622848001234567890"],
+            recipients: ["丛劲柏", "罗亚利"],
+            accounts: ["6230520600023232676", "6230520040026846778"],
             banks: ["中国银行", "中国农业银行", "中国工商银行"]
         };
 
