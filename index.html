@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -620,6 +619,62 @@
             width: 100%;
             min-height: 80px;
         }
+        
+        /* 新增样式：表格列宽和对齐方式 */
+        /* 货物清单表格 */
+        #goods-table th:nth-child(1), #goods-table td:nth-child(1) { width: 30px; } /* 勾选框 */
+        #goods-table th:nth-child(2), #goods-table td:nth-child(2) { width: 80px; text-align: left; } /* 日期 */
+        #goods-table th:nth-child(3), #goods-table td:nth-child(3) { width: 120px; text-align: left; } /* 产品名称 */
+        #goods-table th:nth-child(4), #goods-table td:nth-child(4) { width: 60px; text-align: center; } /* 颜色 */
+        #goods-table th:nth-child(5), #goods-table td:nth-child(5) { width: 50px; text-align: center; } /* 数量 */
+        #goods-table th:nth-child(6), #goods-table td:nth-child(6) { width: 40px; text-align: center; } /* 单位 */
+        #goods-table th:nth-child(7), #goods-table td:nth-child(7) { width: 70px; text-align: center; } /* 单价(¥) */
+        #goods-table th:nth-child(8), #goods-table td:nth-child(8) { width: 70px; text-align: center; } /* 金额(¥) */
+        #goods-table th:nth-child(9), #goods-table td:nth-child(9) { width: 70px; text-align: center; } /* 汇率 */
+        #goods-table th:nth-child(10), #goods-table td:nth-child(10) { width: 70px; text-align: center; } /* 单价(₽) */
+        #goods-table th:nth-child(11), #goods-table td:nth-child(11) { width: 70px; text-align: center; } /* 金额(₽) */
+        #goods-table th:nth-child(12), #goods-table td:nth-child(12) { width: 240px; text-align: left; } /* 备注 */
+        
+        /* 收支记录表格 */
+        #expenses-table th:nth-child(1), #expenses-table td:nth-child(1) { width: 30px; } /* 勾选框 */
+        #expenses-table th:nth-child(2), #expenses-table td:nth-child(2) { width: 80px; text-align: left; } /* 日期 */
+        #expenses-table th:nth-child(3), #expenses-table td:nth-child(3) { width: 80px; text-align: center; } /* 收支类型 */
+        #expenses-table th:nth-child(4), #expenses-table td:nth-child(4) { width: 80px; text-align: center; } /* 金额(₽) */
+        #expenses-table th:nth-child(5), #expenses-table td:nth-child(5) { width: 80px; text-align: center; } /* 收支形式 */
+        #expenses-table th:nth-child(6), #expenses-table td:nth-child(6) { width: 240px; text-align: left; } /* 备注 */
+        
+        /* 运费支出表格 */
+        #freight-table th:nth-child(1), #freight-table td:nth-child(1) { width: 30px; } /* 勾选框 */
+        #freight-table th:nth-child(2), #freight-table td:nth-child(2) { width: 80px; text-align: left; } /* 日期 */
+        #freight-table th:nth-child(3), #freight-table td:nth-child(3) { width: 120px; text-align: left; } /* 货物名称 */
+        #freight-table th:nth-child(4), #freight-table td:nth-child(4) { width: 80px; text-align: center; } /* 货号 */
+        #freight-table th:nth-child(5), #freight-table td:nth-child(5) { width: 50px; text-align: center; } /* 件数 */
+        #freight-table th:nth-child(6), #freight-table td:nth-child(6) { width: 60px; text-align: center; } /* 重量 */
+        #freight-table th:nth-child(7), #freight-table td:nth-child(7) { width: 60px; text-align: center; } /* 体积 */
+        #freight-table th:nth-child(8), #freight-table td:nth-child(8) { width: 70px; text-align: center; } /* 运费(₽) */
+        #freight-table th:nth-child(9), #freight-table td:nth-child(9) { width: 70px; text-align: center; } /* 托盘费(₽) */
+        #freight-table th:nth-child(10), #freight-table td:nth-child(10) { width: 70px; text-align: center; } /* 立方费(₽) */
+        #freight-table th:nth-child(11), #freight-table td:nth-child(11) { width: 80px; text-align: center; } /* 送货车费(₽) */
+        #freight-table th:nth-child(12), #freight-table td:nth-child(12) { width: 240px; text-align: left; } /* 备注 */
+        
+        /* 货款支付记录表格 */
+        #payment-table th:nth-child(1), #payment-table td:nth-child(1) { width: 30px; } /* 勾选框 */
+        #payment-table th:nth-child(2), #payment-table td:nth-child(2) { width: 80px; text-align: left; } /* 日期 */
+        #payment-table th:nth-child(3), #payment-table td:nth-child(3) { width: 80px; text-align: center; } /* 收款人 */
+        #payment-table th:nth-child(4), #payment-table td:nth-child(4) { width: 100px; text-align: center; } /* 银行 */
+        #payment-table th:nth-child(5), #payment-table td:nth-child(5) { width: 120px; text-align: center; } /* 账号 */
+        #payment-table th:nth-child(6), #payment-table td:nth-child(6) { width: 80px; text-align: center; } /* 金额(¥) */
+        #payment-table th:nth-child(7), #payment-table td:nth-child(7) { width: 240px; text-align: left; } /* 备注 */
+        
+        /* 隐藏选项 */
+        .hidden-option {
+            display: none;
+        }
+        
+        /* 千位分隔符样式 */
+        .thousands-separator {
+            text-align: right;
+        }
     </style>
 </head>
 <body>
@@ -646,29 +701,29 @@
             <div class="compact-row">
                 <div class="compact-item">
                     <h3>OZON账户余额 (₽)</h3>
-                    <div class="balance" id="ozon-balance-display">0.00</div>
+                    <div class="balance" id="ozon-balance-display">0</div>
                 </div>
                 <div class="compact-item">
                     <h3>WB账户余额 (₽)</h3>
-                    <div class="balance" id="wb-balance-display">0.00</div>
+                    <div class="balance" id="wb-balance-display">0</div>
                 </div>
             </div>
             
             <div class="compact-row">
                 <div class="compact-item">
                     <h3>个体账户余额 (₽)</h3>
-                    <div class="balance" id="business-balance-display">0.00</div>
+                    <div class="balance" id="business-balance-display">0</div>
                 </div>
                 <div class="compact-item">
                     <h3>现金余额 (₽)</h3>
-                    <div class="balance" id="cash-balance-display">0.00</div>
+                    <div class="balance" id="cash-balance-display">0</div>
                 </div>
             </div>
             
             <div class="compact-row">
                 <div class="total-card">
                     <h3>总金额 (₽)</h3>
-                    <div class="balance" id="total-balance">0.00</div>
+                    <div class="balance" id="total-balance">0</div>
                 </div>
             </div>
         </div>
@@ -680,22 +735,22 @@
             <div class="compact-row">
                 <div class="compact-item">
                     <h3>OZON账户余额 (₽)</h3>
-                    <input type="number" id="ozon-balance" step="0.01" placeholder="0.00" value="0">
+                    <input type="number" id="ozon-balance" step="1" placeholder="0" value="0">
                 </div>
                 <div class="compact-item">
                     <h3>WB账户余额 (₽)</h3>
-                    <input type="number" id="wb-balance" step="0.01" placeholder="0.00" value="0">
+                    <input type="number" id="wb-balance" step="1" placeholder="0" value="0">
                 </div>
             </div>
             
             <div class="compact-row">
                 <div class="compact-item">
                     <h3>个体账户余额 (₽)</h3>
-                    <input type="number" id="business-balance" step="0.01" placeholder="0.00" value="0">
+                    <input type="number" id="business-balance" step="1" placeholder="0" value="0">
                 </div>
                 <div class="compact-item">
                     <h3>现金余额 (₽)</h3>
-                    <input type="number" id="cash-balance" step="0.01" placeholder="0.00" value="0">
+                    <div class="balance" id="cash-balance-display-accounts">0</div>
                 </div>
             </div>
             
@@ -706,7 +761,7 @@
             <div class="compact-row">
                 <div class="total-card">
                     <h3>总金额 (₽)</h3>
-                    <div class="balance" id="total-balance-accounts">0.00</div>
+                    <div class="balance" id="total-balance-accounts">0</div>
                 </div>
             </div>
         </div>
@@ -718,7 +773,6 @@
             <div class="form-row">
                 <div class="form-group form-group-quarter">
                     <label for="goods-date" class="required">到货日期</label>
-                    <!-- 调整：到货日期输入框默认设置为空 -->
                     <input type="text" id="goods-date" placeholder="YYYYMMDD" maxlength="8" value="">
                 </div>
                 <div class="form-group" style="flex: 3;">
@@ -729,7 +783,6 @@
                 </div>
             </div>
             
-            <!-- 调整：颜色、数量、单位三项各占三分之一 -->
             <div class="form-row">
                 <div class="form-group form-group-third">
                     <label for="goods-color">颜色</label>
@@ -767,7 +820,6 @@
                 </div>
                 <div class="form-group form-group-third">
                     <label for="goods-exchange-rate" class="required">汇率</label>
-                    <!-- 调整：取消默认汇率 -->
                     <input type="number" id="goods-exchange-rate" step="0.0001" placeholder="0.0000" required>
                 </div>
                 <div class="form-group form-group-third">
@@ -800,7 +852,6 @@
             
             <h3>货物记录</h3>
             
-            <!-- 新增：表格操作按钮 -->
             <div class="table-actions">
                 <button id="generate-table" class="btn-success">生成表格</button>
                 <button id="delete-selected" class="btn-danger">删除</button>
@@ -810,7 +861,6 @@
                 <table id="goods-table">
                     <thead>
                         <tr>
-                            <!-- 调整：全选复选框 -->
                             <th><input type="checkbox" id="select-all-goods"></th>
                             <th>日期 <span class="filter-icon" data-filter="date">▼</span></th>
                             <th>产品名称 <span class="filter-icon" data-filter="name">▼</span></th>
@@ -823,7 +873,6 @@
                             <th>单价(₽)</th>
                             <th>金额(₽)</th>
                             <th>备注</th>
-                            <!-- 调整：删除操作列 -->
                         </tr>
                     </thead>
                     <tbody id="goods-body">
@@ -841,7 +890,6 @@
                             <td id="total-amount-rub">0</td>
                             <td colspan="1"></td>
                         </tr>
-                        <!-- 新增：筛选结果总计 -->
                         <tr class="filtered-total-row">
                             <td colspan="4">筛选结果总计</td>
                             <td id="filtered-total-quantity">0</td>
@@ -864,12 +912,11 @@
             
             <div class="form-row">
                 <div class="form-group form-group-half">
-                    <label for="expense-date">日期</label>
-                    <!-- 调整：日期输入框默认设置为空 -->
+                    <label for="expense-date" class="required">日期</label>
                     <input type="text" id="expense-date" placeholder="YYYYMMDD" maxlength="8" value="">
                 </div>
                 <div class="form-group form-group-half">
-                    <label for="expense-type">收支类型</label>
+                    <label for="expense-type" class="required">收支类型</label>
                     <select id="expense-type">
                         <option value="expense">费用支出</option>
                         <option value="sales">销售货款</option>
@@ -879,16 +926,16 @@
             
             <div class="form-row">
                 <div class="form-group form-group-half">
-                    <label for="expense-amount">金额 (₽)</label>
-                    <input type="number" id="expense-amount" step="0.01" placeholder="0.00" required>
+                    <label for="expense-amount" class="required">金额 (₽)</label>
+                    <input type="number" id="expense-amount" step="1" placeholder="0" required>
                 </div>
                 <div class="form-group form-group-half">
-                    <label for="expense-payment">收支形式</label>
+                    <label for="expense-payment" class="required">收支形式</label>
                     <select id="expense-payment">
                         <option value="cash-expense">现金支付</option>
-                        <option value="cash-income">现金收入</option>
+                        <option value="cash-income" class="hidden-option">现金收入</option>
                         <option value="public-expense">公账支付</option>
-                        <option value="public-income">公账收入</option>
+                        <option value="public-income" class="hidden-option">公账收入</option>
                     </select>
                 </div>
             </div>
@@ -906,7 +953,6 @@
             
             <h3>收支记录列表</h3>
             
-            <!-- 新增：表格操作按钮 -->
             <div class="table-actions">
                 <button id="generate-expense-table" class="btn-success">生成表格</button>
                 <button id="delete-selected-expenses" class="btn-danger">删除</button>
@@ -916,14 +962,12 @@
                 <table id="expenses-table">
                     <thead>
                         <tr>
-                            <!-- 调整：全选复选框 -->
                             <th><input type="checkbox" id="select-all-expenses"></th>
                             <th>日期 <span class="filter-icon" data-filter="date">▼</span></th>
                             <th>收支类型 <span class="filter-icon" data-filter="type">▼</span></th>
                             <th>金额(₽)</th>
                             <th>收支形式 <span class="filter-icon" data-filter="payment">▼</span></th>
                             <th>备注</th>
-                            <!-- 调整：删除操作列 -->
                         </tr>
                     </thead>
                     <tbody id="expenses-body">
@@ -932,13 +976,12 @@
                     <tfoot>
                         <tr class="total-row">
                             <td colspan="3">总计</td>
-                            <td id="total-expense-amount">0.00</td>
+                            <td id="total-expense-amount">0</td>
                             <td colspan="2"></td>
                         </tr>
-                        <!-- 新增：筛选结果总计 -->
                         <tr class="filtered-total-row">
                             <td colspan="3">筛选结果总计</td>
-                            <td id="filtered-total-expense-amount">0.00</td>
+                            <td id="filtered-total-expense-amount">0</td>
                             <td colspan="2"></td>
                         </tr>
                     </tfoot>
@@ -953,11 +996,10 @@
             <div class="form-row">
                 <div class="form-group form-group-quarter">
                     <label for="freight-date" class="required">日期</label>
-                    <!-- 调整：日期输入框默认设置为空 -->
                     <input type="text" id="freight-date" placeholder="YYYYMMDD" maxlength="8" value="">
                 </div>
                 <div class="form-group" style="flex: 3;">
-                    <label for="freight-name" class="required">产品名称</label>
+                    <label for="freight-name" class="required">货物名称</label>
                     <div class="autocomplete">
                         <input type="text" id="freight-name" placeholder="" required>
                     </div>
@@ -966,8 +1008,18 @@
             
             <div class="form-row">
                 <div class="form-group form-group-half">
+                    <label for="freight-code" class="required">货号</label>
+                    <input type="text" id="freight-code" placeholder="" required>
+                </div>
+                <div class="form-group form-group-half">
+                    <label for="freight-pieces" class="required">件数</label>
+                    <input type="number" id="freight-pieces" placeholder="0" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group form-group-half">
                     <label for="freight-weight" class="required">重量 (Kg)</label>
-                    <!-- 调整：重量为必填项 -->
                     <input type="number" id="freight-weight" step="0.01" placeholder="0.00" required>
                 </div>
                 <div class="form-group form-group-half">
@@ -978,21 +1030,23 @@
             
             <div class="form-row">
                 <div class="form-group form-group-third">
-                    <label for="freight-amount" class="required">运费</label>
-                    <input type="number" id="freight-amount" step="0.01" placeholder="0.00" required>
+                    <label for="freight-amount" class="required">运费 (₽)</label>
+                    <input type="number" id="freight-amount" step="1" placeholder="0" required>
                 </div>
                 <div class="form-group form-group-third">
-                    <label for="freight-currency" class="required">币种</label>
-                    <select id="freight-currency">
-                        <option value="RUB">卢布</option>
-                        <option value="CNY">人民币</option>
-                        <option value="USD">美金</option>
-                    </select>
+                    <label for="freight-pallet">托盘费 (₽)</label>
+                    <input type="number" id="freight-pallet" step="1" placeholder="0">
                 </div>
-                <div class="form-group form-group-third" id="freight-exchange-rate-group" style="display: none;">
-                    <!-- 调整：汇率输入框默认为空，默认隐藏 -->
-                    <label for="freight-exchange-rate">汇率</label>
-                    <input type="number" id="freight-exchange-rate" step="0.0001" placeholder="0.0000">
+                <div class="form-group form-group-third">
+                    <label for="freight-cubic">立方费 (₽)</label>
+                    <input type="number" id="freight-cubic" step="1" placeholder="0">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group form-group-full">
+                    <label for="freight-truck">送货车费 (₽)</label>
+                    <input type="number" id="freight-truck" step="1" placeholder="0">
                 </div>
             </div>
             
@@ -1010,22 +1064,67 @@
             <div class="compact-row">
                 <div class="total-card highlighted">
                     <h3>费用总计 (₽)</h3>
-                    <div class="balance" id="total-freight">0.00</div>
+                    <div class="balance" id="total-freight">0</div>
                 </div>
             </div>
             
-            <!-- 调整：删除运费均摊计算器项 -->
+            <h3>费用支出列表</h3>
+            
+            <div class="table-actions">
+                <button id="generate-freight-table" class="btn-success">生成表格</button>
+                <button id="delete-selected-freight" class="btn-danger">删除</button>
+            </div>
+            
+            <div class="freight-table-container">
+                <table id="freight-table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="select-all-freight"></th>
+                            <th>日期 <span class="filter-icon" data-filter="date">▼</span></th>
+                            <th>货物名称 <span class="filter-icon" data-filter="name">▼</span></th>
+                            <th>货号 <span class="filter-icon" data-filter="code">▼</span></th>
+                            <th>件数</th>
+                            <th>重量</th>
+                            <th>体积</th>
+                            <th>运费(₽)</th>
+                            <th>托盘费(₽)</th>
+                            <th>立方费(₽)</th>
+                            <th>送货车费(₽)</th>
+                            <th>备注</th>
+                        </tr>
+                    </thead>
+                    <tbody id="freight-body">
+                        <!-- 运费记录将在这里动态生成 -->
+                    </tbody>
+                    <tfoot>
+                        <tr class="total-row">
+                            <td colspan="7">总计</td>
+                            <td id="total-freight-amount">0</td>
+                            <td id="total-pallet-amount">0</td>
+                            <td id="total-cubic-amount">0</td>
+                            <td id="total-truck-amount">0</td>
+                            <td></td>
+                        </tr>
+                        <tr class="filtered-total-row">
+                            <td colspan="7">筛选结果总计</td>
+                            <td id="filtered-total-freight-amount">0</td>
+                            <td id="filtered-total-pallet-amount">0</td>
+                            <td id="filtered-total-cubic-amount">0</td>
+                            <td id="filtered-total-truck-amount">0</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
         
         <!-- 货款支付记录页面 -->
         <div class="page" id="page-payment" style="display: none;">
             <h2>货款支付记录</h2>
             
-            <!-- 调整：表单布局重新排列 -->
             <div class="form-row">
                 <div class="form-group form-group-full">
                     <label for="payment-date">日期</label>
-                    <!-- 调整：日期输入框默认设置为空 -->
                     <input type="text" id="payment-date" placeholder="YYYYMMDD" maxlength="8" value="">
                 </div>
             </div>
@@ -1083,7 +1182,6 @@
                 <table id="payment-table">
                     <thead>
                         <tr>
-                            <!-- 调整：添加勾选框 -->
                             <th><input type="checkbox" id="select-all-payments"></th>
                             <th>日期 <span class="filter-icon" data-filter="date">▼</span></th>
                             <th>收款人 <span class="filter-icon" data-filter="recipient">▼</span></th>
@@ -1096,6 +1194,18 @@
                     <tbody id="payment-body">
                         <!-- 货款支付记录将在这里动态生成 -->
                     </tbody>
+                    <tfoot>
+                        <tr class="total-row">
+                            <td colspan="5">总计</td>
+                            <td id="total-payment-amount">0.00</td>
+                            <td></td>
+                        </tr>
+                        <tr class="filtered-total-row">
+                            <td colspan="5">筛选结果总计</td>
+                            <td id="filtered-total-payment-amount">0.00</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -1104,7 +1214,6 @@
         <div class="page" id="page-settings" style="display: none;">
             <h2>设置</h2>
             
-            <!-- 调整：设置页面布局改为左右排列 -->
             <div class="settings-row">
                 <div class="settings-group">
                     <h3>货物清单</h3>
@@ -1135,7 +1244,6 @@
                     <label for="setting-accounts">账号 (每行一个)</label>
                     <textarea id="setting-accounts" rows="3" placeholder="例如：621700001234567890&#10;622848001234567890"></textarea>
                     
-                    <!-- 新增：银行列表 -->
                     <label for="setting-banks">银行 (每行一个)</label>
                     <textarea id="setting-banks" rows="3" placeholder="例如：中国银行&#10;中国农业银行&#10;中国工商银行"></textarea>
                 </div>
@@ -1196,7 +1304,7 @@
         const ozonBalanceInput = document.getElementById('ozon-balance');
         const wbBalanceInput = document.getElementById('wb-balance');
         const businessBalanceInput = document.getElementById('business-balance');
-        const cashBalanceInput = document.getElementById('cash-balance');
+        const cashBalanceDisplayAccounts = document.getElementById('cash-balance-display-accounts');
         
         // 余额显示
         const ozonBalanceDisplay = document.getElementById('ozon-balance-display');
@@ -1219,7 +1327,7 @@
         const goodsColorSelect = document.getElementById('goods-color');
         const goodsDateInput = document.getElementById('goods-date');
         
-        // 新增：货物表格操作按钮
+        // 货物表格操作按钮
         const generateTableBtn = document.getElementById('generate-table');
         const deleteSelectedBtn = document.getElementById('delete-selected');
         const selectAllGoodsCheckbox = document.getElementById('select-all-goods');
@@ -1230,8 +1338,9 @@
         const expenseDateInput = document.getElementById('expense-date');
         const expenseTypeSelect = document.getElementById('expense-type');
         const expensePaymentSelect = document.getElementById('expense-payment');
+        const expenseAmountInput = document.getElementById('expense-amount');
         
-        // 新增：收支记录表格操作按钮
+        // 收支记录表格操作按钮
         const generateExpenseTableBtn = document.getElementById('generate-expense-table');
         const deleteSelectedExpensesBtn = document.getElementById('delete-selected-expenses');
         const selectAllExpensesCheckbox = document.getElementById('select-all-expenses');
@@ -1240,9 +1349,20 @@
         const addFreightBtn = document.getElementById('add-freight');
         const freightDateInput = document.getElementById('freight-date');
         const freightNameInput = document.getElementById('freight-name');
-        const freightCurrencySelect = document.getElementById('freight-currency');
-        const freightExchangeRateGroup = document.getElementById('freight-exchange-rate-group');
-        const freightExchangeRateInput = document.getElementById('freight-exchange-rate');
+        const freightCodeInput = document.getElementById('freight-code');
+        const freightPiecesInput = document.getElementById('freight-pieces');
+        const freightWeightInput = document.getElementById('freight-weight');
+        const freightVolumeInput = document.getElementById('freight-volume');
+        const freightAmountInput = document.getElementById('freight-amount');
+        const freightPalletInput = document.getElementById('freight-pallet');
+        const freightCubicInput = document.getElementById('freight-cubic');
+        const freightTruckInput = document.getElementById('freight-truck');
+        const freightBody = document.getElementById('freight-body');
+        
+        // 运费支出表格操作按钮
+        const generateFreightTableBtn = document.getElementById('generate-freight-table');
+        const deleteSelectedFreightBtn = document.getElementById('delete-selected-freight');
+        const selectAllFreightCheckbox = document.getElementById('select-all-freight');
         
         // 货款支付表单
         const addPaymentBtn = document.getElementById('add-payment');
@@ -1263,7 +1383,7 @@
         const settingPaymentTypesTextarea = document.getElementById('setting-payment-types');
         const settingRecipientsTextarea = document.getElementById('setting-recipients');
         const settingAccountsTextarea = document.getElementById('setting-accounts');
-        const settingBanksTextarea = document.getElementById('setting-banks'); // 新增
+        const settingBanksTextarea = document.getElementById('setting-banks');
 
         // 保存余额按钮
         const saveBalancesBtn = document.getElementById('save-balances');
@@ -1273,9 +1393,9 @@
             ozonBalanceInput.value = accountBalances.ozon;
             wbBalanceInput.value = accountBalances.wb;
             businessBalanceInput.value = accountBalances.business;
-            cashBalanceInput.value = accountBalances.cash;
+            cashBalanceDisplayAccounts.textContent = formatNumber(accountBalances.cash);
             
-            // 调整：设置页面布局
+            // 设置页面布局
             settingProductNamesTextarea.value = settings.productNames.join('\n');
             settingColorsTextarea.value = settings.colors.join('\n');
             settingUnitsTextarea.value = settings.units.join('\n');
@@ -1283,13 +1403,10 @@
             settingPaymentTypesTextarea.value = settings.paymentTypes.join('\n');
             settingRecipientsTextarea.value = settings.recipients.join('\n');
             settingAccountsTextarea.value = settings.accounts.join('\n');
-            settingBanksTextarea.value = settings.banks.join('\n'); // 新增
+            settingBanksTextarea.value = settings.banks.join('\n');
             
-            // 调整：货物页面汇率输入框取消默认值
+            // 货物页面汇率输入框取消默认值
             goodsExchangeRateInput.value = '';
-            
-            // 调整：运费页面汇率输入框默认为空
-            freightExchangeRateInput.value = '';
 
             // 初始化显示
             updateTotalBalance();
@@ -1304,11 +1421,14 @@
             updateProductOptions();
             updateRecipientOptions();
             updateAccountOptions();
-            updateBankOptions(); // 新增
+            updateBankOptions();
             initAutocomplete();
             
             // 设置日期为今天（仅用于收支记录和运费支出）
             setTodayDate();
+            
+            // 初始化收支形式选项
+            updatePaymentOptions();
         }
 
         // 设置今天日期
@@ -1318,17 +1438,13 @@
                             String(today.getMonth() + 1).padStart(2, '0') + 
                             String(today.getDate()).padStart(2, '0');
             
-            // 调整：货物清单和货款支付记录的日期输入框默认设置为空
-            // goodsDateInput.value = todayStr;
+            // 货物清单和货款支付记录的日期输入框默认设置为空
             expenseDateInput.value = todayStr;
             freightDateInput.value = todayStr;
-            // paymentDateInput.value = todayStr;
             
             // 自动格式化日期
-            // formatDateInput(goodsDateInput);
             formatDateInput(expenseDateInput);
             formatDateInput(freightDateInput);
-            // formatDateInput(paymentDateInput);
         }
 
         // 导航菜单事件
@@ -1351,14 +1467,12 @@
         ozonBalanceInput.addEventListener('change', updateAccountBalances);
         wbBalanceInput.addEventListener('change', updateAccountBalances);
         businessBalanceInput.addEventListener('change', updateAccountBalances);
-        cashBalanceInput.addEventListener('change', updateAccountBalances);
 
         // 更新账户余额
         function updateAccountBalances() {
             accountBalances.ozon = parseFloat(ozonBalanceInput.value) || 0;
             accountBalances.wb = parseFloat(wbBalanceInput.value) || 0;
             accountBalances.business = parseFloat(businessBalanceInput.value) || 0;
-            accountBalances.cash = parseFloat(cashBalanceInput.value) || 0;
             
             localStorage.setItem('accountBalances', JSON.stringify(accountBalances));
             updateTotalBalance();
@@ -1367,14 +1481,15 @@
         // 更新总余额
         function updateTotalBalance() {
             const totalBalance = accountBalances.ozon + accountBalances.wb + accountBalances.business + accountBalances.cash;
-            totalBalanceEl.textContent = totalBalance.toFixed(2);
-            totalBalanceAccountsEl.textContent = totalBalance.toFixed(2);
+            totalBalanceEl.textContent = formatNumber(totalBalance);
+            totalBalanceAccountsEl.textContent = formatNumber(totalBalance);
             
             // 更新余额显示
-            ozonBalanceDisplay.textContent = accountBalances.ozon.toFixed(2);
-            wbBalanceDisplay.textContent = accountBalances.wb.toFixed(2);
-            businessBalanceDisplay.textContent = accountBalances.business.toFixed(2);
-            cashBalanceDisplay.textContent = accountBalances.cash.toFixed(2);
+            ozonBalanceDisplay.textContent = formatNumber(accountBalances.ozon);
+            wbBalanceDisplay.textContent = formatNumber(accountBalances.wb);
+            businessBalanceDisplay.textContent = formatNumber(accountBalances.business);
+            cashBalanceDisplay.textContent = formatNumber(accountBalances.cash);
+            cashBalanceDisplayAccounts.textContent = formatNumber(accountBalances.cash);
         }
 
         // 日期格式化函数 - 处理8位数字输入
@@ -1454,7 +1569,7 @@
                 return;
             }
             
-            // 调整：检查产品名称是否在设置中，如果不在则自动添加到设置中
+            // 检查产品名称是否在设置中，如果不在则自动添加到设置中
             if (!settings.productNames.includes(name)) {
                 settings.productNames.push(name);
                 localStorage.setItem('settings', JSON.stringify(settings));
@@ -1510,7 +1625,7 @@
             if (goods.length === 0) {
                 goodsBody.innerHTML = '<tr><td colspan="12" style="text-align: center;">暂无货物记录</td></tr>';
                 updateGoodsTotal();
-                updateFilteredGoodsTotal(goods); // 更新筛选结果总计
+                updateFilteredGoodsTotal(goods);
                 return;
             }
             
@@ -1522,24 +1637,24 @@
                 
                 row.innerHTML = `
                     <td><input type="checkbox" class="select-goods" data-id="${item.id}"></td>
-                    <td>${item.date}</td>
-                    <td>${item.name}</td>
-                    <td>${item.color}</td>
-                    <td>${item.quantity}</td>
-                    <td>${item.unit}</td>
-                    <td>${item.price.toFixed(2)}</td>
-                    <td>${item.amountCny.toFixed(2)}</td>
-                    <td>${item.exchangeRate}</td>
-                    <td>${item.rubPrice}</td>
-                    <td>${item.amountRub}</td>
-                    <td>${item.notes}</td>
+                    <td style="text-align: left;">${item.date}</td>
+                    <td style="text-align: left;">${item.name}</td>
+                    <td style="text-align: center;">${item.color}</td>
+                    <td style="text-align: center;">${item.quantity}</td>
+                    <td style="text-align: center;">${item.unit}</td>
+                    <td style="text-align: center;">${item.price.toFixed(2)}</td>
+                    <td style="text-align: center;">${item.amountCny.toFixed(2)}</td>
+                    <td style="text-align: center;">${item.exchangeRate}</td>
+                    <td style="text-align: center;">${formatNumber(item.rubPrice)}</td>
+                    <td style="text-align: center;">${formatNumber(item.amountRub)}</td>
+                    <td style="text-align: left;">${item.notes}</td>
                 `;
                 
                 goodsBody.appendChild(row);
             });
             
             updateGoodsTotal();
-            updateFilteredGoodsTotal(goods); // 更新筛选结果总计
+            updateFilteredGoodsTotal(goods);
         }
 
         // 更新货物总计
@@ -1550,7 +1665,7 @@
             
             document.getElementById('total-quantity').textContent = totalQuantity;
             document.getElementById('total-amount-cny').textContent = totalAmountCny.toFixed(2);
-            document.getElementById('total-amount-rub').textContent = totalAmountRub;
+            document.getElementById('total-amount-rub').textContent = formatNumber(totalAmountRub);
         }
 
         // 更新筛选结果总计
@@ -1561,7 +1676,7 @@
             
             document.getElementById('filtered-total-quantity').textContent = totalQuantity;
             document.getElementById('filtered-total-amount-cny').textContent = totalAmountCny.toFixed(2);
-            document.getElementById('filtered-total-amount-rub').textContent = totalAmountRub;
+            document.getElementById('filtered-total-amount-rub').textContent = formatNumber(totalAmountRub);
         }
 
         // 更新颜色选项
@@ -1611,6 +1726,41 @@
             });
         }
 
+        // 更新收支形式选项（根据收支类型）
+        function updatePaymentOptions() {
+            const expenseType = expenseTypeSelect.value;
+            const options = expensePaymentSelect.options;
+            
+            for (let i = 0; i < options.length; i++) {
+                const option = options[i];
+                if (expenseType === 'expense') {
+                    // 费用支出时只显示支付选项
+                    if (option.value === 'cash-expense' || option.value === 'public-expense') {
+                        option.classList.remove('hidden-option');
+                    } else {
+                        option.classList.add('hidden-option');
+                    }
+                } else {
+                    // 销售货款时只显示收入选项
+                    if (option.value === 'cash-income' || option.value === 'public-income') {
+                        option.classList.remove('hidden-option');
+                    } else {
+                        option.classList.add('hidden-option');
+                    }
+                }
+            }
+            
+            // 设置默认选项
+            if (expenseType === 'expense') {
+                expensePaymentSelect.value = 'cash-expense';
+            } else {
+                expensePaymentSelect.value = 'cash-income';
+            }
+        }
+
+        // 收支类型变化时更新收支形式选项
+        expenseTypeSelect.addEventListener('change', updatePaymentOptions);
+
         // 更新产品选项
         function updateProductOptions() {
             // 更新产品名称自动完成列表
@@ -1629,7 +1779,7 @@
             // 实际实现中，这里需要更新自动完成功能的数据源
         }
 
-        // 新增：更新银行选项
+        // 更新银行选项
         function updateBankOptions() {
             paymentBankSelect.innerHTML = '<option value="">选择银行</option>';
             settings.banks.forEach(bank => {
@@ -1653,7 +1803,7 @@
                 createAutocompleteList(this, settings.productNames);
             });
             
-            // 为运费支出产品名称添加自动完成
+            // 为运费支出货物名称添加自动完成
             freightNameInput.addEventListener('input', function() {
                 createAutocompleteList(this, settings.productNames);
             });
@@ -1713,8 +1863,14 @@
             const date = document.getElementById('expense-date').value;
             const expenseType = document.getElementById('expense-type').value;
             const expensePayment = document.getElementById('expense-payment').value;
-            const amount = parseFloat(document.getElementById('expense-amount').value) || 0;
+            const amount = parseInt(document.getElementById('expense-amount').value) || 0;
             const notes = document.getElementById('expense-notes').value;
+            
+            // 验证必填字段
+            if (!date || !expenseType || !amount || !expensePayment) {
+                alert('请填写必填字段：日期、收支类型、金额和收支形式');
+                return;
+            }
             
             const expenseItem = {
                 id: Date.now(),
@@ -1729,6 +1885,9 @@
             saveExpenses();
             renderExpenses();
             
+            // 更新现金余额
+            updateCashBalance();
+            
             // 重置表单
             document.getElementById('expense-date').value = '';
             document.getElementById('expense-amount').value = '';
@@ -1738,12 +1897,31 @@
             setTodayDate();
         });
 
+        // 更新现金余额
+        function updateCashBalance() {
+            // 计算所有现金收入
+            const cashIncome = expenses
+                .filter(e => e.expensePayment === 'cash-income')
+                .reduce((sum, item) => sum + (parseInt(item.amount) || 0), 0);
+                
+            // 计算所有现金支出
+            const cashExpense = expenses
+                .filter(e => e.expensePayment === 'cash-expense')
+                .reduce((sum, item) => sum + (parseInt(item.amount) || 0), 0);
+                
+            // 计算现金余额
+            accountBalances.cash = cashIncome - cashExpense;
+            localStorage.setItem('accountBalances', JSON.stringify(accountBalances));
+            updateTotalBalance();
+        }
+
         // 删除收支记录
         function deleteExpense(id) {
             if (confirm('确定要删除这条收支记录吗？此操作不可恢复！')) {
                 expenses = expenses.filter(e => e.id !== id);
                 saveExpenses();
                 renderExpenses();
+                updateCashBalance();
             }
         }
 
@@ -1755,7 +1933,7 @@
             if (expenses.length === 0) {
                 expensesBody.innerHTML = '<tr><td colspan="6" style="text-align: center;">暂无收支记录</td></tr>';
                 updateExpenseTotal();
-                updateFilteredExpenseTotal(expenses); // 更新筛选结果总计
+                updateFilteredExpenseTotal(expenses);
                 return;
             }
             
@@ -1764,33 +1942,60 @@
             
             sortedExpenses.forEach(expense => {
                 const row = document.createElement('tr');
+                const isExpense = expense.expensePayment === 'cash-expense' || expense.expensePayment === 'public-expense';
+                const amountClass = isExpense ? 'expense' : 'income';
+                const amountDisplay = isExpense ? `(${formatNumber(expense.amount)})` : formatNumber(expense.amount);
                 
                 row.innerHTML = `
                     <td><input type="checkbox" class="select-expense" data-id="${expense.id}"></td>
-                    <td>${expense.date}</td>
-                    <td>${expense.expenseType === 'expense' ? '费用支出' : '销售货款'}</td>
-                    <td>${expense.amount.toFixed(2)}</td>
-                    <td>${getPaymentDisplayText(expense.expensePayment)}</td>
-                    <td>${expense.notes}</td>
+                    <td style="text-align: left;">${expense.date}</td>
+                    <td style="text-align: center;">${expense.expenseType === 'expense' ? '费用支出' : '销售货款'}</td>
+                    <td style="text-align: center;" class="${amountClass}">${amountDisplay}</td>
+                    <td style="text-align: center;">${getPaymentDisplayText(expense.expensePayment)}</td>
+                    <td style="text-align: left;">${expense.notes}</td>
                 `;
                 
                 expensesBody.appendChild(row);
             });
             
             updateExpenseTotal();
-            updateFilteredExpenseTotal(expenses); // 更新筛选结果总计
+            updateFilteredExpenseTotal(expenses);
         }
 
         // 更新收支记录总计
         function updateExpenseTotal() {
-            const totalAmount = expenses.reduce((sum, item) => sum + (parseFloat(item.amount) || 0), 0);
-            document.getElementById('total-expense-amount').textContent = totalAmount.toFixed(2);
+            // 计算所有收入
+            const income = expenses
+                .filter(e => e.expensePayment === 'cash-income' || e.expensePayment === 'public-income')
+                .reduce((sum, item) => sum + (parseInt(item.amount) || 0), 0);
+                
+            // 计算所有支出
+            const expense = expenses
+                .filter(e => e.expensePayment === 'cash-expense' || e.expensePayment === 'public-expense')
+                .reduce((sum, item) => sum + (parseInt(item.amount) || 0), 0);
+                
+            // 计算净额
+            const totalAmount = income - expense;
+            
+            document.getElementById('total-expense-amount').textContent = formatNumber(totalAmount);
         }
 
         // 更新筛选结果总计
         function updateFilteredExpenseTotal(filteredExpenses) {
-            const totalAmount = filteredExpenses.reduce((sum, item) => sum + (parseFloat(item.amount) || 0), 0);
-            document.getElementById('filtered-total-expense-amount').textContent = totalAmount.toFixed(2);
+            // 计算所有收入
+            const income = filteredExpenses
+                .filter(e => e.expensePayment === 'cash-income' || e.expensePayment === 'public-income')
+                .reduce((sum, item) => sum + (parseInt(item.amount) || 0), 0);
+                
+            // 计算所有支出
+            const expense = filteredExpenses
+                .filter(e => e.expensePayment === 'cash-expense' || e.expensePayment === 'public-expense')
+                .reduce((sum, item) => sum + (parseInt(item.amount) || 0), 0);
+                
+            // 计算净额
+            const totalAmount = income - expense;
+            
+            document.getElementById('filtered-total-expense-amount').textContent = formatNumber(totalAmount);
         }
 
         // 获取支付方式显示文本
@@ -1805,64 +2010,45 @@
             return paymentMap[payment] || payment;
         }
 
-        // 运费支出相关功能
-        freightCurrencySelect.addEventListener('change', function() {
-            // 调整：只要币种里显示的是卢布，汇率的输入框就为隐藏状态
-            if (this.value === 'RUB') {
-                freightExchangeRateGroup.style.display = 'none';
-            } else {
-                freightExchangeRateGroup.style.display = 'block';
-            }
-        });
-
         // 添加运费记录
         addFreightBtn.addEventListener('click', function() {
             const date = document.getElementById('freight-date').value;
             const name = document.getElementById('freight-name').value;
+            const code = document.getElementById('freight-code').value;
+            const pieces = parseInt(document.getElementById('freight-pieces').value) || 0;
             const weight = parseFloat(document.getElementById('freight-weight').value) || 0;
             const volume = parseFloat(document.getElementById('freight-volume').value) || 0;
-            const amount = parseFloat(document.getElementById('freight-amount').value) || 0;
-            const currency = document.getElementById('freight-currency').value;
-            const exchangeRate = parseFloat(document.getElementById('freight-exchange-rate').value) || 0;
+            const amount = parseInt(document.getElementById('freight-amount').value) || 0;
+            const pallet = parseInt(document.getElementById('freight-pallet').value) || 0;
+            const cubic = parseInt(document.getElementById('freight-cubic').value) || 0;
+            const truck = parseInt(document.getElementById('freight-truck').value) || 0;
             const notes = document.getElementById('freight-notes').value;
             
             // 验证必填字段
-            if (!date || !name || !amount || !weight) {
-                alert('请填写必填字段：日期、产品名称、运费和重量');
+            if (!date || !name || !code || !pieces || !amount || !weight) {
+                alert('请填写必填字段：日期、货物名称、货号、件数、运费和重量');
                 return;
             }
             
-            if (currency !== 'RUB' && !exchangeRate) {
-                alert('请填写汇率');
-                return;
-            }
-            
-            // 检查产品名称是否在设置中，如果不在则添加
+            // 检查货物名称是否在设置中，如果不在则添加
             if (!settings.productNames.includes(name)) {
                 settings.productNames.push(name);
                 localStorage.setItem('settings', JSON.stringify(settings));
                 updateProductOptions();
             }
             
-            // 计算卢布金额
-            let amountRub = amount;
-            if (currency === 'CNY') {
-                amountRub = Math.round(amount * exchangeRate);
-            } else if (currency === 'USD') {
-                // 假设美元兑人民币汇率为7.2
-                amountRub = Math.round(amount * 7.2 * exchangeRate);
-            }
-            
             const freightItem = {
                 id: Date.now(),
                 date,
                 name,
+                code,
+                pieces,
                 weight,
                 volume,
                 amount,
-                currency,
-                exchangeRate,
-                amountRub,
+                pallet,
+                cubic,
+                truck,
                 notes
             };
             
@@ -1873,25 +2059,85 @@
             // 重置表单
             document.getElementById('freight-date').value = '';
             document.getElementById('freight-name').value = '';
+            document.getElementById('freight-code').value = '';
+            document.getElementById('freight-pieces').value = '';
             document.getElementById('freight-weight').value = '';
             document.getElementById('freight-volume').value = '';
             document.getElementById('freight-amount').value = '';
-            document.getElementById('freight-currency').value = 'RUB';
-            document.getElementById('freight-exchange-rate').value = '';
+            document.getElementById('freight-pallet').value = '';
+            document.getElementById('freight-cubic').value = '';
+            document.getElementById('freight-truck').value = '';
             document.getElementById('freight-notes').value = '';
             
             // 设置日期为今天
             setTodayDate();
-            
-            // 隐藏汇率输入框
-            freightExchangeRateGroup.style.display = 'none';
         });
 
         // 渲染运费记录
         function renderFreightRecords() {
-            // 更新运费总计
-            const totalFreight = freightRecords.reduce((sum, item) => sum + (parseFloat(item.amountRub) || 0), 0);
-            document.getElementById('total-freight').textContent = totalFreight.toFixed(2);
+            freightBody.innerHTML = '';
+            
+            if (freightRecords.length === 0) {
+                freightBody.innerHTML = '<tr><td colspan="12" style="text-align: center;">暂无运费记录</td></tr>';
+                updateFreightTotal();
+                updateFilteredFreightTotal(freightRecords);
+                return;
+            }
+            
+            // 按日期排序，最新的在前面
+            const sortedFreight = [...freightRecords].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            sortedFreight.forEach(item => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td><input type="checkbox" class="select-freight" data-id="${item.id}"></td>
+                    <td style="text-align: left;">${item.date}</td>
+                    <td style="text-align: left;">${item.name}</td>
+                    <td style="text-align: center;">${item.code}</td>
+                    <td style="text-align: center;">${item.pieces}</td>
+                    <td style="text-align: center;">${item.weight}</td>
+                    <td style="text-align: center;">${item.volume}</td>
+                    <td style="text-align: center;">${formatNumber(item.amount)}</td>
+                    <td style="text-align: center;">${formatNumber(item.pallet)}</td>
+                    <td style="text-align: center;">${formatNumber(item.cubic)}</td>
+                    <td style="text-align: center;">${formatNumber(item.truck)}</td>
+                    <td style="text-align: left;">${item.notes}</td>
+                `;
+                
+                freightBody.appendChild(row);
+            });
+            
+            updateFreightTotal();
+            updateFilteredFreightTotal(freightRecords);
+        }
+
+        // 更新运费总计
+        function updateFreightTotal() {
+            const totalAmount = freightRecords.reduce((sum, item) => sum + (parseInt(item.amount) || 0), 0);
+            const totalPallet = freightRecords.reduce((sum, item) => sum + (parseInt(item.pallet) || 0), 0);
+            const totalCubic = freightRecords.reduce((sum, item) => sum + (parseInt(item.cubic) || 0), 0);
+            const totalTruck = freightRecords.reduce((sum, item) => sum + (parseInt(item.truck) || 0), 0);
+            const totalFreight = totalAmount + totalPallet + totalCubic + totalTruck;
+            
+            document.getElementById('total-freight-amount').textContent = formatNumber(totalAmount);
+            document.getElementById('total-pallet-amount').textContent = formatNumber(totalPallet);
+            document.getElementById('total-cubic-amount').textContent = formatNumber(totalCubic);
+            document.getElementById('total-truck-amount').textContent = formatNumber(totalTruck);
+            document.getElementById('total-freight').textContent = formatNumber(totalFreight);
+        }
+
+        // 更新筛选结果总计
+        function updateFilteredFreightTotal(filteredFreight) {
+            const totalAmount = filteredFreight.reduce((sum, item) => sum + (parseInt(item.amount) || 0), 0);
+            const totalPallet = filteredFreight.reduce((sum, item) => sum + (parseInt(item.pallet) || 0), 0);
+            const totalCubic = filteredFreight.reduce((sum, item) => sum + (parseInt(item.cubic) || 0), 0);
+            const totalTruck = filteredFreight.reduce((sum, item) => sum + (parseInt(item.truck) || 0), 0);
+            
+            document.getElementById('filtered-total-freight-amount').textContent = formatNumber(totalAmount);
+            document.getElementById('filtered-total-pallet-amount').textContent = formatNumber(totalPallet);
+            document.getElementById('filtered-total-cubic-amount').textContent = formatNumber(totalCubic);
+            document.getElementById('filtered-total-truck-amount').textContent = formatNumber(totalTruck);
         }
 
         // 添加货款支付记录
@@ -1953,6 +2199,8 @@
             
             if (paymentRecords.length === 0) {
                 paymentBody.innerHTML = '<tr><td colspan="7" style="text-align: center;">暂无货款支付记录</td></tr>';
+                updatePaymentTotal();
+                updateFilteredPaymentTotal(paymentRecords);
                 return;
             }
             
@@ -1964,16 +2212,31 @@
                 
                 row.innerHTML = `
                     <td><input type="checkbox" class="select-payment" data-id="${payment.id}"></td>
-                    <td>${payment.date}</td>
-                    <td>${payment.recipient}</td>
-                    <td>${payment.bank}</td>
-                    <td>${payment.account}</td>
-                    <td>${payment.amount.toFixed(2)}</td>
-                    <td>${payment.notes}</td>
+                    <td style="text-align: left;">${payment.date}</td>
+                    <td style="text-align: center;">${payment.recipient}</td>
+                    <td style="text-align: center;">${payment.bank}</td>
+                    <td style="text-align: center;">${payment.account}</td>
+                    <td style="text-align: center;">${payment.amount.toFixed(2)}</td>
+                    <td style="text-align: left;">${payment.notes}</td>
                 `;
                 
                 paymentBody.appendChild(row);
             });
+            
+            updatePaymentTotal();
+            updateFilteredPaymentTotal(paymentRecords);
+        }
+
+        // 更新货款支付总计
+        function updatePaymentTotal() {
+            const totalAmount = paymentRecords.reduce((sum, item) => sum + (parseFloat(item.amount) || 0), 0);
+            document.getElementById('total-payment-amount').textContent = totalAmount.toFixed(2);
+        }
+
+        // 更新筛选结果总计
+        function updateFilteredPaymentTotal(filteredPayments) {
+            const totalAmount = filteredPayments.reduce((sum, item) => sum + (parseFloat(item.amount) || 0), 0);
+            document.getElementById('filtered-total-payment-amount').textContent = totalAmount.toFixed(2);
         }
 
         // 删除货款支付记录
@@ -1987,7 +2250,6 @@
 
         // 保存设置
         saveSettingsBtn.addEventListener('click', function() {
-            // 调整：设置页面布局
             settings.productNames = settingProductNamesTextarea.value.split('\n').filter(name => name.trim() !== '');
             settings.colors = settingColorsTextarea.value.split('\n').filter(color => color.trim() !== '');
             settings.units = settingUnitsTextarea.value.split('\n').filter(unit => unit.trim() !== '');
@@ -1995,7 +2257,7 @@
             settings.paymentTypes = settingPaymentTypesTextarea.value.split('\n').filter(type => type.trim() !== '');
             settings.recipients = settingRecipientsTextarea.value.split('\n').filter(recipient => recipient.trim() !== '');
             settings.accounts = settingAccountsTextarea.value.split('\n').filter(account => account.trim() !== '');
-            settings.banks = settingBanksTextarea.value.split('\n').filter(bank => bank.trim() !== ''); // 新增
+            settings.banks = settingBanksTextarea.value.split('\n').filter(bank => bank.trim() !== '');
             
             localStorage.setItem('settings', JSON.stringify(settings));
             
@@ -2007,7 +2269,7 @@
             updateProductOptions();
             updateRecipientOptions();
             updateAccountOptions();
-            updateBankOptions(); // 新增
+            updateBankOptions();
             
             alert('设置已保存！');
         });
@@ -2040,7 +2302,7 @@
             localStorage.setItem('paymentRecords', JSON.stringify(paymentRecords));
         }
 
-        // 新增：全选功能 - 货物清单
+        // 全选功能 - 货物清单
         selectAllGoodsCheckbox.addEventListener('change', function() {
             const checkboxes = document.querySelectorAll('.select-goods');
             checkboxes.forEach(checkbox => {
@@ -2048,7 +2310,7 @@
             });
         });
 
-        // 新增：全选功能 - 收支记录
+        // 全选功能 - 收支记录
         selectAllExpensesCheckbox.addEventListener('change', function() {
             const checkboxes = document.querySelectorAll('.select-expense');
             checkboxes.forEach(checkbox => {
@@ -2056,7 +2318,15 @@
             });
         });
 
-        // 新增：全选功能 - 货款支付记录
+        // 全选功能 - 运费支出
+        selectAllFreightCheckbox.addEventListener('change', function() {
+            const checkboxes = document.querySelectorAll('.select-freight');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+        });
+
+        // 全选功能 - 货款支付记录
         selectAllPaymentsCheckbox.addEventListener('change', function() {
             const checkboxes = document.querySelectorAll('.select-payment');
             checkboxes.forEach(checkbox => {
@@ -2064,7 +2334,7 @@
             });
         });
 
-        // 新增：生成表格功能 - 货物清单
+        // 生成表格功能 - 货物清单
         generateTableBtn.addEventListener('click', function() {
             const selectedCheckboxes = document.querySelectorAll('.select-goods:checked');
             
@@ -2083,7 +2353,7 @@
             }
         });
 
-        // 新增：生成表格功能 - 收支记录
+        // 生成表格功能 - 收支记录
         generateExpenseTableBtn.addEventListener('click', function() {
             const selectedCheckboxes = document.querySelectorAll('.select-expense:checked');
             
@@ -2102,7 +2372,26 @@
             }
         });
 
-        // 新增：删除选中记录功能 - 货物清单
+        // 生成表格功能 - 运费支出
+        generateFreightTableBtn.addEventListener('click', function() {
+            const selectedCheckboxes = document.querySelectorAll('.select-freight:checked');
+            
+            if (selectedCheckboxes.length === 0) {
+                alert('请先选择要生成表格的记录');
+                return;
+            }
+            
+            if (confirm('确认生成表格吗？')) {
+                // 获取选中的运费记录
+                const selectedIds = Array.from(selectedCheckboxes).map(cb => parseInt(cb.getAttribute('data-id')));
+                const selectedFreight = freightRecords.filter(f => selectedIds.includes(f.id));
+                
+                // 生成Excel表格
+                generateFreightExcel(selectedFreight, '运费支出');
+            }
+        });
+
+        // 删除选中记录功能 - 货物清单
         deleteSelectedBtn.addEventListener('click', function() {
             const selectedCheckboxes = document.querySelectorAll('.select-goods:checked');
             
@@ -2119,7 +2408,7 @@
             }
         });
 
-        // 新增：删除选中记录功能 - 收支记录
+        // 删除选中记录功能 - 收支记录
         deleteSelectedExpensesBtn.addEventListener('click', function() {
             const selectedCheckboxes = document.querySelectorAll('.select-expense:checked');
             
@@ -2133,10 +2422,28 @@
                 expenses = expenses.filter(e => !selectedIds.includes(e.id));
                 saveExpenses();
                 renderExpenses();
+                updateCashBalance();
             }
         });
 
-        // 新增：生成Excel表格功能 - 货物清单
+        // 删除选中记录功能 - 运费支出
+        deleteSelectedFreightBtn.addEventListener('click', function() {
+            const selectedCheckboxes = document.querySelectorAll('.select-freight:checked');
+            
+            if (selectedCheckboxes.length === 0) {
+                alert('请先选择要删除的记录');
+                return;
+            }
+            
+            if (confirm('确认删除选中的记录吗？此操作不可恢复！')) {
+                const selectedIds = Array.from(selectedCheckboxes).map(cb => parseInt(cb.getAttribute('data-id')));
+                freightRecords = freightRecords.filter(f => !selectedIds.includes(f.id));
+                saveFreightRecords();
+                renderFreightRecords();
+            }
+        });
+
+        // 生成Excel表格功能 - 货物清单
         function generateExcel(data, filename) {
             // 创建表头
             const headers = ['日期', '产品名称', '颜色', '数量', '单位', '单价(¥)', '金额(¥)', '汇率', '单价(₽)', '金额(₽)', '备注'];
@@ -2151,8 +2458,8 @@
                 item.price.toFixed(2),
                 item.amountCny.toFixed(2),
                 item.exchangeRate,
-                item.rubPrice,
-                item.amountRub,
+                formatNumber(item.rubPrice),
+                formatNumber(item.amountRub),
                 item.notes
             ]);
             
@@ -2174,7 +2481,7 @@
             document.body.removeChild(link);
         }
 
-        // 新增：生成Excel表格功能 - 收支记录
+        // 生成Excel表格功能 - 收支记录
         function generateExpenseExcel(data, filename) {
             // 创建表头
             const headers = ['日期', '收支类型', '金额(₽)', '收支形式', '备注'];
@@ -2183,7 +2490,8 @@
             const rows = data.map(item => [
                 item.date,
                 item.expenseType === 'expense' ? '费用支出' : '销售货款',
-                item.amount.toFixed(2),
+                item.expensePayment === 'cash-expense' || item.expensePayment === 'public-expense' ? 
+                    `(${formatNumber(item.amount)})` : formatNumber(item.amount),
                 getPaymentDisplayText(item.expensePayment),
                 item.notes
             ]);
@@ -2206,757 +2514,47 @@
             document.body.removeChild(link);
         }
 
-        // 新增：筛选功能
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('filter-icon')) {
-                const filterType = e.target.getAttribute('data-filter');
-                const tableType = e.target.closest('table').id;
-                
-                if (tableType === 'goods-table') {
-                    // 货物清单筛选
-                    if (filterType === 'date') {
-                        createDateFilterDropdown(e.target, 'goods');
-                    } else if (filterType === 'name') {
-                        createNameFilterDropdown(e.target, 'goods');
-                    } else if (filterType === 'color') {
-                        createColorFilterDropdown(e.target, 'goods');
-                    }
-                } else if (tableType === 'expenses-table') {
-                    // 收支记录筛选
-                    if (filterType === 'date') {
-                        createDateFilterDropdown(e.target, 'expenses');
-                    } else if (filterType === 'type') {
-                        createTypeFilterDropdown(e.target);
-                    } else if (filterType === 'payment') {
-                        createPaymentFilterDropdown(e.target);
-                    }
-                } else if (tableType === 'payment-table') {
-                    // 货款支付记录筛选
-                    if (filterType === 'date') {
-                        createDateFilterDropdown(e.target, 'payment');
-                    } else if (filterType === 'recipient') {
-                        createRecipientFilterDropdown(e.target);
-                    } else if (filterType === 'account') {
-                        createAccountFilterDropdown(e.target);
-                    } else if (filterType === 'bank') {
-                        createBankFilterDropdown(e.target);
-                    }
-                }
-            }
-        });
-
-        // 新增：创建日期筛选下拉菜单
-        function createDateFilterDropdown(target, tableType) {
-            // 关闭其他下拉菜单
-            closeAllFilterDropdowns();
+        // 生成Excel表格功能 - 运费支出
+        function generateFreightExcel(data, filename) {
+            // 创建表头
+            const headers = ['日期', '货物名称', '货号', '件数', '重量', '体积', '运费(₽)', '托盘费(₽)', '立方费(₽)', '送货车费(₽)', '备注'];
             
-            // 创建下拉菜单
-            const dropdown = document.createElement('div');
-            dropdown.className = 'filter-dropdown show';
+            // 创建数据行
+            const rows = data.map(item => [
+                item.date,
+                item.name,
+                item.code,
+                item.pieces,
+                item.weight,
+                item.volume,
+                formatNumber(item.amount),
+                formatNumber(item.pallet),
+                formatNumber(item.cubic),
+                formatNumber(item.truck),
+                item.notes
+            ]);
             
-            // 获取数据源
-            let data;
-            if (tableType === 'goods') {
-                data = goods;
-            } else if (tableType === 'expenses') {
-                data = expenses;
-            } else if (tableType === 'payment') {
-                data = paymentRecords;
-            }
-            
-            // 获取所有日期
-            const allDates = [...new Set(data.map(item => item.date))];
-            const years = [...new Set(allDates.map(date => date.split('/')[0]))];
-            const months = [...new Set(allDates.map(date => date.split('/')[1]))];
-            const days = [...new Set(allDates.map(date => date.split('/')[2]))];
-            
-            // 添加年筛选选项
-            const yearOption = document.createElement('div');
-            yearOption.className = 'filter-option';
-            yearOption.innerHTML = '<input type="checkbox" class="filter-year"> <label>按年筛选</label>';
-            dropdown.appendChild(yearOption);
-            
-            years.forEach(year => {
-                const option = document.createElement('div');
-                option.className = 'filter-option';
-                option.innerHTML = `<input type="checkbox" class="filter-year" value="${year}"> <label>${year}年</label>`;
-                dropdown.appendChild(option);
+            // 创建CSV内容
+            let csvContent = headers.join(',') + '\n';
+            rows.forEach(row => {
+                csvContent += row.join(',') + '\n';
             });
             
-            // 添加月筛选选项
-            const monthOption = document.createElement('div');
-            monthOption.className = 'filter-option';
-            monthOption.innerHTML = '<input type="checkbox" class="filter-month"> <label>按月筛选</label>';
-            dropdown.appendChild(monthOption);
-            
-            months.forEach(month => {
-                const option = document.createElement('div');
-                option.className = 'filter-option';
-                option.innerHTML = `<input type="checkbox" class="filter-month" value="${month}"> <label>${month}月</label>`;
-                dropdown.appendChild(option);
-            });
-            
-            // 添加日筛选选项
-            const dayOption = document.createElement('div');
-            dayOption.className = 'filter-option';
-            dayOption.innerHTML = '<input type="checkbox" class="filter-day"> <label>按日筛选</label>';
-            dropdown.appendChild(dayOption);
-            
-            days.forEach(day => {
-                const option = document.createElement('div');
-                option.className = 'filter-option';
-                option.innerHTML = `<input type="checkbox" class="filter-day" value="${day}"> <label>${day}日</label>`;
-                dropdown.appendChild(option);
-            });
-            
-            // 添加应用筛选按钮
-            const applyButton = document.createElement('button');
-            applyButton.textContent = '应用筛选';
-            applyButton.style.marginTop = '8px';
-            applyButton.addEventListener('click', function() {
-                applyDateFilter(tableType);
-                closeAllFilterDropdowns();
-            });
-            dropdown.appendChild(applyButton);
-            
-            // 添加重置筛选按钮
-            const resetButton = document.createElement('button');
-            resetButton.textContent = '重置筛选';
-            resetButton.style.marginTop = '4px';
-            resetButton.addEventListener('click', function() {
-                resetDateFilter(tableType);
-                closeAllFilterDropdowns();
-            });
-            dropdown.appendChild(resetButton);
-            
-            // 定位并显示下拉菜单
-            const rect = target.getBoundingClientRect();
-            dropdown.style.left = rect.left + 'px';
-            dropdown.style.top = rect.bottom + 'px';
-            document.body.appendChild(dropdown);
+            // 创建下载链接
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', filename + '.csv');
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
-        // 新增：创建颜色筛选下拉菜单
-        function createColorFilterDropdown(target, tableType) {
-            // 关闭其他下拉菜单
-            closeAllFilterDropdowns();
-            
-            // 创建下拉菜单
-            const dropdown = document.createElement('div');
-            dropdown.className = 'filter-dropdown show';
-            
-            // 获取所有颜色（包括空值）
-            const allColors = [...new Set(goods.map(item => item.color || ''))];
-            
-            // 添加颜色筛选选项
-            allColors.forEach(color => {
-                const option = document.createElement('div');
-                option.className = 'filter-option';
-                const displayText = color === '' ? '空白颜色' : color;
-                option.innerHTML = `<input type="checkbox" class="filter-color" value="${color}"> <label>${displayText}</label>`;
-                dropdown.appendChild(option);
-            });
-            
-            // 添加应用筛选按钮
-            const applyButton = document.createElement('button');
-            applyButton.textContent = '应用筛选';
-            applyButton.style.marginTop = '8px';
-            applyButton.addEventListener('click', function() {
-                applyColorFilter();
-                closeAllFilterDropdowns();
-            });
-            dropdown.appendChild(applyButton);
-            
-            // 添加重置筛选按钮
-            const resetButton = document.createElement('button');
-            resetButton.textContent = '重置筛选';
-            resetButton.style.marginTop = '4px';
-            resetButton.addEventListener('click', function() {
-                resetColorFilter();
-                closeAllFilterDropdowns();
-            });
-            dropdown.appendChild(resetButton);
-            
-            // 定位并显示下拉菜单
-            const rect = target.getBoundingClientRect();
-            dropdown.style.left = rect.left + 'px';
-            dropdown.style.top = rect.bottom + 'px';
-            document.body.appendChild(dropdown);
-        }
-
-        // 新增：创建产品名称筛选下拉菜单
-        function createNameFilterDropdown(target, tableType) {
-            // 关闭其他下拉菜单
-            closeAllFilterDropdowns();
-            
-            // 创建下拉菜单
-            const dropdown = document.createElement('div');
-            dropdown.className = 'filter-dropdown show';
-            
-            // 获取所有产品名称
-            const allNames = [...new Set(goods.map(item => item.name))];
-            
-            // 添加产品名称筛选选项
-            allNames.forEach(name => {
-                const option = document.createElement('div');
-                option.className = 'filter-option';
-                option.innerHTML = `<input type="checkbox" class="filter-name" value="${name}"> <label>${name}</label>`;
-                dropdown.appendChild(option);
-            });
-            
-            // 添加应用筛选按钮
-            const applyButton = document.createElement('button');
-            applyButton.textContent = '应用筛选';
-            applyButton.style.marginTop = '8px';
-            applyButton.addEventListener('click', function() {
-                applyNameFilter();
-                closeAllFilterDropdowns();
-            });
-            dropdown.appendChild(applyButton);
-            
-            // 添加重置筛选按钮
-            const resetButton = document.createElement('button');
-            resetButton.textContent = '重置筛选';
-            resetButton.style.marginTop = '4px';
-            resetButton.addEventListener('click', function() {
-                resetNameFilter();
-                closeAllFilterDropdowns();
-            });
-            dropdown.appendChild(resetButton);
-            
-            // 定位并显示下拉菜单
-            const rect = target.getBoundingClientRect();
-            dropdown.style.left = rect.left + 'px';
-            dropdown.style.top = rect.bottom + 'px';
-            document.body.appendChild(dropdown);
-        }
-
-        // 新增：创建收支类型筛选下拉菜单
-        function createTypeFilterDropdown(target) {
-            // 关闭其他下拉菜单
-            closeAllFilterDropdowns();
-            
-            // 创建下拉菜单
-            const dropdown = document.createElement('div');
-            dropdown.className = 'filter-dropdown show';
-            
-            // 获取所有收支类型
-            const allTypes = [...new Set(expenses.map(item => item.expenseType))];
-            
-            // 添加收支类型筛选选项
-            allTypes.forEach(type => {
-                const option = document.createElement('div');
-                option.className = 'filter-option';
-                const displayText = type === 'expense' ? '费用支出' : '销售货款';
-                option.innerHTML = `<input type="checkbox" class="filter-type" value="${type}"> <label>${displayText}</label>`;
-                dropdown.appendChild(option);
-            });
-            
-            // 添加应用筛选按钮
-            const applyButton = document.createElement('button');
-            applyButton.textContent = '应用筛选';
-            applyButton.style.marginTop = '8px';
-            applyButton.addEventListener('click', function() {
-                applyTypeFilter();
-                closeAllFilterDropdowns();
-            });
-            dropdown.appendChild(applyButton);
-            
-            // 添加重置筛选按钮
-            const resetButton = document.createElement('button');
-            resetButton.textContent = '重置筛选';
-            resetButton.style.marginTop = '4px';
-            resetButton.addEventListener('click', function() {
-                resetTypeFilter();
-                closeAllFilterDropdowns();
-            });
-            dropdown.appendChild(resetButton);
-            
-            // 定位并显示下拉菜单
-            const rect = target.getBoundingClientRect();
-            dropdown.style.left = rect.left + 'px';
-            dropdown.style.top = rect.bottom + 'px';
-            document.body.appendChild(dropdown);
-        }
-
-        // 新增：创建收支形式筛选下拉菜单
-        function createPaymentFilterDropdown(target) {
-            // 关闭其他下拉菜单
-            closeAllFilterDropdowns();
-            
-            // 创建下拉菜单
-            const dropdown = document.createElement('div');
-            dropdown.className = 'filter-dropdown show';
-            
-            // 获取所有收支形式
-            const allPayments = [...new Set(expenses.map(item => item.expensePayment))];
-            
-            // 添加收支形式筛选选项
-            allPayments.forEach(payment => {
-                const option = document.createElement('div');
-                option.className = 'filter-option';
-                const displayText = getPaymentDisplayText(payment);
-                option.innerHTML = `<input type="checkbox" class="filter-payment" value="${payment}"> <label>${displayText}</label>`;
-                dropdown.appendChild(option);
-            });
-            
-            // 添加应用筛选按钮
-            const applyButton = document.createElement('button');
-            applyButton.textContent = '应用筛选';
-            applyButton.style.marginTop = '8px';
-            applyButton.addEventListener('click', function() {
-                applyPaymentFilter();
-                closeAllFilterDropdowns();
-            });
-            dropdown.appendChild(applyButton);
-            
-            // 添加重置筛选按钮
-            const resetButton = document.createElement('button');
-            resetButton.textContent = '重置筛选';
-            resetButton.style.marginTop = '4px';
-            resetButton.addEventListener('click', function() {
-                resetPaymentFilter();
-                closeAllFilterDropdowns();
-            });
-            dropdown.appendChild(resetButton);
-            
-            // 定位并显示下拉菜单
-            const rect = target.getBoundingClientRect();
-            dropdown.style.left = rect.left + 'px';
-            dropdown.style.top = rect.bottom + 'px';
-            document.body.appendChild(dropdown);
-        }
-
-        // 新增：创建收款人筛选下拉菜单
-        function createRecipientFilterDropdown(target) {
-            // 关闭其他下拉菜单
-            closeAllFilterDropdowns();
-            
-            // 创建下拉菜单
-            const dropdown = document.createElement('div');
-            dropdown.className = 'filter-dropdown show';
-            
-            // 获取所有收款人
-            const allRecipients = [...new Set(paymentRecords.map(item => item.recipient))];
-            
-            // 添加收款人筛选选项
-            allRecipients.forEach(recipient => {
-                const option = document.createElement('div');
-                option.className = 'filter-option';
-                option.innerHTML = `<input type="checkbox" class="filter-recipient" value="${recipient}"> <label>${recipient}</label>`;
-                dropdown.appendChild(option);
-            });
-            
-            // 添加应用筛选按钮
-            const applyButton = document.createElement('button');
-            applyButton.textContent = '应用筛选';
-            applyButton.style.marginTop = '8px';
-            applyButton.addEventListener('click', function() {
-                applyRecipientFilter();
-                closeAllFilterDropdowns();
-            });
-            dropdown.appendChild(applyButton);
-            
-            // 添加重置筛选按钮
-            const resetButton = document.createElement('button');
-            resetButton.textContent = '重置筛选';
-            resetButton.style.marginTop = '4px';
-            resetButton.addEventListener('click', function() {
-                resetRecipientFilter();
-                closeAllFilterDropdowns();
-            });
-            dropdown.appendChild(resetButton);
-            
-            // 定位并显示下拉菜单
-            const rect = target.getBoundingClientRect();
-            dropdown.style.left = rect.left + 'px';
-            dropdown.style.top = rect.bottom + 'px';
-            document.body.appendChild(dropdown);
-        }
-
-        // 新增：创建账号筛选下拉菜单
-        function createAccountFilterDropdown(target) {
-            // 关闭其他下拉菜单
-            closeAllFilterDropdowns();
-            
-            // 创建下拉菜单
-            const dropdown = document.createElement('div');
-            dropdown.className = 'filter-dropdown show';
-            
-            // 获取所有账号
-            const allAccounts = [...new Set(paymentRecords.map(item => item.account))];
-            
-            // 添加账号筛选选项
-            allAccounts.forEach(account => {
-                const option = document.createElement('div');
-                option.className = 'filter-option';
-                option.innerHTML = `<input type="checkbox" class="filter-account" value="${account}"> <label>${account}</label>`;
-                dropdown.appendChild(option);
-            });
-            
-            // 添加应用筛选按钮
-            const applyButton = document.createElement('button');
-            applyButton.textContent = '应用筛选';
-            applyButton.style.marginTop = '8px';
-            applyButton.addEventListener('click', function() {
-                applyAccountFilter();
-                closeAllFilterDropdowns();
-            });
-            dropdown.appendChild(applyButton);
-            
-            // 添加重置筛选按钮
-            const resetButton = document.createElement('button');
-            resetButton.textContent = '重置筛选';
-            resetButton.style.marginTop = '4px';
-            resetButton.addEventListener('click', function() {
-                resetAccountFilter();
-                closeAllFilterDropdowns();
-            });
-            dropdown.appendChild(resetButton);
-            
-            // 定位并显示下拉菜单
-            const rect = target.getBoundingClientRect();
-            dropdown.style.left = rect.left + 'px';
-            dropdown.style.top = rect.bottom + 'px';
-            document.body.appendChild(dropdown);
-        }
-
-        // 新增：创建银行筛选下拉菜单
-        function createBankFilterDropdown(target) {
-            // 关闭其他下拉菜单
-            closeAllFilterDropdowns();
-            
-            // 创建下拉菜单
-            const dropdown = document.createElement('div');
-            dropdown.className = 'filter-dropdown show';
-            
-            // 获取所有银行
-            const allBanks = [...new Set(paymentRecords.map(item => item.bank))];
-            
-            // 添加银行筛选选项
-            allBanks.forEach(bank => {
-                const option = document.createElement('div');
-                option.className = 'filter-option';
-                option.innerHTML = `<input type="checkbox" class="filter-bank" value="${bank}"> <label>${bank}</label>`;
-                dropdown.appendChild(option);
-            });
-            
-            // 添加应用筛选按钮
-            const applyButton = document.createElement('button');
-            applyButton.textContent = '应用筛选';
-            applyButton.style.marginTop = '8px';
-            applyButton.addEventListener('click', function() {
-                applyBankFilter();
-                closeAllFilterDropdowns();
-            });
-            dropdown.appendChild(applyButton);
-            
-            // 添加重置筛选按钮
-            const resetButton = document.createElement('button');
-            resetButton.textContent = '重置筛选';
-            resetButton.style.marginTop = '4px';
-            resetButton.addEventListener('click', function() {
-                resetBankFilter();
-                closeAllFilterDropdowns();
-            });
-            dropdown.appendChild(resetButton);
-            
-            // 定位并显示下拉菜单
-            const rect = target.getBoundingClientRect();
-            dropdown.style.left = rect.left + 'px';
-            dropdown.style.top = rect.bottom + 'px';
-            document.body.appendChild(dropdown);
-        }
-
-        // 新增：关闭所有筛选下拉菜单
-        function closeAllFilterDropdowns() {
-            const dropdowns = document.querySelectorAll('.filter-dropdown');
-            dropdowns.forEach(dropdown => {
-                dropdown.remove();
-            });
-        }
-
-        // 新增：应用日期筛选
-        function applyDateFilter(tableType) {
-            const selectedYears = Array.from(document.querySelectorAll('.filter-year:checked')).map(cb => cb.value);
-            const selectedMonths = Array.from(document.querySelectorAll('.filter-month:checked')).map(cb => cb.value);
-            const selectedDays = Array.from(document.querySelectorAll('.filter-day:checked')).map(cb => cb.value);
-            
-            let filteredData;
-            if (tableType === 'goods') {
-                filteredData = goods;
-            } else if (tableType === 'expenses') {
-                filteredData = expenses;
-            } else if (tableType === 'payment') {
-                filteredData = paymentRecords;
-            }
-            
-            if (selectedYears.length > 0) {
-                filteredData = filteredData.filter(item => {
-                    const year = item.date.split('/')[0];
-                    return selectedYears.includes(year);
-                });
-            }
-            
-            if (selectedMonths.length > 0) {
-                filteredData = filteredData.filter(item => {
-                    const month = item.date.split('/')[1];
-                    return selectedMonths.includes(month);
-                });
-            }
-            
-            if (selectedDays.length > 0) {
-                filteredData = filteredData.filter(item => {
-                    const day = item.date.split('/')[2];
-                    return selectedDays.includes(day);
-                });
-            }
-            
-            if (tableType === 'goods') {
-                renderFilteredGoods(filteredData);
-            } else if (tableType === 'expenses') {
-                renderFilteredExpenses(filteredData);
-            } else if (tableType === 'payment') {
-                renderFilteredPayments(filteredData);
-            }
-        }
-
-        // 新增：应用颜色筛选
-        function applyColorFilter() {
-            const selectedColors = Array.from(document.querySelectorAll('.filter-color:checked')).map(cb => cb.value);
-            
-            if (selectedColors.length === 0) {
-                renderGoods();
-                return;
-            }
-            
-            const filteredGoods = goods.filter(item => selectedColors.includes(item.color || ''));
-            renderFilteredGoods(filteredGoods);
-        }
-
-        // 新增：应用产品名称筛选
-        function applyNameFilter() {
-            const selectedNames = Array.from(document.querySelectorAll('.filter-name:checked')).map(cb => cb.value);
-            
-            if (selectedNames.length === 0) {
-                renderGoods();
-                return;
-            }
-            
-            const filteredGoods = goods.filter(item => selectedNames.includes(item.name));
-            renderFilteredGoods(filteredGoods);
-        }
-
-        // 新增：应用收支类型筛选
-        function applyTypeFilter() {
-            const selectedTypes = Array.from(document.querySelectorAll('.filter-type:checked')).map(cb => cb.value);
-            
-            if (selectedTypes.length === 0) {
-                renderExpenses();
-                return;
-            }
-            
-            const filteredExpenses = expenses.filter(item => selectedTypes.includes(item.expenseType));
-            renderFilteredExpenses(filteredExpenses);
-        }
-
-        // 新增：应用收支形式筛选
-        function applyPaymentFilter() {
-            const selectedPayments = Array.from(document.querySelectorAll('.filter-payment:checked')).map(cb => cb.value);
-            
-            if (selectedPayments.length === 0) {
-                renderExpenses();
-                return;
-            }
-            
-            const filteredExpenses = expenses.filter(item => selectedPayments.includes(item.expensePayment));
-            renderFilteredExpenses(filteredExpenses);
-        }
-
-        // 新增：应用收款人筛选
-        function applyRecipientFilter() {
-            const selectedRecipients = Array.from(document.querySelectorAll('.filter-recipient:checked')).map(cb => cb.value);
-            
-            if (selectedRecipients.length === 0) {
-                renderPaymentRecords();
-                return;
-            }
-            
-            const filteredPayments = paymentRecords.filter(item => selectedRecipients.includes(item.recipient));
-            renderFilteredPayments(filteredPayments);
-        }
-
-        // 新增：应用账号筛选
-        function applyAccountFilter() {
-            const selectedAccounts = Array.from(document.querySelectorAll('.filter-account:checked')).map(cb => cb.value);
-            
-            if (selectedAccounts.length === 0) {
-                renderPaymentRecords();
-                return;
-            }
-            
-            const filteredPayments = paymentRecords.filter(item => selectedAccounts.includes(item.account));
-            renderFilteredPayments(filteredPayments);
-        }
-
-        // 新增：应用银行筛选
-        function applyBankFilter() {
-            const selectedBanks = Array.from(document.querySelectorAll('.filter-bank:checked')).map(cb => cb.value);
-            
-            if (selectedBanks.length === 0) {
-                renderPaymentRecords();
-                return;
-            }
-            
-            const filteredPayments = paymentRecords.filter(item => selectedBanks.includes(item.bank));
-            renderFilteredPayments(filteredPayments);
-        }
-
-        // 新增：重置日期筛选
-        function resetDateFilter(tableType) {
-            if (tableType === 'goods') {
-                renderGoods();
-            } else if (tableType === 'expenses') {
-                renderExpenses();
-            } else if (tableType === 'payment') {
-                renderPaymentRecords();
-            }
-        }
-
-        // 新增：重置颜色筛选
-        function resetColorFilter() {
-            renderGoods();
-        }
-
-        // 新增：重置产品名称筛选
-        function resetNameFilter() {
-            renderGoods();
-        }
-
-        // 新增：重置收支类型筛选
-        function resetTypeFilter() {
-            renderExpenses();
-        }
-
-        // 新增：重置收支形式筛选
-        function resetPaymentFilter() {
-            renderExpenses();
-        }
-
-        // 新增：重置收款人筛选
-        function resetRecipientFilter() {
-            renderPaymentRecords();
-        }
-
-        // 新增：重置账号筛选
-        function resetAccountFilter() {
-            renderPaymentRecords();
-        }
-
-        // 新增：重置银行筛选
-        function resetBankFilter() {
-            renderPaymentRecords();
-        }
-
-        // 新增：渲染筛选后的货物记录
-        function renderFilteredGoods(filteredGoods) {
-            goodsBody.innerHTML = '';
-            
-            if (filteredGoods.length === 0) {
-                goodsBody.innerHTML = '<tr><td colspan="12" style="text-align: center;">暂无货物记录</td></tr>';
-                updateGoodsTotal();
-                updateFilteredGoodsTotal(filteredGoods); // 更新筛选结果总计
-                return;
-            }
-            
-            // 按日期排序，最新的在前面
-            const sortedGoods = [...filteredGoods].sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            sortedGoods.forEach(item => {
-                const row = document.createElement('tr');
-                
-                row.innerHTML = `
-                    <td><input type="checkbox" class="select-goods" data-id="${item.id}"></td>
-                    <td>${item.date}</td>
-                    <td>${item.name}</td>
-                    <td>${item.color}</td>
-                    <td>${item.quantity}</td>
-                    <td>${item.unit}</td>
-                    <td>${item.price.toFixed(2)}</td>
-                    <td>${item.amountCny.toFixed(2)}</td>
-                    <td>${item.exchangeRate}</td>
-                    <td>${item.rubPrice}</td>
-                    <td>${item.amountRub}</td>
-                    <td>${item.notes}</td>
-                `;
-                
-                goodsBody.appendChild(row);
-            });
-            
-            updateGoodsTotal();
-            updateFilteredGoodsTotal(filteredGoods); // 更新筛选结果总计
-        }
-
-        // 新增：渲染筛选后的收支记录
-        function renderFilteredExpenses(filteredExpenses) {
-            expensesBody.innerHTML = '';
-            
-            if (filteredExpenses.length === 0) {
-                expensesBody.innerHTML = '<tr><td colspan="6" style="text-align: center;">暂无收支记录</td></tr>';
-                updateExpenseTotal();
-                updateFilteredExpenseTotal(filteredExpenses); // 更新筛选结果总计
-                return;
-            }
-            
-            // 按日期排序，最新的在前面
-            const sortedExpenses = [...filteredExpenses].sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            sortedExpenses.forEach(expense => {
-                const row = document.createElement('tr');
-                
-                row.innerHTML = `
-                    <td><input type="checkbox" class="select-expense" data-id="${expense.id}"></td>
-                    <td>${expense.date}</td>
-                    <td>${expense.expenseType === 'expense' ? '费用支出' : '销售货款'}</td>
-                    <td>${expense.amount.toFixed(2)}</td>
-                    <td>${getPaymentDisplayText(expense.expensePayment)}</td>
-                    <td>${expense.notes}</td>
-                `;
-                
-                expensesBody.appendChild(row);
-            });
-            
-            updateExpenseTotal();
-            updateFilteredExpenseTotal(filteredExpenses); // 更新筛选结果总计
-        }
-
-        // 新增：渲染筛选后的货款支付记录
-        function renderFilteredPayments(filteredPayments) {
-            paymentBody.innerHTML = '';
-            
-            if (filteredPayments.length === 0) {
-                paymentBody.innerHTML = '<tr><td colspan="7" style="text-align: center;">暂无货款支付记录</td></tr>';
-                return;
-            }
-            
-            // 按日期排序，最新的在前面
-            const sortedPayments = [...filteredPayments].sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            sortedPayments.forEach(payment => {
-                const row = document.createElement('tr');
-                
-                row.innerHTML = `
-                    <td><input type="checkbox" class="select-payment" data-id="${payment.id}"></td>
-                    <td>${payment.date}</td>
-                    <td>${payment.recipient}</td>
-                    <td>${payment.bank}</td>
-                    <td>${payment.account}</td>
-                    <td>${payment.amount.toFixed(2)}</td>
-                    <td>${payment.notes}</td>
-                `;
-                
-                paymentBody.appendChild(row);
-            });
+        // 千位分隔符格式化函数
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "'");
         }
 
         // 初始化应用
