@@ -80,13 +80,12 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 10px; /* 减小字体大小 */
+            font-size: 12px;
             color: var(--text-color);
             cursor: pointer;
             padding: 5px 10px;
             border-radius: 4px;
             transition: background-color 0.2s;
-            white-space: nowrap; /* 防止文字换行 */
         }
         
         .nav-item.active {
@@ -145,6 +144,11 @@
             color: var(--text-color);
         }
         
+        .required::after {
+            content: " *";
+            color: red;
+        }
+        
         input, select {
             width: 100%;
             padding: 8px 10px;
@@ -193,6 +197,22 @@
             background-color: #b02a30;
         }
         
+        .btn-success {
+            background-color: #38a169;
+        }
+        
+        .btn-success:hover {
+            background-color: #2f855a;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        
         /* 表格样式 */
         .table-container {
             overflow-x: auto;
@@ -209,7 +229,6 @@
             border: 1px solid var(--border-color);
             padding: 6px 8px;
             text-align: left;
-            white-space: nowrap; /* 防止文字换行 */
         }
         
         th {
@@ -298,52 +317,285 @@
             display: none;
         }
         
-        /* 表格操作按钮 */
-        .table-actions {
+        /* 付款状态管理系统样式 */
+        .payment-actions {
             display: flex;
-            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .filter-status {
             margin-bottom: 10px;
-        }
-        
-        /* 勾选框样式 */
-        .checkbox-cell {
-            width: 30px;
-            text-align: center;
-        }
-        
-        /* 表格底部总计行 */
-        .table-total {
-            background-color: var(--secondary-color);
-            font-weight: bold;
-        }
-        
-        /* 表格底部筛选结果行 */
-        .table-filter-result {
-            background-color: #f0f8ff;
-            font-style: italic;
-        }
-        
-        /* 可编辑单元格 */
-        .editable-cell {
-            cursor: pointer;
-        }
-        
-        .editable-cell:hover {
-            background-color: var(--hover-color);
-        }
-        
-        /* 结算状态选择器 */
-        .settlement-select {
-            width: 80px;
-            padding: 4px;
+            padding: 8px;
+            background-color: #ebf8ff;
+            border-radius: 4px;
+            border: 1px solid #bee3f8;
             font-size: 12px;
         }
         
-        /* 描述和备注列允许换行 */
+        .filter-tag {
+            display: inline-block;
+            background-color: #3182ce;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin-right: 5px;
+            font-size: 11px;
+        }
+        
+        .clear-filter {
+            color: #e53e3e;
+            cursor: pointer;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        .payment-table-container {
+            overflow-x: auto;
+        }
+        
+        .payment-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        
+        .payment-table th,
+        .payment-table td {
+            border: 1px solid #e2e8f0;
+            padding: 8px;
+            text-align: left;
+            white-space: nowrap; /* 防止文字换行 */
+        }
+        
+        .payment-table th {
+            background-color: #f7fafc;
+            font-weight: 600;
+            position: relative;
+        }
+        
+        .payment-table th .filter-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            color: #000; /* 黑色筛选符号 */
+        }
+        
+        .payment-table tr:nth-child(even) {
+            background-color: #f7fafc;
+        }
+        
+        .payment-table tr:hover {
+            background-color: #ebf8ff;
+        }
+        
+        .payment-table .select-all {
+            width: 20px;
+            padding: 4px;
+        }
+        
+        .payment-table .select-row {
+            width: 20px;
+            text-align: center;
+            padding: 4px;
+        }
+        
+        .payment-table .date-cell {
+            min-width: 80px;
+        }
+        
+        .payment-table .passenger-cell {
+            min-width: 100px;
+        }
+        
+        .payment-table .amount-cell {
+            min-width: 60px;
+        }
+        
+        .payment-table .difference-cell {
+            min-width: 60px;
+        }
+        
+        .payment-table .settlement-cell {
+            min-width: 80px;
+        }
+        
+        .payment-table .notes-cell {
+            min-width: 100px;
+            white-space: normal; /* 备注列允许换行 */
+        }
+        
+        .filter-dropdown {
+            position: absolute;
+            background-color: white;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1000;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 5px;
+            min-width: 150px;
+        }
+        
+        .filter-item {
+            padding: 5px 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        
+        .filter-item:hover {
+            background-color: #ebf8ff;
+        }
+        
+        .filter-checkbox {
+            margin-right: 8px;
+        }
+        
+        /* 付款表格总计行样式 */
+        .payment-total-row {
+            background-color: #e6fffa !important;
+            font-weight: bold;
+        }
+
+        .payment-total-row td {
+            border-top: 2px solid #319795 !important;
+        }
+        
+        /* 设置所有显示的文字方向为横向，除了表格内的描述列和备注列以外，其他所有显示的文字不自动换行 */
+        * {
+            white-space: nowrap;
+        }
+        
         .description-cell, .notes-cell {
             white-space: normal !important;
-            word-wrap: break-word;
-            max-width: 150px;
+        }
+        
+        /* 消息提示 */
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .message.success {
+            background-color: #c6f6d5;
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+        }
+        
+        .message.error {
+            background-color: #fed7d7;
+            color: #742a2a;
+            border: 1px solid #feb2b2;
+        }
+        
+        /* 确认对话框样式 */
+        .confirm-dialog {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        
+        .confirm-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 300px;
+            width: 80%;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .confirm-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .confirm-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .confirm-btn.yes {
+            background-color: #0078d7;
+            color: white;
+        }
+        
+        .confirm-btn.no {
+            background-color: #f3f2f1;
+            color: #323130;
+        }
+        
+        /* 结算状态下拉选择样式 */
+        .settlement-select {
+            width: 100%;
+            padding: 4px;
+            border: 1px solid #d2d0ce;
+            border-radius: 2px;
+            background-color: white;
+            font-size: 12px;
+        }
+        
+        /* 可编辑备注样式 */
+        .editable-notes {
+            width: 100%;
+            padding: 4px;
+            border: 1px solid #d2d0ce;
+            border-radius: 2px;
+            background-color: white;
+            font-size: 12px;
+            resize: vertical;
+            min-height: 60px;
+        }
+        
+        /* 多选筛选样式 */
+        .filter-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            padding-top: 5px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .filter-apply-btn {
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+        
+        .filter-clear-btn {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 11px;
         }
     </style>
 </head>
@@ -389,36 +641,6 @@
                 </div>
             </div>
             
-            <!-- 账户余额页面 -->
-            <div id="balance-page" class="page">
-                <div class="card">
-                    <div class="card-header">账户余额设置</div>
-                    <div class="card-body">
-                        <div class="form-row">
-                            <div class="form-col">
-                                <label>OZON账户余额(₽)</label>
-                                <input type="text" id="ozon-input" placeholder="输入金额">
-                            </div>
-                            <div class="form-col">
-                                <label>WB账户余额(₽)</label>
-                                <input type="text" id="wb-input" placeholder="输入金额">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-col">
-                                <label>个体账户余额(₽)</label>
-                                <input type="text" id="individual-input" placeholder="输入金额">
-                            </div>
-                            <div class="form-col">
-                                <label>现金余额(₽)</label>
-                                <div id="cash-display" class="display-box">0</div>
-                            </div>
-                        </div>
-                        <button class="btn" id="save-balance">保存余额</button>
-                    </div>
-                </div>
-            </div>
-            
             <!-- 商品清单页面 -->
             <div id="products-page" class="page">
                 <div class="card">
@@ -426,13 +648,13 @@
                     <div class="card-body">
                         <div class="form-row">
                             <div class="form-col">
-                                <label>到货日期</label>
+                                <label class="required">到货日期</label>
                                 <input type="text" id="arrival-date" placeholder="YYYYMMDD" maxlength="8">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-col">
-                                <label>商品名称</label>
+                                <label class="required">商品名称</label>
                                 <div class="dropdown">
                                     <input type="text" id="product-name" placeholder="输入商品名称">
                                     <div class="dropdown-content" id="product-name-dropdown"></div>
@@ -447,23 +669,23 @@
                         </div>
                         <div class="form-row">
                             <div class="form-col">
-                                <label>数量</label>
+                                <label class="required">数量</label>
                                 <input type="text" id="quantity" placeholder="输入数量">
                             </div>
                             <div class="form-col">
                                 <label>单位</label>
                                 <select id="unit-select">
-                                    <option value="">选择单位</option>
+                                    <option value="件" selected>件</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-col">
-                                <label>单价(¥)</label>
+                                <label class="required">单价(¥)</label>
                                 <input type="text" id="unit-price" placeholder="输入单价">
                             </div>
                             <div class="form-col">
-                                <label>汇率</label>
+                                <label class="required">汇率</label>
                                 <input type="text" id="exchange-rate" placeholder="输入汇率">
                             </div>
                         </div>
@@ -489,41 +711,87 @@
                                 <input type="text" id="product-description" placeholder="输入描述">
                             </div>
                         </div>
-                        <button class="btn" id="add-product">添加商品</button>
                         
-                        <div class="table-actions">
-                            <div>
-                                <button class="btn" id="select-all-products">全选</button>
-                                <button class="btn" id="deselect-all-products">取消全选</button>
-                            </div>
-                            <div>
-                                <button class="btn" id="clear-filter-products">取消筛选</button>
-                            </div>
+                        <!-- 付款状态管理系统表格 -->
+                        <div class="payment-actions">
+                            <button id="addPaymentBtnProducts" class="btn btn-success">添加记录</button>
+                            <button id="clearFilterBtnProducts" class="btn btn-secondary">取消所有筛选</button>
+                            <button id="deletePaymentBtnProducts" class="btn btn-danger">删除选中</button>
                         </div>
                         
-                        <div class="table-container">
-                            <table id="products-table">
+                        <!-- 筛选状态显示 -->
+                        <div class="filter-status" id="filterStatusProducts" style="display: none;">
+                            当前筛选条件: <span id="filterTagsProducts"></span>
+                            <span class="clear-filter" id="clearFilterProducts">清除筛选</span>
+                        </div>
+                        
+                        <div class="payment-table-container">
+                            <table class="payment-table">
                                 <thead>
                                     <tr>
-                                        <th class="checkbox-cell"><input type="checkbox" id="products-check-all"></th>
-                                        <th>日期 <span class="filter-icon">🔍</span></th>
-                                        <th>商品名称 <span class="filter-icon">🔍</span></th>
-                                        <th>颜色 <span class="filter-icon">🔍</span></th>
-                                        <th>数量 <span class="filter-icon">🔍</span></th>
-                                        <th>单位 <span class="filter-icon">🔍</span></th>
-                                        <th>单价(¥) <span class="filter-icon">🔍</span></th>
-                                        <th>金额(¥) <span class="filter-icon">🔍</span></th>
-                                        <th>汇率 <span class="filter-icon">🔍</span></th>
-                                        <th>单价(₽) <span class="filter-icon">🔍</span></th>
-                                        <th>金额(₽) <span class="filter-icon">🔍</span></th>
-                                        <th>描述 <span class="filter-icon">🔍</span></th>
+                                        <th class="select-all">
+                                            <input type="checkbox" id="selectAllPaymentsProducts">
+                                        </th>
+                                        <th class="date-cell">
+                                            日期
+                                            <button class="filter-btn" data-column="date">▼</button>
+                                        </th>
+                                        <th class="passenger-cell">
+                                            商品名称
+                                            <button class="filter-btn" data-column="productName">▼</button>
+                                        </th>
+                                        <th class="amount-cell">
+                                            颜色
+                                            <button class="filter-btn" data-column="color">▼</button>
+                                        </th>
+                                        <th class="difference-cell">
+                                            数量
+                                            <button class="filter-btn" data-column="quantity">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            单位
+                                            <button class="filter-btn" data-column="unit">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            单价(¥)
+                                            <button class="filter-btn" data-column="unitPrice">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            汇率
+                                            <button class="filter-btn" data-column="exchangeRate">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            折合卢布
+                                            <button class="filter-btn" data-column="rublePrice">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            金额(¥)
+                                            <button class="filter-btn" data-column="cnyAmount">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            金额(₽)
+                                            <button class="filter-btn" data-column="rubleAmount">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            描述
+                                            <button class="filter-btn" data-column="description">▼</button>
+                                        </th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <!-- 商品记录将通过JavaScript动态添加 -->
+                                <tbody id="paymentTableBodyProducts">
+                                    <!-- 付款记录将通过JavaScript动态添加 -->
                                 </tbody>
                                 <tfoot>
-                                    <!-- 总计行和筛选结果行将通过JavaScript动态添加 -->
+                                    <tr class="payment-total-row" id="totalRowProducts">
+                                        <td colspan="10" style="text-align: right;">总计:</td>
+                                        <td id="totalAmountProducts">0</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="payment-total-row" id="filteredTotalRowProducts" style="display: none;">
+                                        <td colspan="10" style="text-align: right;">筛选结果总计:</td>
+                                        <td id="filteredTotalAmountProducts">0</td>
+                                        <td></td>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -538,7 +806,7 @@
                     <div class="card-body">
                         <div class="form-row">
                             <div class="form-col">
-                                <label>日期</label>
+                                <label class="required">日期</label>
                                 <input type="text" id="shipping-date" placeholder="YYYYMMDD" maxlength="8">
                             </div>
                             <div class="form-col">
@@ -548,11 +816,14 @@
                         </div>
                         <div class="form-row">
                             <div class="form-col">
-                                <label>商品名称</label>
-                                <input type="text" id="shipping-product" placeholder="输入商品名称">
+                                <label class="required">商品名称</label>
+                                <div class="dropdown">
+                                    <input type="text" id="shipping-product" placeholder="输入商品名称">
+                                    <div class="dropdown-content" id="shipping-product-dropdown"></div>
+                                </div>
                             </div>
                             <div class="form-col">
-                                <label>重量(Kg)</label>
+                                <label class="required">重量(Kg)</label>
                                 <input type="text" id="shipping-weight" placeholder="输入重量">
                             </div>
                         </div>
@@ -568,11 +839,11 @@
                         </div>
                         <div class="form-row">
                             <div class="form-col">
-                                <label>运费</label>
+                                <label class="required">运费</label>
                                 <input type="text" id="shipping-fee" placeholder="输入运费">
                             </div>
                             <div class="form-col">
-                                <label>币种</label>
+                                <label class="required">币种</label>
                                 <select id="shipping-currency" class="currency-select">
                                     <option value="">选择币种</option>
                                 </select>
@@ -580,7 +851,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-col">
-                                <label>汇率</label>
+                                <label class="required">汇率</label>
                                 <input type="text" id="shipping-exchange-rate" placeholder="输入汇率">
                             </div>
                             <div class="form-col">
@@ -614,45 +885,107 @@
                                 <input type="text" id="shipping-notes" placeholder="输入备注">
                             </div>
                         </div>
-                        <button class="btn" id="add-shipping">添加运费</button>
                         
-                        <div class="table-actions">
-                            <div>
-                                <button class="btn" id="select-all-shipping">全选</button>
-                                <button class="btn" id="deselect-all-shipping">取消全选</button>
-                            </div>
-                            <div>
-                                <button class="btn" id="clear-filter-shipping">取消筛选</button>
-                            </div>
+                        <!-- 付款状态管理系统表格 -->
+                        <div class="payment-actions">
+                            <button id="addPaymentBtnShipping" class="btn btn-success">添加记录</button>
+                            <button id="clearFilterBtnShipping" class="btn btn-secondary">取消所有筛选</button>
+                            <button id="deletePaymentBtnShipping" class="btn btn-danger">删除选中</button>
                         </div>
                         
-                        <div class="table-container">
-                            <table id="shipping-table">
+                        <!-- 筛选状态显示 -->
+                        <div class="filter-status" id="filterStatusShipping" style="display: none;">
+                            当前筛选条件: <span id="filterTagsShipping"></span>
+                            <span class="clear-filter" id="clearFilterShipping">清除筛选</span>
+                        </div>
+                        
+                        <div class="payment-table-container">
+                            <table class="payment-table">
                                 <thead>
                                     <tr>
-                                        <th class="checkbox-cell"><input type="checkbox" id="shipping-check-all"></th>
-                                        <th>日期 <span class="filter-icon">🔍</span></th>
-                                        <th>商品名称 <span class="filter-icon">🔍</span></th>
-                                        <th>货号 <span class="filter-icon">🔍</span></th>
-                                        <th>件数 <span class="filter-icon">🔍</span></th>
-                                        <th>重量 <span class="filter-icon">🔍</span></th>
-                                        <th>体积 <span class="filter-icon">🔍</span></th>
-                                        <th>运费 <span class="filter-icon">🔍</span></th>
-                                        <th>币种 <span class="filter-icon">🔍</span></th>
-                                        <th>折合卢布(₽) <span class="filter-icon">🔍</span></th>
-                                        <th>托盘费(₽) <span class="filter-icon">🔍</span></th>
-                                        <th>立方费(₽) <span class="filter-icon">🔍</span></th>
-                                        <th>送货车费(₽) <span class="filter-icon">🔍</span></th>
-                                        <th>运费总计(₽) <span class="filter-icon">🔍</span></th>
-                                        <th>结算 <span class="filter-icon">🔍</span></th>
-                                        <th>备注 <span class="filter-icon">🔍</span></th>
+                                        <th class="select-all">
+                                            <input type="checkbox" id="selectAllPaymentsShipping">
+                                        </th>
+                                        <th class="date-cell">
+                                            日期
+                                            <button class="filter-btn" data-column="date">▼</button>
+                                        </th>
+                                        <th class="passenger-cell">
+                                            商品名称
+                                            <button class="filter-btn" data-column="product">▼</button>
+                                        </th>
+                                        <th class="amount-cell">
+                                            货号
+                                            <button class="filter-btn" data-column="code">▼</button>
+                                        </th>
+                                        <th class="difference-cell">
+                                            件数
+                                            <button class="filter-btn" data-column="quantity">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            重量(Kg)
+                                            <button class="filter-btn" data-column="weight">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            体积m³
+                                            <button class="filter-btn" data-column="volume">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            运费
+                                            <button class="filter-btn" data-column="fee">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            币种
+                                            <button class="filter-btn" data-column="currency">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            汇率
+                                            <button class="filter-btn" data-column="exchangeRate">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            折合卢布
+                                            <button class="filter-btn" data-column="rubleEquivalent">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            托盘费(₽)
+                                            <button class="filter-btn" data-column="palletFee">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            立方费(₽)
+                                            <button class="filter-btn" data-column="cubeFee">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            送货车费(₽)
+                                            <button class="filter-btn" data-column="deliveryFee">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            运费总计(₽)
+                                            <button class="filter-btn" data-column="total">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            结算
+                                            <button class="filter-btn" data-column="settlement">▼</button>
+                                        </th>
+                                        <th class="notes-cell">
+                                            备注
+                                            <button class="filter-btn" data-column="notes">▼</button>
+                                        </th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <!-- 运费记录将通过JavaScript动态添加 -->
+                                <tbody id="paymentTableBodyShipping">
+                                    <!-- 付款记录将通过JavaScript动态添加 -->
                                 </tbody>
                                 <tfoot>
-                                    <!-- 总计行和筛选结果行将通过JavaScript动态添加 -->
+                                    <tr class="payment-total-row" id="totalRowShipping">
+                                        <td colspan="15" style="text-align: right;">总计:</td>
+                                        <td id="totalAmountShipping">0</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="payment-total-row" id="filteredTotalRowShipping" style="display: none;">
+                                        <td colspan="15" style="text-align: right;">筛选结果总计:</td>
+                                        <td id="filteredTotalAmountShipping">0</td>
+                                        <td></td>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -667,19 +1000,19 @@
                     <div class="card-body">
                         <div class="form-row">
                             <div class="form-col">
-                                <label>日期</label>
+                                <label class="required">日期</label>
                                 <input type="text" id="record-date" placeholder="YYYYMMDD" maxlength="8">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-col">
-                                <label>收支类型</label>
+                                <label class="required">收支类型</label>
                                 <select id="record-type">
                                     <option value="">选择收支类型</option>
                                 </select>
                             </div>
                             <div class="form-col">
-                                <label>收支形式</label>
+                                <label class="required">收支形式</label>
                                 <select id="record-form">
                                     <option value="">选择收支形式</option>
                                 </select>
@@ -687,46 +1020,80 @@
                         </div>
                         <div class="form-row">
                             <div class="form-col">
-                                <label>金额(₽)</label>
+                                <label class="required">金额(₽)</label>
                                 <input type="text" id="record-amount" placeholder="输入金额">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-col">
-                                <label>描述</label>
+                                <label class="required">描述</label>
                                 <input type="text" id="record-description" placeholder="输入描述">
                             </div>
                         </div>
-                        <button class="btn" id="add-record">添加记录</button>
                         
-                        <div class="table-actions">
-                            <div>
-                                <button class="btn" id="select-all-records">全选</button>
-                                <button class="btn" id="deselect-all-records">取消全选</button>
-                            </div>
-                            <div>
-                                <button class="btn" id="clear-filter-records">取消筛选</button>
-                            </div>
+                        <!-- 消息提示 -->
+                        <div id="message" class="message" style="display: none;"></div>
+                        
+                        <!-- 付款状态管理系统表格 -->
+                        <div class="payment-actions">
+                            <button id="addPaymentBtn" class="btn btn-success">添加记录</button>
+                            <button id="clearFilterBtn" class="btn btn-secondary">取消所有筛选</button>
+                            <button id="deletePaymentBtn" class="btn btn-danger">删除选中</button>
                         </div>
                         
-                        <div class="table-container">
-                            <table id="records-table">
+                        <!-- 筛选状态显示 -->
+                        <div class="filter-status" id="filterStatus" style="display: none;">
+                            当前筛选条件: <span id="filterTags"></span>
+                            <span class="clear-filter" id="clearFilter">清除筛选</span>
+                        </div>
+                        
+                        <div class="payment-table-container">
+                            <table class="payment-table">
                                 <thead>
                                     <tr>
-                                        <th class="checkbox-cell"><input type="checkbox" id="records-check-all"></th>
-                                        <th>日期 <span class="filter-icon">🔍</span></th>
-                                        <th>收支类型 <span class="filter-icon">🔍</span></th>
-                                        <th>收支形式 <span class="filter-icon">🔍</span></th>
-                                        <th>金额(₽) <span class="filter-icon">🔍</span></th>
-                                        <th>结算 <span class="filter-icon">🔍</span></th>
-                                        <th>描述 <span class="filter-icon">🔍</span></th>
+                                        <th class="select-all">
+                                            <input type="checkbox" id="selectAllPayments">
+                                        </th>
+                                        <th class="date-cell">
+                                            日期
+                                            <button class="filter-btn" data-column="date">▼</button>
+                                        </th>
+                                        <th class="passenger-cell">
+                                            收支类型
+                                            <button class="filter-btn" data-column="type">▼</button>
+                                        </th>
+                                        <th class="amount-cell">
+                                            金额(₽)
+                                            <button class="filter-btn" data-column="amount">▼</button>
+                                        </th>
+                                        <th class="difference-cell">
+                                            收支形式
+                                            <button class="filter-btn" data-column="form">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            结算
+                                            <button class="filter-btn" data-column="settlement">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            描述
+                                            <button class="filter-btn" data-column="description">▼</button>
+                                        </th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <!-- 收支记录将通过JavaScript动态添加 -->
+                                <tbody id="paymentTableBody">
+                                    <!-- 付款记录将通过JavaScript动态添加 -->
                                 </tbody>
                                 <tfoot>
-                                    <!-- 总计行和筛选结果行将通过JavaScript动态添加 -->
+                                    <tr class="payment-total-row" id="totalRow">
+                                        <td colspan="3" style="text-align: right;">总计:</td>
+                                        <td id="totalAmount">0</td>
+                                        <td colspan="3"></td>
+                                    </tr>
+                                    <tr class="payment-total-row" id="filteredTotalRow" style="display: none;">
+                                        <td colspan="3" style="text-align: right;">筛选结果总计:</td>
+                                        <td id="filteredTotalAmount">0</td>
+                                        <td colspan="3"></td>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -741,13 +1108,13 @@
                     <div class="card-body">
                         <div class="form-row">
                             <div class="form-col">
-                                <label>日期</label>
+                                <label class="required">日期</label>
                                 <input type="text" id="payment-date" placeholder="YYYYMMDD" maxlength="8">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-col">
-                                <label>收款人</label>
+                                <label class="required">收款人</label>
                                 <div class="dropdown">
                                     <input type="text" id="payment-recipient" placeholder="输入收款人">
                                     <div class="dropdown-content" id="recipient-dropdown"></div>
@@ -756,14 +1123,11 @@
                         </div>
                         <div class="form-row">
                             <div class="form-col">
-                                <label>账号</label>
-                                <div class="dropdown">
-                                    <input type="text" id="payment-account" placeholder="输入账号" pattern="[0-9]*">
-                                    <div class="dropdown-content" id="account-dropdown"></div>
-                                </div>
+                                <label class="required">账号</label>
+                                <input type="text" id="payment-account" placeholder="输入账号" pattern="[0-9]*">
                             </div>
                             <div class="form-col">
-                                <label>支付方式</label>
+                                <label class="required">支付方式</label>
                                 <select id="payment-method">
                                     <option value="">选择支付方式</option>
                                 </select>
@@ -771,7 +1135,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-col">
-                                <label>金额(¥)</label>
+                                <label class="required">金额(¥)</label>
                                 <input type="text" id="payment-amount" placeholder="输入金额">
                             </div>
                         </div>
@@ -781,37 +1145,71 @@
                                 <input type="text" id="payment-notes" placeholder="输入备注">
                             </div>
                         </div>
-                        <button class="btn" id="add-payment">添加记录</button>
                         
-                        <div class="table-actions">
-                            <div>
-                                <button class="btn" id="select-all-payments">全选</button>
-                                <button class="btn" id="deselect-all-payments">取消全选</button>
-                            </div>
-                            <div>
-                                <button class="btn" id="clear-filter-payments">取消筛选</button>
-                            </div>
+                        <!-- 付款状态管理系统表格 -->
+                        <div class="payment-actions">
+                            <button id="addPaymentBtnPayment" class="btn btn-success">添加记录</button>
+                            <button id="clearFilterBtnPayment" class="btn btn-secondary">取消所有筛选</button>
+                            <button id="deletePaymentBtnPayment" class="btn btn-danger">删除选中</button>
                         </div>
                         
-                        <div class="table-container">
-                            <table id="payment-table">
+                        <!-- 筛选状态显示 -->
+                        <div class="filter-status" id="filterStatusPayment" style="display: none;">
+                            当前筛选条件: <span id="filterTagsPayment"></span>
+                            <span class="clear-filter" id="clearFilterPayment">清除筛选</span>
+                        </div>
+                        
+                        <div class="payment-table-container">
+                            <table class="payment-table">
                                 <thead>
                                     <tr>
-                                        <th class="checkbox-cell"><input type="checkbox" id="payments-check-all"></th>
-                                        <th>日期 <span class="filter-icon">🔍</span></th>
-                                        <th>收款人 <span class="filter-icon">🔍</span></th>
-                                        <th>收款方式 <span class="filter-icon">🔍</span></th>
-                                        <th>账号 <span class="filter-icon">🔍</span></th>
-                                        <th>金额(¥) <span class="filter-icon">🔍</span></th>
-                                        <th>结算 <span class="filter-icon">🔍</span></th>
-                                        <th>备注 <span class="filter-icon">🔍</span></th>
+                                        <th class="select-all">
+                                            <input type="checkbox" id="selectAllPaymentsPayment">
+                                        </th>
+                                        <th class="date-cell">
+                                            日期
+                                            <button class="filter-btn" data-column="date">▼</button>
+                                        </th>
+                                        <th class="passenger-cell">
+                                            收款人
+                                            <button class="filter-btn" data-column="recipient">▼</button>
+                                        </th>
+                                        <th class="amount-cell">
+                                            账号
+                                            <button class="filter-btn" data-column="account">▼</button>
+                                        </th>
+                                        <th class="difference-cell">
+                                            支付方式
+                                            <button class="filter-btn" data-column="method">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            金额(¥)
+                                            <button class="filter-btn" data-column="amount">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            结算
+                                            <button class="filter-btn" data-column="settlement">▼</button>
+                                        </th>
+                                        <th class="settlement-cell">
+                                            备注
+                                            <button class="filter-btn" data-column="notes">▼</button>
+                                        </th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <!-- 货款支付记录将通过JavaScript动态添加 -->
+                                <tbody id="paymentTableBodyPayment">
+                                    <!-- 付款记录将通过JavaScript动态添加 -->
                                 </tbody>
                                 <tfoot>
-                                    <!-- 总计行和筛选结果行将通过JavaScript动态添加 -->
+                                    <tr class="payment-total-row" id="totalRowPayment">
+                                        <td colspan="5" style="text-align: right;">总计:</td>
+                                        <td id="totalAmountPayment">0</td>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                    <tr class="payment-total-row" id="filteredTotalRowPayment" style="display: none;">
+                                        <td colspan="5" style="text-align: right;">筛选结果总计:</td>
+                                        <td id="filteredTotalAmountPayment">0</td>
+                                        <td colspan="2"></td>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -824,6 +1222,32 @@
                 <div class="card">
                     <div class="card-header">系统设置</div>
                     <div class="card-body">
+                        <!-- 账户余额设置 -->
+                        <div class="settings-section">
+                            <h3>账户余额设置</h3>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label>OZON账户余额(₽)</label>
+                                    <input type="text" id="ozon-input" placeholder="输入金额">
+                                </div>
+                                <div class="form-col">
+                                    <label>WB账户余额(₽)</label>
+                                    <input type="text" id="wb-input" placeholder="输入金额">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label>个体账户余额(₽)</label>
+                                    <input type="text" id="individual-input" placeholder="输入金额">
+                                </div>
+                                <div class="form-col">
+                                    <label>现金余额(₽)</label>
+                                    <div id="cash-display" class="display-box">0</div>
+                                </div>
+                            </div>
+                            <button class="btn" id="update-balance">更新金额</button>
+                        </div>
+                        
                         <div class="settings-section">
                             <h3>商品清单</h3>
                             <div class="form-row">
@@ -875,8 +1299,14 @@
                             <h3>货款支付</h3>
                             <div class="form-row">
                                 <div class="form-col">
-                                    <label>收款人-账号-支付方式对应关系 (每行一个，格式：收款人,账号,支付方式)</label>
+                                    <label>收款人-账号对应关系 (每行一个，格式：收款人,账号)</label>
                                     <textarea id="payment-relations"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label>支付方式列表(每行一个)</label>
+                                    <textarea id="payment-methods-list"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -898,10 +1328,6 @@
             <div class="nav-item active" data-page="overview-page">
                 <i>📊</i>
                 <span>概览</span>
-            </div>
-            <div class="nav-item" data-page="balance-page">
-                <i>💰</i>
-                <span>账户余额</span>
             </div>
             <div class="nav-item" data-page="products-page">
                 <i>📦</i>
@@ -926,6 +1352,17 @@
         </div>
     </div>
 
+    <!-- 确认对话框 -->
+    <div id="confirmDialog" class="confirm-dialog" style="display: none;">
+        <div class="confirm-content">
+            <div id="confirmMessage"></div>
+            <div class="confirm-buttons">
+                <button id="confirmYes" class="confirm-btn yes">是</button>
+                <button id="confirmNo" class="confirm-btn no">否</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // 页面切换功能
         document.querySelectorAll('.nav-item').forEach(item => {
@@ -946,16 +1383,14 @@
                 // 更新页面数据
                 if (pageId === 'overview-page') {
                     updateOverview();
-                } else if (pageId === 'balance-page') {
-                    updateBalancePage();
-                } else if (pageId === 'products-page') {
-                    updateProductTable();
-                } else if (pageId === 'shipping-page') {
-                    updateShippingTable();
                 } else if (pageId === 'records-page') {
-                    updateRecordsTable();
+                    renderPaymentTable();
+                } else if (pageId === 'shipping-page') {
+                    renderPaymentTableShipping();
+                } else if (pageId === 'products-page') {
+                    renderPaymentTableProducts();
                 } else if (pageId === 'payment-page') {
-                    updatePaymentTable();
+                    renderPaymentTablePayment();
                 }
             });
         });
@@ -983,6 +1418,47 @@
             return dateStr;
         }
         
+        // 显示消息
+        function showMessage(message, type) {
+            const messageEl = document.getElementById('message');
+            messageEl.textContent = message;
+            messageEl.className = `message ${type}`;
+            messageEl.style.display = 'block';
+            
+            // 3秒后自动隐藏
+            setTimeout(() => {
+                messageEl.style.display = 'none';
+            }, 3000);
+        }
+        
+        // 自定义确认对话框
+        function showConfirm(message, callback) {
+            const dialog = document.getElementById('confirmDialog');
+            const messageEl = document.getElementById('confirmMessage');
+            const yesBtn = document.getElementById('confirmYes');
+            const noBtn = document.getElementById('confirmNo');
+            
+            messageEl.textContent = message;
+            dialog.style.display = 'flex';
+            
+            // 移除之前的事件监听器
+            const newYesBtn = yesBtn.cloneNode(true);
+            const newNoBtn = noBtn.cloneNode(true);
+            yesBtn.parentNode.replaceChild(newYesBtn, yesBtn);
+            noBtn.parentNode.replaceChild(newNoBtn, noBtn);
+            
+            // 添加新的事件监听器
+            newYesBtn.addEventListener('click', function() {
+                dialog.style.display = 'none';
+                if (callback) callback(true);
+            });
+            
+            newNoBtn.addEventListener('click', function() {
+                dialog.style.display = 'none';
+                if (callback) callback(false);
+            });
+        }
+        
         // 初始化数据
         function initData() {
             // 从localStorage加载数据或设置默认值
@@ -1003,7 +1479,8 @@
                     incomeExpenseTypes: ['费用支出', '销售货款'],
                     incomeExpenseForms: ['现金支付', '公账支付', '现金收入', '公账收入'],
                     currencies: ['人民币', '美元', '卢布'],
-                    paymentRelations: ['张三,1234567890,银行转账', '李四,0987654321,支付宝']
+                    paymentRelations: ['张三,1234567890', '李四,0987654321'],
+                    paymentMethods: ['银行转账', '支付宝', '微信支付']
                 }));
             }
             
@@ -1032,8 +1509,11 @@
             // 更新下拉选项
             updateDropdownOptions();
             
-            // 初始化现金余额
-            updateCashBalance();
+            // 初始化付款状态页面
+            initPaymentStatusPage();
+            initPaymentStatusPageShipping();
+            initPaymentStatusPageProducts();
+            initPaymentStatusPagePayment();
         }
         
         // 更新概览页面
@@ -1049,47 +1529,6 @@
             document.getElementById('total-balance').textContent = formatNumber(total);
         }
         
-        // 更新账户余额页面
-        function updateBalancePage() {
-            const balances = JSON.parse(localStorage.getItem('accountBalances'));
-            
-            document.getElementById('ozon-input').value = balances.ozon;
-            document.getElementById('wb-input').value = balances.wb;
-            document.getElementById('individual-input').value = balances.individual;
-            
-            // 更新现金余额显示
-            updateCashBalance();
-        }
-        
-        // 更新现金余额
-        function updateCashBalance() {
-            const records = JSON.parse(localStorage.getItem('records'));
-            
-            // 计算未结算的现金收入总和
-            const cashIncome = records
-                .filter(record => record.form === '现金收入' && record.settlement === '未结算')
-                .reduce((sum, record) => sum + record.amount, 0);
-            
-            // 计算未结算的现金支付总和
-            const cashExpense = records
-                .filter(record => record.form === '现金支付' && record.settlement === '未结算')
-                .reduce((sum, record) => sum + record.amount, 0);
-            
-            // 计算现金余额
-            const cashBalance = cashIncome - cashExpense;
-            
-            // 更新显示
-            document.getElementById('cash-display').textContent = formatNumber(cashBalance);
-            
-            // 更新账户余额数据
-            const balances = JSON.parse(localStorage.getItem('accountBalances'));
-            balances.cash = cashBalance;
-            localStorage.setItem('accountBalances', JSON.stringify(balances));
-            
-            // 更新概览页面
-            updateOverview();
-        }
-        
         // 更新设置页面
         function updateSettings() {
             const settings = JSON.parse(localStorage.getItem('settings'));
@@ -1101,6 +1540,7 @@
             document.getElementById('income-expense-forms').value = settings.incomeExpenseForms.join('\n');
             document.getElementById('currency-list').value = settings.currencies.join('\n');
             document.getElementById('payment-relations').value = settings.paymentRelations.join('\n');
+            document.getElementById('payment-methods-list').value = settings.paymentMethods.join('\n');
         }
         
         // 更新下拉选项
@@ -1118,12 +1558,14 @@
             });
             
             const unitSelect = document.getElementById('unit-select');
-            unitSelect.innerHTML = '<option value="">选择单位</option>';
+            unitSelect.innerHTML = '<option value="件" selected>件</option>';
             settings.units.forEach(unit => {
-                const option = document.createElement('option');
-                option.value = unit;
-                option.textContent = unit;
-                unitSelect.appendChild(option);
+                if (unit !== '件') {
+                    const option = document.createElement('option');
+                    option.value = unit;
+                    option.textContent = unit;
+                    unitSelect.appendChild(option);
+                }
             });
             
             // 更新运费支出页面的下拉选项
@@ -1158,12 +1600,7 @@
             // 更新货款支付页面的下拉选项
             const paymentMethodSelect = document.getElementById('payment-method');
             paymentMethodSelect.innerHTML = '<option value="">选择支付方式</option>';
-            const paymentMethods = [...new Set(settings.paymentRelations.map(rel => {
-                const parts = rel.split(',');
-                return parts.length > 2 ? parts[2] : '';
-            }))].filter(method => method);
-            
-            paymentMethods.forEach(method => {
+            settings.paymentMethods.forEach(method => {
                 const option = document.createElement('option');
                 option.value = method;
                 option.textContent = method;
@@ -1171,28 +1608,32 @@
             });
         }
         
-        // 保存账户余额
-        document.getElementById('save-balance').addEventListener('click', function() {
-            const ozonValue = unformatNumber(document.getElementById('ozon-input').value) || 0;
-            const wbValue = unformatNumber(document.getElementById('wb-input').value) || 0;
-            const individualValue = unformatNumber(document.getElementById('individual-input').value) || 0;
-            
-            const balances = {
-                ozon: ozonValue,
-                wb: wbValue,
-                individual: individualValue,
-                cash: 0 // 现金余额通过其他页面计算
-            };
-            
-            localStorage.setItem('accountBalances', JSON.stringify(balances));
-            updateOverview();
-            
-            // 清空输入框
-            document.getElementById('ozon-input').value = '';
-            document.getElementById('wb-input').value = '';
-            document.getElementById('individual-input').value = '';
-            
-            alert('账户余额已保存！');
+        // 更新账户余额
+        document.getElementById('update-balance').addEventListener('click', function() {
+            showConfirm('确定要更新账户余额吗？', function(result) {
+                if (result) {
+                    const ozonValue = unformatNumber(document.getElementById('ozon-input').value) || 0;
+                    const wbValue = unformatNumber(document.getElementById('wb-input').value) || 0;
+                    const individualValue = unformatNumber(document.getElementById('individual-input').value) || 0;
+                    
+                    const balances = {
+                        ozon: ozonValue,
+                        wb: wbValue,
+                        individual: individualValue,
+                        cash: 0 // 现金余额通过其他页面计算
+                    };
+                    
+                    localStorage.setItem('accountBalances', JSON.stringify(balances));
+                    updateOverview();
+                    
+                    // 清空输入框
+                    document.getElementById('ozon-input').value = '';
+                    document.getElementById('wb-input').value = '';
+                    document.getElementById('individual-input').value = '';
+                    
+                    showMessage('账户余额已更新！', 'success');
+                }
+            });
         });
         
         // 保存设置
@@ -1204,21 +1645,24 @@
                 incomeExpenseTypes: document.getElementById('income-expense-types').value.split('\n').filter(item => item.trim()),
                 incomeExpenseForms: document.getElementById('income-expense-forms').value.split('\n').filter(item => item.trim()),
                 currencies: document.getElementById('currency-list').value.split('\n').filter(item => item.trim()),
-                paymentRelations: document.getElementById('payment-relations').value.split('\n').filter(item => item.trim())
+                paymentRelations: document.getElementById('payment-relations').value.split('\n').filter(item => item.trim()),
+                paymentMethods: document.getElementById('payment-methods-list').value.split('\n').filter(item => item.trim())
             };
             
             localStorage.setItem('settings', JSON.stringify(settings));
             updateDropdownOptions();
-            alert('设置已保存！');
+            showMessage('设置已保存！', 'success');
         });
         
         // 删除所有数据
         document.getElementById('delete-all-data').addEventListener('click', function() {
-            if (confirm('确定要删除所有数据吗？此操作不可恢复！')) {
-                localStorage.clear();
-                initData();
-                alert('所有数据已删除！');
-            }
+            showConfirm('确定要删除所有数据吗？此操作不可恢复！', function(result) {
+                if (result) {
+                    localStorage.clear();
+                    initData();
+                    showMessage('所有数据已删除！', 'success');
+                }
+            });
         });
         
         // 商品名称智能输入
@@ -1239,6 +1683,39 @@
                     div.textContent = match;
                     div.addEventListener('click', function() {
                         document.getElementById('product-name').value = match;
+                        dropdown.style.display = 'none';
+                    });
+                    dropdown.appendChild(div);
+                });
+                
+                if (matches.length > 0) {
+                    dropdown.style.display = 'block';
+                } else {
+                    dropdown.style.display = 'none';
+                }
+            } else {
+                dropdown.style.display = 'none';
+            }
+        });
+        
+        // 运费支出页面的商品名称智能输入
+        document.getElementById('shipping-product').addEventListener('input', function() {
+            const input = this.value;
+            const dropdown = document.getElementById('shipping-product-dropdown');
+            const settings = JSON.parse(localStorage.getItem('settings'));
+            
+            dropdown.innerHTML = '';
+            
+            if (input.length > 0) {
+                const matches = settings.productNames.filter(name => 
+                    name.toLowerCase().includes(input.toLowerCase())
+                );
+                
+                matches.forEach(match => {
+                    const div = document.createElement('div');
+                    div.textContent = match;
+                    div.addEventListener('click', function() {
+                        document.getElementById('shipping-product').value = match;
                         dropdown.style.display = 'none';
                     });
                     dropdown.appendChild(div);
@@ -1300,176 +1777,6 @@
         document.getElementById('unit-price').addEventListener('input', calculateProductAmounts);
         document.getElementById('exchange-rate').addEventListener('input', calculateProductAmounts);
         
-        // 添加商品
-        document.getElementById('add-product').addEventListener('click', function() {
-            // 验证必填项
-            const arrivalDate = document.getElementById('arrival-date').value;
-            const productName = document.getElementById('product-name').value;
-            const quantity = document.getElementById('quantity').value;
-            const unitPrice = document.getElementById('unit-price').value;
-            const exchangeRate = document.getElementById('exchange-rate').value;
-            
-            if (!arrivalDate || !productName || !quantity || !unitPrice || !exchangeRate) {
-                alert('请填写所有必填项！');
-                return;
-            }
-            
-            // 获取其他字段值
-            const color = document.getElementById('color-select').value;
-            const unit = document.getElementById('unit-select').value;
-            const description = document.getElementById('product-description').value;
-            
-            // 计算金额
-            const cnyAmount = unformatNumber(document.getElementById('cny-amount').textContent);
-            const rublePrice = unformatNumber(document.getElementById('ruble-price').textContent);
-            const rubleAmount = unformatNumber(document.getElementById('ruble-amount').textContent);
-            
-            // 保存到本地存储
-            const products = JSON.parse(localStorage.getItem('products'));
-            products.push({
-                date: arrivalDate,
-                productName,
-                color,
-                quantity: unformatNumber(quantity),
-                unit,
-                unitPrice: unformatNumber(unitPrice),
-                cnyAmount,
-                exchangeRate: unformatNumber(exchangeRate),
-                rublePrice,
-                rubleAmount,
-                description
-            });
-            localStorage.setItem('products', JSON.stringify(products));
-            
-            // 更新表格
-            updateProductTable();
-            
-            // 清空表单
-            document.getElementById('arrival-date').value = '';
-            document.getElementById('product-name').value = '';
-            document.getElementById('color-select').value = '';
-            document.getElementById('quantity').value = '';
-            document.getElementById('unit-select').value = '';
-            document.getElementById('unit-price').value = '';
-            document.getElementById('exchange-rate').value = '';
-            document.getElementById('product-description').value = '';
-            document.getElementById('ruble-price').textContent = '0';
-            document.getElementById('cny-amount').textContent = '0';
-            document.getElementById('ruble-amount').textContent = '0';
-            
-            alert('商品已添加！');
-        });
-        
-        // 更新商品表格
-        function updateProductTable() {
-            const products = JSON.parse(localStorage.getItem('products'));
-            const tableBody = document.querySelector('#products-table tbody');
-            const tableFoot = document.querySelector('#products-table tfoot');
-            tableBody.innerHTML = '';
-            tableFoot.innerHTML = '';
-            
-            // 添加表格行
-            products.forEach((product, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td class="checkbox-cell"><input type="checkbox" class="product-checkbox" data-index="${index}"></td>
-                    <td>${product.date}</td>
-                    <td>${product.productName}</td>
-                    <td>${product.color}</td>
-                    <td>${formatNumber(product.quantity)}</td>
-                    <td>${product.unit}</td>
-                    <td>${formatNumber(product.unitPrice)}</td>
-                    <td>${formatNumber(product.cnyAmount)}</td>
-                    <td>${formatNumber(product.exchangeRate)}</td>
-                    <td>${formatNumber(product.rublePrice)}</td>
-                    <td>${formatNumber(product.rubleAmount)}</td>
-                    <td class="description-cell editable-cell" contenteditable="true" data-index="${index}" data-field="description">${product.description}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-            
-            // 添加总计行
-            if (products.length > 0) {
-                const totalRow = document.createElement('tr');
-                totalRow.className = 'table-total';
-                
-                // 计算总计
-                const totalQuantity = products.reduce((sum, product) => sum + product.quantity, 0);
-                const totalCnyAmount = products.reduce((sum, product) => sum + product.cnyAmount, 0);
-                const totalRubleAmount = products.reduce((sum, product) => sum + product.rubleAmount, 0);
-                
-                totalRow.innerHTML = `
-                    <td colspan="4">总计</td>
-                    <td>${formatNumber(totalQuantity)}</td>
-                    <td></td>
-                    <td></td>
-                    <td>${formatNumber(totalCnyAmount)}</td>
-                    <td></td>
-                    <td></td>
-                    <td>${formatNumber(totalRubleAmount)}</td>
-                    <td></td>
-                `;
-                tableFoot.appendChild(totalRow);
-            }
-            
-            // 添加筛选结果行
-            const filterRow = document.createElement('tr');
-            filterRow.className = 'table-filter-result';
-            filterRow.innerHTML = `<td colspan="12">共 ${products.length} 条记录</td>`;
-            tableFoot.appendChild(filterRow);
-            
-            // 添加勾选框事件监听
-            document.querySelectorAll('.product-checkbox').forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    // 更新全选框状态
-                    updateCheckAllState('products');
-                });
-            });
-            
-            // 添加全选框事件监听
-            document.getElementById('products-check-all').addEventListener('change', function() {
-                const isChecked = this.checked;
-                document.querySelectorAll('.product-checkbox').forEach(checkbox => {
-                    checkbox.checked = isChecked;
-                });
-            });
-            
-            // 添加可编辑单元格事件监听
-            document.querySelectorAll('#products-table .editable-cell').forEach(cell => {
-                cell.addEventListener('blur', function() {
-                    const index = parseInt(this.getAttribute('data-index'));
-                    const field = this.getAttribute('data-field');
-                    const value = this.textContent;
-                    
-                    const products = JSON.parse(localStorage.getItem('products'));
-                    products[index][field] = value;
-                    localStorage.setItem('products', JSON.stringify(products));
-                });
-            });
-        }
-        
-        // 商品清单全选/取消全选
-        document.getElementById('select-all-products').addEventListener('click', function() {
-            document.querySelectorAll('.product-checkbox').forEach(checkbox => {
-                checkbox.checked = true;
-            });
-            document.getElementById('products-check-all').checked = true;
-        });
-        
-        document.getElementById('deselect-all-products').addEventListener('click', function() {
-            document.querySelectorAll('.product-checkbox').forEach(checkbox => {
-                checkbox.checked = false;
-            });
-            document.getElementById('products-check-all').checked = false;
-        });
-        
-        // 商品清单取消筛选
-        document.getElementById('clear-filter-products').addEventListener('click', function() {
-            // 这里可以实现筛选逻辑，目前只是重新加载表格
-            updateProductTable();
-            alert('筛选已取消！');
-        });
-        
         // 计算运费
         function calculateShipping() {
             const shippingFee = unformatNumber(document.getElementById('shipping-fee').value) || 0;
@@ -1515,223 +1822,6 @@
         document.getElementById('cube-fee').addEventListener('input', calculateShipping);
         document.getElementById('delivery-fee').addEventListener('input', calculateShipping);
         
-        // 添加运费
-        document.getElementById('add-shipping').addEventListener('click', function() {
-            // 验证必填项
-            const date = document.getElementById('shipping-date').value;
-            const productName = document.getElementById('shipping-product').value;
-            const weight = document.getElementById('shipping-weight').value;
-            const shippingFee = document.getElementById('shipping-fee').value;
-            
-            if (!date || !productName || !weight || !shippingFee) {
-                alert('请填写所有必填项！');
-                return;
-            }
-            
-            // 获取其他字段值
-            const shippingCode = document.getElementById('shipping-code').value;
-            const volume = document.getElementById('shipping-volume').value;
-            const quantity = document.getElementById('shipping-quantity').value;
-            const currency = document.getElementById('shipping-currency').value;
-            const exchangeRate = document.getElementById('shipping-exchange-rate').value;
-            const palletFee = document.getElementById('pallet-fee').value;
-            const cubeFee = document.getElementById('cube-fee').value;
-            const deliveryFee = document.getElementById('delivery-fee').value;
-            const notes = document.getElementById('shipping-notes').value;
-            
-            // 计算值
-            const rubleEquivalent = unformatNumber(document.getElementById('shipping-ruble').textContent);
-            const shippingTotal = unformatNumber(document.getElementById('shipping-total').textContent);
-            
-            // 保存到本地存储
-            const shipping = JSON.parse(localStorage.getItem('shipping'));
-            shipping.push({
-                date,
-                productName,
-                shippingCode,
-                quantity: unformatNumber(quantity),
-                weight: unformatNumber(weight),
-                volume: unformatNumber(volume),
-                shippingFee: unformatNumber(shippingFee),
-                currency,
-                exchangeRate: unformatNumber(exchangeRate),
-                rubleEquivalent,
-                palletFee: unformatNumber(palletFee),
-                cubeFee: unformatNumber(cubeFee),
-                deliveryFee: unformatNumber(deliveryFee),
-                shippingTotal,
-                settlement: '未结算',
-                notes
-            });
-            localStorage.setItem('shipping', JSON.stringify(shipping));
-            
-            // 更新表格
-            updateShippingTable();
-            
-            // 清空表单
-            document.getElementById('shipping-date').value = '';
-            document.getElementById('shipping-code').value = '';
-            document.getElementById('shipping-product').value = '';
-            document.getElementById('shipping-weight').value = '';
-            document.getElementById('shipping-volume').value = '';
-            document.getElementById('shipping-quantity').value = '';
-            document.getElementById('shipping-fee').value = '';
-            document.getElementById('shipping-currency').value = '';
-            document.getElementById('shipping-exchange-rate').value = '';
-            document.getElementById('pallet-fee').value = '';
-            document.getElementById('cube-fee').value = '';
-            document.getElementById('delivery-fee').value = '';
-            document.getElementById('shipping-notes').value = '';
-            document.getElementById('shipping-ruble').textContent = '0';
-            document.getElementById('shipping-total').textContent = '0';
-            
-            alert('运费记录已添加！');
-        });
-        
-        // 更新运费表格
-        function updateShippingTable() {
-            const shipping = JSON.parse(localStorage.getItem('shipping'));
-            const tableBody = document.querySelector('#shipping-table tbody');
-            const tableFoot = document.querySelector('#shipping-table tfoot');
-            tableBody.innerHTML = '';
-            tableFoot.innerHTML = '';
-            
-            // 添加表格行
-            shipping.forEach((item, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td class="checkbox-cell"><input type="checkbox" class="shipping-checkbox" data-index="${index}"></td>
-                    <td>${item.date}</td>
-                    <td>${item.productName}</td>
-                    <td>${item.shippingCode}</td>
-                    <td>${formatNumber(item.quantity)}</td>
-                    <td>${formatNumber(item.weight)}</td>
-                    <td>${formatNumber(item.volume)}</td>
-                    <td>${formatNumber(item.shippingFee)}</td>
-                    <td>${item.currency}</td>
-                    <td>${formatNumber(item.rubleEquivalent)}</td>
-                    <td>${formatNumber(item.palletFee)}</td>
-                    <td>${formatNumber(item.cubeFee)}</td>
-                    <td>${formatNumber(item.deliveryFee)}</td>
-                    <td>${formatNumber(item.shippingTotal)}</td>
-                    <td>
-                        <select class="settlement-select" data-index="${index}">
-                            <option value="未结算" ${item.settlement === '未结算' ? 'selected' : ''}>未结算</option>
-                            <option value="已结算" ${item.settlement === '已结算' ? 'selected' : ''}>已结算</option>
-                        </select>
-                    </td>
-                    <td class="notes-cell editable-cell" contenteditable="true" data-index="${index}" data-field="notes">${item.notes}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-            
-            // 添加总计行
-            if (shipping.length > 0) {
-                const totalRow = document.createElement('tr');
-                totalRow.className = 'table-total';
-                
-                // 计算总计
-                const totalQuantity = shipping.reduce((sum, item) => sum + item.quantity, 0);
-                const totalWeight = shipping.reduce((sum, item) => sum + item.weight, 0);
-                const totalVolume = shipping.reduce((sum, item) => sum + item.volume, 0);
-                const totalShippingFee = shipping.reduce((sum, item) => sum + item.shippingFee, 0);
-                const totalRubleEquivalent = shipping.reduce((sum, item) => sum + item.rubleEquivalent, 0);
-                const totalPalletFee = shipping.reduce((sum, item) => sum + item.palletFee, 0);
-                const totalCubeFee = shipping.reduce((sum, item) => sum + item.cubeFee, 0);
-                const totalDeliveryFee = shipping.reduce((sum, item) => sum + item.deliveryFee, 0);
-                const totalShippingTotal = shipping.reduce((sum, item) => sum + item.shippingTotal, 0);
-                
-                totalRow.innerHTML = `
-                    <td colspan="4">总计</td>
-                    <td>${formatNumber(totalQuantity)}</td>
-                    <td>${formatNumber(totalWeight)}</td>
-                    <td>${formatNumber(totalVolume)}</td>
-                    <td>${formatNumber(totalShippingFee)}</td>
-                    <td></td>
-                    <td>${formatNumber(totalRubleEquivalent)}</td>
-                    <td>${formatNumber(totalPalletFee)}</td>
-                    <td>${formatNumber(totalCubeFee)}</td>
-                    <td>${formatNumber(totalDeliveryFee)}</td>
-                    <td>${formatNumber(totalShippingTotal)}</td>
-                    <td></td>
-                    <td></td>
-                `;
-                tableFoot.appendChild(totalRow);
-            }
-            
-            // 添加筛选结果行
-            const filterRow = document.createElement('tr');
-            filterRow.className = 'table-filter-result';
-            filterRow.innerHTML = `<td colspan="16">共 ${shipping.length} 条记录</td>`;
-            tableFoot.appendChild(filterRow);
-            
-            // 添加勾选框事件监听
-            document.querySelectorAll('.shipping-checkbox').forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    // 更新全选框状态
-                    updateCheckAllState('shipping');
-                });
-            });
-            
-            // 添加全选框事件监听
-            document.getElementById('shipping-check-all').addEventListener('change', function() {
-                const isChecked = this.checked;
-                document.querySelectorAll('.shipping-checkbox').forEach(checkbox => {
-                    checkbox.checked = isChecked;
-                });
-            });
-            
-            // 添加结算状态选择器事件监听
-            document.querySelectorAll('#shipping-table .settlement-select').forEach(select => {
-                select.addEventListener('change', function() {
-                    const index = parseInt(this.getAttribute('data-index'));
-                    const value = this.value;
-                    
-                    const shipping = JSON.parse(localStorage.getItem('shipping'));
-                    shipping[index].settlement = value;
-                    localStorage.setItem('shipping', JSON.stringify(shipping));
-                    
-                    // 更新现金余额
-                    updateCashBalance();
-                });
-            });
-            
-            // 添加可编辑单元格事件监听
-            document.querySelectorAll('#shipping-table .editable-cell').forEach(cell => {
-                cell.addEventListener('blur', function() {
-                    const index = parseInt(this.getAttribute('data-index'));
-                    const field = this.getAttribute('data-field');
-                    const value = this.textContent;
-                    
-                    const shipping = JSON.parse(localStorage.getItem('shipping'));
-                    shipping[index][field] = value;
-                    localStorage.setItem('shipping', JSON.stringify(shipping));
-                });
-            });
-        }
-        
-        // 运费支出全选/取消全选
-        document.getElementById('select-all-shipping').addEventListener('click', function() {
-            document.querySelectorAll('.shipping-checkbox').forEach(checkbox => {
-                checkbox.checked = true;
-            });
-            document.getElementById('shipping-check-all').checked = true;
-        });
-        
-        document.getElementById('deselect-all-shipping').addEventListener('click', function() {
-            document.querySelectorAll('.shipping-checkbox').forEach(checkbox => {
-                checkbox.checked = false;
-            });
-            document.getElementById('shipping-check-all').checked = false;
-        });
-        
-        // 运费支出取消筛选
-        document.getElementById('clear-filter-shipping').addEventListener('click', function() {
-            // 这里可以实现筛选逻辑，目前只是重新加载表格
-            updateShippingTable();
-            alert('筛选已取消！');
-        });
-        
         // 收支类型和形式的关联
         document.getElementById('record-type').addEventListener('change', function() {
             const type = this.value;
@@ -1768,166 +1858,6 @@
             }
         });
         
-        // 添加收支记录
-        document.getElementById('add-record').addEventListener('click', function() {
-            // 验证必填项
-            const date = document.getElementById('record-date').value;
-            const type = document.getElementById('record-type').value;
-            const form = document.getElementById('record-form').value;
-            const amount = document.getElementById('record-amount').value;
-            const description = document.getElementById('record-description').value;
-            
-            if (!date || !type || !form || !amount || !description) {
-                alert('请填写所有必填项！');
-                return;
-            }
-            
-            // 保存到本地存储
-            const records = JSON.parse(localStorage.getItem('records'));
-            records.push({
-                date,
-                type,
-                form,
-                amount: unformatNumber(amount),
-                settlement: '未结算',
-                description
-            });
-            localStorage.setItem('records', JSON.stringify(records));
-            
-            // 更新表格
-            updateRecordsTable();
-            
-            // 更新现金余额
-            updateCashBalance();
-            
-            // 清空表单
-            document.getElementById('record-date').value = '';
-            document.getElementById('record-type').value = '';
-            document.getElementById('record-form').value = '';
-            document.getElementById('record-amount').value = '';
-            document.getElementById('record-description').value = '';
-            
-            alert('收支记录已添加！');
-        });
-        
-        // 更新收支记录表格
-        function updateRecordsTable() {
-            const records = JSON.parse(localStorage.getItem('records'));
-            const tableBody = document.querySelector('#records-table tbody');
-            const tableFoot = document.querySelector('#records-table tfoot');
-            tableBody.innerHTML = '';
-            tableFoot.innerHTML = '';
-            
-            // 添加表格行
-            records.forEach((record, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td class="checkbox-cell"><input type="checkbox" class="record-checkbox" data-index="${index}"></td>
-                    <td>${record.date}</td>
-                    <td>${record.type}</td>
-                    <td>${record.form}</td>
-                    <td>${formatNumber(record.amount)}</td>
-                    <td>
-                        <select class="settlement-select" data-index="${index}">
-                            <option value="未结算" ${record.settlement === '未结算' ? 'selected' : ''}>未结算</option>
-                            <option value="已结算" ${record.settlement === '已结算' ? 'selected' : ''}>已结算</option>
-                        </select>
-                    </td>
-                    <td class="description-cell editable-cell" contenteditable="true" data-index="${index}" data-field="description">${record.description}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-            
-            // 添加总计行
-            if (records.length > 0) {
-                const totalRow = document.createElement('tr');
-                totalRow.className = 'table-total';
-                
-                // 计算总计
-                const totalAmount = records.reduce((sum, record) => sum + record.amount, 0);
-                
-                totalRow.innerHTML = `
-                    <td colspan="4">总计</td>
-                    <td>${formatNumber(totalAmount)}</td>
-                    <td></td>
-                    <td></td>
-                `;
-                tableFoot.appendChild(totalRow);
-            }
-            
-            // 添加筛选结果行
-            const filterRow = document.createElement('tr');
-            filterRow.className = 'table-filter-result';
-            filterRow.innerHTML = `<td colspan="7">共 ${records.length} 条记录</td>`;
-            tableFoot.appendChild(filterRow);
-            
-            // 添加勾选框事件监听
-            document.querySelectorAll('.record-checkbox').forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    // 更新全选框状态
-                    updateCheckAllState('records');
-                });
-            });
-            
-            // 添加全选框事件监听
-            document.getElementById('records-check-all').addEventListener('change', function() {
-                const isChecked = this.checked;
-                document.querySelectorAll('.record-checkbox').forEach(checkbox => {
-                    checkbox.checked = isChecked;
-                });
-            });
-            
-            // 添加结算状态选择器事件监听
-            document.querySelectorAll('#records-table .settlement-select').forEach(select => {
-                select.addEventListener('change', function() {
-                    const index = parseInt(this.getAttribute('data-index'));
-                    const value = this.value;
-                    
-                    const records = JSON.parse(localStorage.getItem('records'));
-                    records[index].settlement = value;
-                    localStorage.setItem('records', JSON.stringify(records));
-                    
-                    // 更新现金余额
-                    updateCashBalance();
-                });
-            });
-            
-            // 添加可编辑单元格事件监听
-            document.querySelectorAll('#records-table .editable-cell').forEach(cell => {
-                cell.addEventListener('blur', function() {
-                    const index = parseInt(this.getAttribute('data-index'));
-                    const field = this.getAttribute('data-field');
-                    const value = this.textContent;
-                    
-                    const records = JSON.parse(localStorage.getItem('records'));
-                    records[index][field] = value;
-                    localStorage.setItem('records', JSON.stringify(records));
-                });
-            });
-        }
-        
-        // 收支记录全选/取消全选
-        document.getElementById('select-all-records').addEventListener('click', function() {
-            document.querySelectorAll('.record-checkbox').forEach(checkbox => {
-                checkbox.checked = true;
-            });
-            document.getElementById('records-check-all').checked = true;
-        });
-        
-        document.getElementById('deselect-all-records').addEventListener('click', function() {
-            document.querySelectorAll('.record-checkbox').forEach(checkbox => {
-                checkbox.checked = false;
-            });
-            document.getElementById('records-check-all').checked = false;
-        });
-        
-        // 收支记录取消筛选
-        document.getElementById('clear-filter-records').addEventListener('click', function() {
-            // 这里可以实现筛选逻辑，目前只是重新加载表格
-            updateRecordsTable();
-            alert('筛选已取消！');
-        });
-        
         // 收款人智能输入
         document.getElementById('payment-recipient').addEventListener('input', function() {
             const input = this.value;
@@ -1951,9 +1881,6 @@
                         if (parts.length > 1) {
                             document.getElementById('payment-account').value = parts[1];
                         }
-                        if (parts.length > 2) {
-                            document.getElementById('payment-method').value = parts[2];
-                        }
                         dropdown.style.display = 'none';
                     });
                     dropdown.appendChild(div);
@@ -1969,84 +1896,870 @@
             }
         });
         
-        // 账号下拉列表
-        document.getElementById('payment-recipient').addEventListener('change', function() {
-            const recipient = this.value;
-            const accountDropdown = document.getElementById('account-dropdown');
-            const settings = JSON.parse(localStorage.getItem('settings'));
+        // 收支记录数据
+        let paymentData = [];
+        let filteredPaymentData = null;
+        let currentFilters = {
+            date: [],
+            type: [],
+            form: [],
+            settlement: [],
+            description: []
+        };
+
+        // 商品清单页面数据
+        let paymentDataProducts = [];
+        let filteredPaymentDataProducts = null;
+        let currentFiltersProducts = {
+            date: [],
+            productName: [],
+            color: [],
+            quantity: [],
+            unit: [],
+            unitPrice: [],
+            exchangeRate: [],
+            rublePrice: [],
+            cnyAmount: [],
+            rubleAmount: [],
+            description: []
+        };
+
+        // 货款支付页面数据
+        let paymentDataPayment = [];
+        let filteredPaymentDataPayment = null;
+        let currentFiltersPayment = {
+            date: [],
+            recipient: [],
+            account: [],
+            method: [],
+            amount: [],
+            settlement: [],
+            notes: []
+        };
+
+        // 运费页面数据
+        let paymentDataShipping = [];
+        let filteredPaymentDataShipping = null;
+        let currentFiltersShipping = {
+            date: [],
+            product: [],
+            code: [],
+            quantity: [],
+            weight: [],
+            volume: [],
+            fee: [],
+            currency: [],
+            exchangeRate: [],
+            rubleEquivalent: [],
+            palletFee: [],
+            cubeFee: [],
+            deliveryFee: [],
+            total: [],
+            settlement: [],
+            notes: []
+        };
+
+        // 收支记录页面功能
+        function initPaymentStatusPage() {
+            // 加载付款数据
+            loadPaymentData();
             
-            accountDropdown.innerHTML = '';
+            // 添加付款记录按钮
+            document.getElementById('addPaymentBtn').addEventListener('click', function() {
+                addPaymentRecord();
+            });
             
-            if (recipient) {
-                const matches = settings.paymentRelations.filter(rel => {
-                    const parts = rel.split(',');
-                    return parts.length > 0 && parts[0] === recipient;
+            // 删除付款记录按钮
+            document.getElementById('deletePaymentBtn').addEventListener('click', function() {
+                deleteSelectedPayments();
+            });
+            
+            // 取消筛选按钮
+            document.getElementById('clearFilterBtn').addEventListener('click', function() {
+                clearAllFilters();
+            });
+            
+            // 全选复选框 - 修复全选功能
+            document.getElementById('selectAllPayments').addEventListener('change', function() {
+                const checkboxes = document.querySelectorAll('#paymentTableBody .payment-checkbox');
+                checkboxes.forEach(cb => {
+                    cb.checked = this.checked;
                 });
-                
-                matches.forEach(match => {
-                    const parts = match.split(',');
-                    if (parts.length > 1) {
-                        const div = document.createElement('div');
-                        div.textContent = parts[1];
-                        div.addEventListener('click', function() {
-                            document.getElementById('payment-account').value = parts[1];
-                            if (parts.length > 2) {
-                                document.getElementById('payment-method').value = parts[2];
-                            }
-                            accountDropdown.style.display = 'none';
-                        });
-                        accountDropdown.appendChild(div);
+            });
+            
+            // 清除筛选按钮
+            document.getElementById('clearFilter').addEventListener('click', function() {
+                clearAllFilters();
+            });
+            
+            // 筛选按钮 - 修复筛选功能
+            document.querySelectorAll('.payment-table th .filter-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const column = this.getAttribute('data-column');
+                    if (column === 'date') {
+                        showDateFilterDropdown(this, column);
+                    } else {
+                        showFilterDropdown(this, column);
                     }
                 });
-                
-                if (matches.length > 0) {
-                    accountDropdown.style.display = 'block';
-                } else {
-                    accountDropdown.style.display = 'none';
-                }
-            } else {
-                accountDropdown.style.display = 'none';
-            }
-        });
+            });
+            
+            // 渲染付款表格
+            renderPaymentTable();
+        }
         
-        // 添加货款支付记录
-        document.getElementById('add-payment').addEventListener('click', function() {
+        // 商品清单页面的付款状态功能
+        function initPaymentStatusPageProducts() {
+            // 加载付款数据
+            loadPaymentDataProducts();
+            
+            // 添加付款记录按钮
+            document.getElementById('addPaymentBtnProducts').addEventListener('click', function() {
+                addPaymentRecordProducts();
+            });
+            
+            // 删除付款记录按钮
+            document.getElementById('deletePaymentBtnProducts').addEventListener('click', function() {
+                deleteSelectedPaymentsProducts();
+            });
+            
+            // 取消筛选按钮
+            document.getElementById('clearFilterBtnProducts').addEventListener('click', function() {
+                clearAllFiltersProducts();
+            });
+            
+            // 全选复选框 - 修复全选功能
+            document.getElementById('selectAllPaymentsProducts').addEventListener('change', function() {
+                const checkboxes = document.querySelectorAll('#paymentTableBodyProducts .payment-checkbox');
+                checkboxes.forEach(cb => {
+                    cb.checked = this.checked;
+                });
+            });
+            
+            // 清除筛选按钮
+            document.getElementById('clearFilterProducts').addEventListener('click', function() {
+                clearAllFiltersProducts();
+            });
+            
+            // 筛选按钮 - 修复筛选功能
+            document.querySelectorAll('#products-page .payment-table th .filter-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const column = this.getAttribute('data-column');
+                    if (column === 'date') {
+                        showDateFilterDropdownProducts(this, column);
+                    } else {
+                        showFilterDropdownProducts(this, column);
+                    }
+                });
+            });
+            
+            // 渲染付款表格
+            renderPaymentTableProducts();
+        }
+        
+        // 货款支付页面的付款状态功能
+        function initPaymentStatusPagePayment() {
+            // 加载付款数据
+            loadPaymentDataPayment();
+            
+            // 添加付款记录按钮
+            document.getElementById('addPaymentBtnPayment').addEventListener('click', function() {
+                addPaymentRecordPayment();
+            });
+            
+            // 删除付款记录按钮
+            document.getElementById('deletePaymentBtnPayment').addEventListener('click', function() {
+                deleteSelectedPaymentsPayment();
+            });
+            
+            // 取消筛选按钮
+            document.getElementById('clearFilterBtnPayment').addEventListener('click', function() {
+                clearAllFiltersPayment();
+            });
+            
+            // 全选复选框 - 修复全选功能
+            document.getElementById('selectAllPaymentsPayment').addEventListener('change', function() {
+                const checkboxes = document.querySelectorAll('#paymentTableBodyPayment .payment-checkbox');
+                checkboxes.forEach(cb => {
+                    cb.checked = this.checked;
+                });
+            });
+            
+            // 清除筛选按钮
+            document.getElementById('clearFilterPayment').addEventListener('click', function() {
+                clearAllFiltersPayment();
+            });
+            
+            // 筛选按钮 - 修复筛选功能
+            document.querySelectorAll('#payment-page .payment-table th .filter-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const column = this.getAttribute('data-column');
+                    if (column === 'date') {
+                        showDateFilterDropdownPayment(this, column);
+                    } else {
+                        showFilterDropdownPayment(this, column);
+                    }
+                });
+            });
+            
+            // 渲染付款表格
+            renderPaymentTablePayment();
+        }
+        
+        // 运费页面的付款状态功能
+        function initPaymentStatusPageShipping() {
+            // 加载付款数据
+            loadPaymentDataShipping();
+            
+            // 添加付款记录按钮
+            document.getElementById('addPaymentBtnShipping').addEventListener('click', function() {
+                addPaymentRecordShipping();
+            });
+            
+            // 删除付款记录按钮
+            document.getElementById('deletePaymentBtnShipping').addEventListener('click', function() {
+                deleteSelectedPaymentsShipping();
+            });
+            
+            // 取消筛选按钮
+            document.getElementById('clearFilterBtnShipping').addEventListener('click', function() {
+                clearAllFiltersShipping();
+            });
+            
+            // 全选复选框 - 修复全选功能
+            document.getElementById('selectAllPaymentsShipping').addEventListener('change', function() {
+                const checkboxes = document.querySelectorAll('#paymentTableBodyShipping .payment-checkbox');
+                checkboxes.forEach(cb => {
+                    cb.checked = this.checked;
+                });
+            });
+            
+            // 清除筛选按钮
+            document.getElementById('clearFilterShipping').addEventListener('click', function() {
+                clearAllFiltersShipping();
+            });
+            
+            // 筛选按钮 - 修复筛选功能
+            document.querySelectorAll('#shipping-page .payment-table th .filter-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const column = this.getAttribute('data-column');
+                    if (column === 'date') {
+                        showDateFilterDropdownShipping(this, column);
+                    } else {
+                        showFilterDropdownShipping(this, column);
+                    }
+                });
+            });
+            
+            // 渲染付款表格
+            renderPaymentTableShipping();
+        }
+        
+        function loadPaymentData() {
+            const saved = localStorage.getItem('paymentData');
+            if (saved) {
+                paymentData = JSON.parse(saved);
+            } else {
+                // 默认数据
+                paymentData = [];
+            }
+        }
+        
+        function loadPaymentDataProducts() {
+            const saved = localStorage.getItem('paymentDataProducts');
+            if (saved) {
+                paymentDataProducts = JSON.parse(saved);
+            } else {
+                // 默认数据
+                paymentDataProducts = [];
+            }
+        }
+        
+        function loadPaymentDataPayment() {
+            const saved = localStorage.getItem('paymentDataPayment');
+            if (saved) {
+                paymentDataPayment = JSON.parse(saved);
+            } else {
+                // 默认数据
+                paymentDataPayment = [];
+            }
+        }
+        
+        function loadPaymentDataShipping() {
+            const saved = localStorage.getItem('paymentDataShipping');
+            if (saved) {
+                paymentDataShipping = JSON.parse(saved);
+            } else {
+                // 默认数据
+                paymentDataShipping = [];
+            }
+        }
+        
+        function savePaymentData() {
+            localStorage.setItem('paymentData', JSON.stringify(paymentData));
+        }
+        
+        function savePaymentDataProducts() {
+            localStorage.setItem('paymentDataProducts', JSON.stringify(paymentDataProducts));
+        }
+        
+        function savePaymentDataPayment() {
+            localStorage.setItem('paymentDataPayment', JSON.stringify(paymentDataPayment));
+        }
+        
+        function savePaymentDataShipping() {
+            localStorage.setItem('paymentDataShipping', JSON.stringify(paymentDataShipping));
+        }
+        
+        function renderPaymentTable(data = null) {
+            const tbody = document.getElementById('paymentTableBody');
+            tbody.innerHTML = '';
+            
+            const displayData = data || paymentData;
+            filteredPaymentData = data ? paymentData.filter(item => 
+                displayData.some(d => d.id === item.id)
+            ) : null;
+            
+            displayData.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="select-row">
+                        <input type="checkbox" class="payment-checkbox" data-id="${item.id}">
+                    </td>
+                    <td class="date-cell">${item.date}</td>
+                    <td class="passenger-cell">${item.type}</td>
+                    <td class="amount-cell">${formatNumber(item.amount)}</td>
+                    <td class="difference-cell">${item.form}</td>
+                    <td class="settlement-cell">
+                        <select class="settlement-select" data-id="${item.id}">
+                            <option value="">选择状态</option>
+                            <option value="未结算" ${item.settlement === '未结算' ? 'selected' : ''}>未结算</option>
+                            <option value="已结算" ${item.settlement === '已结算' ? 'selected' : ''}>已结算</option>
+                        </select>
+                    </td>
+                    <td class="notes-cell">
+                        <textarea class="editable-notes" data-id="${item.id}">${item.description}</textarea>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+            
+            // 添加结算状态变化事件监听
+            document.querySelectorAll('#paymentTableBody .settlement-select').forEach(select => {
+                select.addEventListener('change', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const value = this.value;
+                    updateSettlementStatus(id, value);
+                });
+            });
+            
+            // 添加备注编辑事件监听
+            document.querySelectorAll('#paymentTableBody .editable-notes').forEach(textarea => {
+                textarea.addEventListener('blur', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const value = this.value;
+                    updateNotes(id, value);
+                });
+            });
+            
+            updateTotals();
+            updateFilterStatus();
+        }
+        
+        function renderPaymentTableProducts(data = null) {
+            const tbody = document.getElementById('paymentTableBodyProducts');
+            tbody.innerHTML = '';
+            
+            const displayData = data || paymentDataProducts;
+            filteredPaymentDataProducts = data ? paymentDataProducts.filter(item => 
+                displayData.some(d => d.id === item.id)
+            ) : null;
+            
+            displayData.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="select-row">
+                        <input type="checkbox" class="payment-checkbox" data-id="${item.id}">
+                    </td>
+                    <td class="date-cell">${item.date}</td>
+                    <td class="passenger-cell">${item.productName}</td>
+                    <td class="amount-cell">${item.color}</td>
+                    <td class="difference-cell">${item.quantity}</td>
+                    <td class="settlement-cell">${item.unit}</td>
+                    <td class="settlement-cell">${item.unitPrice}</td>
+                    <td class="settlement-cell">${item.exchangeRate}</td>
+                    <td class="settlement-cell">${item.rublePrice}</td>
+                    <td class="settlement-cell">${item.cnyAmount}</td>
+                    <td class="settlement-cell">${item.rubleAmount}</td>
+                    <td class="notes-cell">
+                        <textarea class="editable-notes" data-id="${item.id}">${item.description}</textarea>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+            
+            // 添加备注编辑事件监听
+            document.querySelectorAll('#paymentTableBodyProducts .editable-notes').forEach(textarea => {
+                textarea.addEventListener('blur', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const value = this.value;
+                    updateNotesProducts(id, value);
+                });
+            });
+            
+            updateTotalsProducts();
+            updateFilterStatusProducts();
+        }
+        
+        function renderPaymentTablePayment(data = null) {
+            const tbody = document.getElementById('paymentTableBodyPayment');
+            tbody.innerHTML = '';
+            
+            const displayData = data || paymentDataPayment;
+            filteredPaymentDataPayment = data ? paymentDataPayment.filter(item => 
+                displayData.some(d => d.id === item.id)
+            ) : null;
+            
+            displayData.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="select-row">
+                        <input type="checkbox" class="payment-checkbox" data-id="${item.id}">
+                    </td>
+                    <td class="date-cell">${item.date}</td>
+                    <td class="passenger-cell">${item.recipient}</td>
+                    <td class="amount-cell">${item.account}</td>
+                    <td class="difference-cell">${item.method}</td>
+                    <td class="settlement-cell">${formatNumber(item.amount)}</td>
+                    <td class="settlement-cell">
+                        <select class="settlement-select" data-id="${item.id}">
+                            <option value="">选择状态</option>
+                            <option value="未结算" ${item.settlement === '未结算' ? 'selected' : ''}>未结算</option>
+                            <option value="已结算" ${item.settlement === '已结算' ? 'selected' : ''}>已结算</option>
+                        </select>
+                    </td>
+                    <td class="notes-cell">
+                        <textarea class="editable-notes" data-id="${item.id}">${item.notes}</textarea>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+            
+            // 添加结算状态变化事件监听
+            document.querySelectorAll('#paymentTableBodyPayment .settlement-select').forEach(select => {
+                select.addEventListener('change', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const value = this.value;
+                    updateSettlementStatusPayment(id, value);
+                });
+            });
+            
+            // 添加备注编辑事件监听
+            document.querySelectorAll('#paymentTableBodyPayment .editable-notes').forEach(textarea => {
+                textarea.addEventListener('blur', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const value = this.value;
+                    updateNotesPayment(id, value);
+                });
+            });
+            
+            updateTotalsPayment();
+            updateFilterStatusPayment();
+        }
+        
+        function renderPaymentTableShipping(data = null) {
+            const tbody = document.getElementById('paymentTableBodyShipping');
+            tbody.innerHTML = '';
+            
+            const displayData = data || paymentDataShipping;
+            filteredPaymentDataShipping = data ? paymentDataShipping.filter(item => 
+                displayData.some(d => d.id === item.id)
+            ) : null;
+            
+            displayData.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="select-row">
+                        <input type="checkbox" class="payment-checkbox" data-id="${item.id}">
+                    </td>
+                    <td class="date-cell">${item.date}</td>
+                    <td class="passenger-cell">${item.product}</td>
+                    <td class="amount-cell">${item.code}</td>
+                    <td class="difference-cell">${item.quantity}</td>
+                    <td class="settlement-cell">${item.weight}</td>
+                    <td class="settlement-cell">${item.volume}</td>
+                    <td class="settlement-cell">${item.fee}</td>
+                    <td class="settlement-cell">${item.currency}</td>
+                    <td class="settlement-cell">${item.exchangeRate}</td>
+                    <td class="settlement-cell">${item.rubleEquivalent}</td>
+                    <td class="settlement-cell">${item.palletFee}</td>
+                    <td class="settlement-cell">${item.cubeFee}</td>
+                    <td class="settlement-cell">${item.deliveryFee}</td>
+                    <td class="settlement-cell">${item.total}</td>
+                    <td class="settlement-cell">
+                        <select class="settlement-select" data-id="${item.id}">
+                            <option value="">选择状态</option>
+                            <option value="未结算" ${item.settlement === '未结算' ? 'selected' : ''}>未结算</option>
+                            <option value="已结算" ${item.settlement === '已结算' ? 'selected' : ''}>已结算</option>
+                        </select>
+                    </td>
+                    <td class="notes-cell">
+                        <textarea class="editable-notes" data-id="${item.id}">${item.notes}</textarea>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+            
+            // 添加结算状态变化事件监听
+            document.querySelectorAll('#paymentTableBodyShipping .settlement-select').forEach(select => {
+                select.addEventListener('change', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const value = this.value;
+                    updateSettlementStatusShipping(id, value);
+                });
+            });
+            
+            // 添加备注编辑事件监听
+            document.querySelectorAll('#paymentTableBodyShipping .editable-notes').forEach(textarea => {
+                textarea.addEventListener('blur', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const value = this.value;
+                    updateNotesShipping(id, value);
+                });
+            });
+            
+            updateTotalsShipping();
+            updateFilterStatusShipping();
+        }
+        
+        function updateTotals() {
+            // 计算总计
+            const totalAmount = paymentData.reduce((sum, item) => {
+                return sum + (parseInt(item.amount) || 0);
+            }, 0);
+            
+            document.getElementById('totalAmount').textContent = formatNumber(totalAmount);
+            
+            // 计算筛选结果总计
+            if (filteredPaymentData) {
+                const filteredTotalAmount = filteredPaymentData.reduce((sum, item) => {
+                    return sum + (parseInt(item.amount) || 0);
+                }, 0);
+                
+                document.getElementById('filteredTotalAmount').textContent = formatNumber(filteredTotalAmount);
+                document.getElementById('filteredTotalRow').style.display = '';
+            } else {
+                document.getElementById('filteredTotalRow').style.display = 'none';
+            }
+        }
+        
+        function updateTotalsProducts() {
+            // 计算总计
+            const totalAmount = paymentDataProducts.reduce((sum, item) => {
+                return sum + (parseInt(item.rubleAmount) || 0);
+            }, 0);
+            
+            document.getElementById('totalAmountProducts').textContent = formatNumber(totalAmount);
+            
+            // 计算筛选结果总计
+            if (filteredPaymentDataProducts) {
+                const filteredTotalAmount = filteredPaymentDataProducts.reduce((sum, item) => {
+                    return sum + (parseInt(item.rubleAmount) || 0);
+                }, 0);
+                
+                document.getElementById('filteredTotalAmountProducts').textContent = formatNumber(filteredTotalAmount);
+                document.getElementById('filteredTotalRowProducts').style.display = '';
+            } else {
+                document.getElementById('filteredTotalRowProducts').style.display = 'none';
+            }
+        }
+        
+        function updateTotalsPayment() {
+            // 计算总计
+            const totalAmount = paymentDataPayment.reduce((sum, item) => {
+                return sum + (parseInt(item.amount) || 0);
+            }, 0);
+            
+            document.getElementById('totalAmountPayment').textContent = formatNumber(totalAmount);
+            
+            // 计算筛选结果总计
+            if (filteredPaymentDataPayment) {
+                const filteredTotalAmount = filteredPaymentDataPayment.reduce((sum, item) => {
+                    return sum + (parseInt(item.amount) || 0);
+                }, 0);
+                
+                document.getElementById('filteredTotalAmountPayment').textContent = formatNumber(filteredTotalAmount);
+                document.getElementById('filteredTotalRowPayment').style.display = '';
+            } else {
+                document.getElementById('filteredTotalRowPayment').style.display = 'none';
+            }
+        }
+        
+        function updateTotalsShipping() {
+            // 计算总计
+            const totalAmount = paymentDataShipping.reduce((sum, item) => {
+                return sum + (parseInt(item.total) || 0);
+            }, 0);
+            
+            document.getElementById('totalAmountShipping').textContent = formatNumber(totalAmount);
+            
+            // 计算筛选结果总计
+            if (filteredPaymentDataShipping) {
+                const filteredTotalAmount = filteredPaymentDataShipping.reduce((sum, item) => {
+                    return sum + (parseInt(item.total) || 0);
+                }, 0);
+                
+                document.getElementById('filteredTotalAmountShipping').textContent = formatNumber(filteredTotalAmount);
+                document.getElementById('filteredTotalRowShipping').style.display = '';
+            } else {
+                document.getElementById('filteredTotalRowShipping').style.display = 'none';
+            }
+        }
+        
+        function updateFilterStatus() {
+            const filterStatus = document.getElementById('filterStatus');
+            const filterTags = document.getElementById('filterTags');
+            
+            let hasFilters = false;
+            let tagsHtml = '';
+            
+            Object.keys(currentFilters).forEach(key => {
+                if (currentFilters[key].length > 0) {
+                    hasFilters = true;
+                    currentFilters[key].forEach(value => {
+                        tagsHtml += `<span class="filter-tag">${key}: ${value}</span>`;
+                    });
+                }
+            });
+            
+            if (hasFilters) {
+                filterStatus.style.display = 'block';
+                filterTags.innerHTML = tagsHtml;
+            } else {
+                filterStatus.style.display = 'none';
+            }
+        }
+        
+        function updateFilterStatusProducts() {
+            const filterStatus = document.getElementById('filterStatusProducts');
+            const filterTags = document.getElementById('filterTagsProducts');
+            
+            let hasFilters = false;
+            let tagsHtml = '';
+            
+            Object.keys(currentFiltersProducts).forEach(key => {
+                if (currentFiltersProducts[key].length > 0) {
+                    hasFilters = true;
+                    currentFiltersProducts[key].forEach(value => {
+                        tagsHtml += `<span class="filter-tag">${key}: ${value}</span>`;
+                    });
+                }
+            });
+            
+            if (hasFilters) {
+                filterStatus.style.display = 'block';
+                filterTags.innerHTML = tagsHtml;
+            } else {
+                filterStatus.style.display = 'none';
+            }
+        }
+        
+        function updateFilterStatusPayment() {
+            const filterStatus = document.getElementById('filterStatusPayment');
+            const filterTags = document.getElementById('filterTagsPayment');
+            
+            let hasFilters = false;
+            let tagsHtml = '';
+            
+            Object.keys(currentFiltersPayment).forEach(key => {
+                if (currentFiltersPayment[key].length > 0) {
+                    hasFilters = true;
+                    currentFiltersPayment[key].forEach(value => {
+                        tagsHtml += `<span class="filter-tag">${key}: ${value}</span>`;
+                    });
+                }
+            });
+            
+            if (hasFilters) {
+                filterStatus.style.display = 'block';
+                filterTags.innerHTML = tagsHtml;
+            } else {
+                filterStatus.style.display = 'none';
+            }
+        }
+        
+        function updateFilterStatusShipping() {
+            const filterStatus = document.getElementById('filterStatusShipping');
+            const filterTags = document.getElementById('filterTagsShipping');
+            
+            let hasFilters = false;
+            let tagsHtml = '';
+            
+            Object.keys(currentFiltersShipping).forEach(key => {
+                if (currentFiltersShipping[key].length > 0) {
+                    hasFilters = true;
+                    currentFiltersShipping[key].forEach(value => {
+                        tagsHtml += `<span class="filter-tag">${key}: ${value}</span>`;
+                    });
+                }
+            });
+            
+            if (hasFilters) {
+                filterStatus.style.display = 'block';
+                filterTags.innerHTML = tagsHtml;
+            } else {
+                filterStatus.style.display = 'none';
+            }
+        }
+        
+        // 添加收支记录
+        function addPaymentRecord() {
+            // 获取表单数据
+            const date = document.getElementById('record-date').value;
+            const type = document.getElementById('record-type').value;
+            const form = document.getElementById('record-form').value;
+            const amount = document.getElementById('record-amount').value;
+            const description = document.getElementById('record-description').value;
+            
             // 验证必填项
+            if (!date || !type || !form || !amount || !description) {
+                showMessage('请填写所有必填项！', 'error');
+                return;
+            }
+            
+            // 生成新ID
+            const newId = paymentData.length > 0 ? Math.max(...paymentData.map(p => p.id)) + 1 : 1;
+            
+            // 添加新记录
+            paymentData.push({
+                id: newId,
+                date,
+                type,
+                form,
+                amount: unformatNumber(amount),
+                description,
+                settlement: '' // 添加结算字段
+            });
+            
+            // 保存数据
+            savePaymentData();
+            
+            // 重新渲染表格
+            renderPaymentTable();
+            
+            // 清空表单
+            document.getElementById('record-date').value = '';
+            document.getElementById('record-type').value = '';
+            document.getElementById('record-form').value = '';
+            document.getElementById('record-amount').value = '';
+            document.getElementById('record-description').value = '';
+            
+            // 显示成功消息
+            showMessage('收支记录已成功添加！', 'success');
+        }
+        
+        function addPaymentRecordProducts() {
+            // 获取表单数据
+            const date = document.getElementById('arrival-date').value;
+            const productName = document.getElementById('product-name').value;
+            const color = document.getElementById('color-select').value;
+            const quantity = document.getElementById('quantity').value;
+            const unit = document.getElementById('unit-select').value;
+            const unitPrice = document.getElementById('unit-price').value;
+            const exchangeRate = document.getElementById('exchange-rate').value;
+            const rublePrice = document.getElementById('ruble-price').textContent;
+            const cnyAmount = document.getElementById('cny-amount').textContent;
+            const rubleAmount = document.getElementById('ruble-amount').textContent;
+            const description = document.getElementById('product-description').value;
+            
+            // 验证必填项
+            if (!date || !productName || !quantity || !unitPrice || !exchangeRate) {
+                showMessage('请填写所有必填项！', 'error');
+                return;
+            }
+            
+            // 生成新ID
+            const newId = paymentDataProducts.length > 0 ? Math.max(...paymentDataProducts.map(p => p.id)) + 1 : 1;
+            
+            // 添加新记录
+            paymentDataProducts.push({
+                id: newId,
+                date,
+                productName,
+                color,
+                quantity,
+                unit,
+                unitPrice,
+                exchangeRate,
+                rublePrice,
+                cnyAmount,
+                rubleAmount,
+                description
+            });
+            
+            // 保存数据
+            savePaymentDataProducts();
+            
+            // 重新渲染表格
+            renderPaymentTableProducts();
+            
+            // 清空表单
+            document.getElementById('arrival-date').value = '';
+            document.getElementById('product-name').value = '';
+            document.getElementById('color-select').value = '';
+            document.getElementById('quantity').value = '';
+            document.getElementById('unit-select').value = '';
+            document.getElementById('unit-price').value = '';
+            document.getElementById('exchange-rate').value = '';
+            document.getElementById('product-description').value = '';
+            
+            // 显示成功消息
+            showMessage('商品记录已成功添加！', 'success');
+        }
+        
+        function addPaymentRecordPayment() {
+            // 获取表单数据
             const date = document.getElementById('payment-date').value;
             const recipient = document.getElementById('payment-recipient').value;
             const account = document.getElementById('payment-account').value;
             const method = document.getElementById('payment-method').value;
             const amount = document.getElementById('payment-amount').value;
+            const notes = document.getElementById('payment-notes').value;
             
+            // 验证必填项
             if (!date || !recipient || !account || !method || !amount) {
-                alert('请填写所有必填项！');
+                showMessage('请填写所有必填项！', 'error');
                 return;
             }
             
-            // 保存到本地存储
-            const payments = JSON.parse(localStorage.getItem('payments'));
-            payments.push({
+            // 生成新ID
+            const newId = paymentDataPayment.length > 0 ? Math.max(...paymentDataPayment.map(p => p.id)) + 1 : 1;
+            
+            // 添加新记录
+            paymentDataPayment.push({
+                id: newId,
                 date,
                 recipient,
-                method,
                 account,
+                method,
                 amount: unformatNumber(amount),
-                settlement: '未结算',
-                notes: document.getElementById('payment-notes').value
+                notes,
+                settlement: '' // 添加结算字段
             });
-            localStorage.setItem('payments', JSON.stringify(payments));
             
-            // 如果收款人不在设置中，则添加到设置
-            const settings = JSON.parse(localStorage.getItem('settings'));
-            const relation = `${recipient},${account},${method}`;
-            if (!settings.paymentRelations.includes(relation)) {
-                settings.paymentRelations.push(relation);
-                localStorage.setItem('settings', JSON.stringify(settings));
-                updateDropdownOptions();
-            }
+            // 保存数据
+            savePaymentDataPayment();
             
-            // 更新表格
-            updatePaymentTable();
+            // 重新渲染表格
+            renderPaymentTablePayment();
             
             // 清空表单
             document.getElementById('payment-date').value = '';
@@ -2056,132 +2769,1232 @@
             document.getElementById('payment-amount').value = '';
             document.getElementById('payment-notes').value = '';
             
-            alert('货款支付记录已添加！');
-        });
+            // 显示成功消息
+            showMessage('货款支付记录已成功添加！', 'success');
+        }
         
-        // 更新货款支付表格
-        function updatePaymentTable() {
-            const payments = JSON.parse(localStorage.getItem('payments'));
-            const tableBody = document.querySelector('#payment-table tbody');
-            const tableFoot = document.querySelector('#payment-table tfoot');
-            tableBody.innerHTML = '';
-            tableFoot.innerHTML = '';
+        function addPaymentRecordShipping() {
+            // 获取表单数据
+            const date = document.getElementById('shipping-date').value;
+            const code = document.getElementById('shipping-code').value;
+            const product = document.getElementById('shipping-product').value;
+            const weight = document.getElementById('shipping-weight').value;
+            const volume = document.getElementById('shipping-volume').value;
+            const quantity = document.getElementById('shipping-quantity').value;
+            const fee = document.getElementById('shipping-fee').value;
+            const currency = document.getElementById('shipping-currency').value;
+            const exchangeRate = document.getElementById('shipping-exchange-rate').value;
+            const rubleEquivalent = document.getElementById('shipping-ruble').textContent;
+            const palletFee = document.getElementById('pallet-fee').value;
+            const cubeFee = document.getElementById('cube-fee').value;
+            const deliveryFee = document.getElementById('delivery-fee').value;
+            const total = document.getElementById('shipping-total').textContent;
+            const notes = document.getElementById('shipping-notes').value;
             
-            // 添加表格行
-            payments.forEach((payment, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td class="checkbox-cell"><input type="checkbox" class="payment-checkbox" data-index="${index}"></td>
-                    <td>${payment.date}</td>
-                    <td>${payment.recipient}</td>
-                    <td>${payment.method}</td>
-                    <td>${payment.account}</td>
-                    <td>${formatNumber(payment.amount)}</td>
-                    <td>
-                        <select class="settlement-select" data-index="${index}">
-                            <option value="未结算" ${payment.settlement === '未结算' ? 'selected' : ''}>未结算</option>
-                            <option value="已结算" ${payment.settlement === '已结算' ? 'selected' : ''}>已结算</option>
-                        </select>
-                    </td>
-                    <td class="notes-cell editable-cell" contenteditable="true" data-index="${index}" data-field="notes">${payment.notes}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-            
-            // 添加总计行
-            if (payments.length > 0) {
-                const totalRow = document.createElement('tr');
-                totalRow.className = 'table-total';
-                
-                // 计算总计
-                const totalAmount = payments.reduce((sum, payment) => sum + payment.amount, 0);
-                
-                totalRow.innerHTML = `
-                    <td colspan="5">总计</td>
-                    <td>${formatNumber(totalAmount)}</td>
-                    <td></td>
-                    <td></td>
-                `;
-                tableFoot.appendChild(totalRow);
+            // 验证必填项 - 移除了件数的必填验证
+            if (!date || !product || !weight || !fee || !currency || !exchangeRate) {
+                showMessage('请填写所有必填项！', 'error');
+                return;
             }
             
-            // 添加筛选结果行
-            const filterRow = document.createElement('tr');
-            filterRow.className = 'table-filter-result';
-            filterRow.innerHTML = `<td colspan="8">共 ${payments.length} 条记录</td>`;
-            tableFoot.appendChild(filterRow);
+            // 生成新ID
+            const newId = paymentDataShipping.length > 0 ? Math.max(...paymentDataShipping.map(p => p.id)) + 1 : 1;
             
-            // 添加勾选框事件监听
-            document.querySelectorAll('.payment-checkbox').forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    // 更新全选框状态
-                    updateCheckAllState('payments');
-                });
+            // 添加新记录
+            paymentDataShipping.push({
+                id: newId,
+                date,
+                code,
+                product,
+                weight,
+                volume,
+                quantity,
+                fee,
+                currency,
+                exchangeRate,
+                rubleEquivalent,
+                palletFee,
+                cubeFee,
+                deliveryFee,
+                total,
+                notes,
+                settlement: '' // 添加结算字段
             });
             
-            // 添加全选框事件监听
-            document.getElementById('payments-check-all').addEventListener('change', function() {
-                const isChecked = this.checked;
-                document.querySelectorAll('.payment-checkbox').forEach(checkbox => {
-                    checkbox.checked = isChecked;
-                });
-            });
+            // 保存数据
+            savePaymentDataShipping();
             
-            // 添加结算状态选择器事件监听
-            document.querySelectorAll('#payment-table .settlement-select').forEach(select => {
-                select.addEventListener('change', function() {
-                    const index = parseInt(this.getAttribute('data-index'));
-                    const value = this.value;
+            // 重新渲染表格
+            renderPaymentTableShipping();
+            
+            // 清空表单
+            document.getElementById('shipping-date').value = '';
+            document.getElementById('shipping-code').value = '';
+            document.getElementById('shipping-product').value = '';
+            document.getElementById('shipping-weight').value = '';
+            document.getElementById('shipping-volume').value = '';
+            document.getElementById('shipping-quantity').value = '';
+            document.getElementById('shipping-fee').value = '';
+            document.getElementById('shipping-currency').value = '';
+            document.getElementById('shipping-exchange-rate').value = '';
+            document.getElementById('pallet-fee').value = '';
+            document.getElementById('cube-fee').value = '';
+            document.getElementById('delivery-fee').value = '';
+            document.getElementById('shipping-notes').value = '';
+            
+            // 显示成功消息
+            showMessage('运费支出记录已成功添加！', 'success');
+        }
+        
+        // 删除选中的收支记录
+        function deleteSelectedPayments() {
+            const checkboxes = document.querySelectorAll('#paymentTableBody .payment-checkbox:checked');
+            if (checkboxes.length === 0) {
+                showMessage('请先选择要删除的收支记录', 'error');
+                return;
+            }
+            
+            showConfirm(`确定要删除选中的 ${checkboxes.length} 条收支记录吗？`, function(result) {
+                if (result) {
+                    const idsToDelete = Array.from(checkboxes).map(cb => parseInt(cb.getAttribute('data-id')));
+                    paymentData = paymentData.filter(item => !idsToDelete.includes(item.id));
                     
-                    const payments = JSON.parse(localStorage.getItem('payments'));
-                    payments[index].settlement = value;
-                    localStorage.setItem('payments', JSON.stringify(payments));
-                });
-            });
-            
-            // 添加可编辑单元格事件监听
-            document.querySelectorAll('#payment-table .editable-cell').forEach(cell => {
-                cell.addEventListener('blur', function() {
-                    const index = parseInt(this.getAttribute('data-index'));
-                    const field = this.getAttribute('data-field');
-                    const value = this.textContent;
-                    
-                    const payments = JSON.parse(localStorage.getItem('payments'));
-                    payments[index][field] = value;
-                    localStorage.setItem('payments', JSON.stringify(payments));
-                });
+                    savePaymentData();
+                    renderPaymentTable();
+                    showMessage(`已删除 ${idsToDelete.length} 条收支记录`, 'success');
+                }
             });
         }
         
-        // 货款支付全选/取消全选
-        document.getElementById('select-all-payments').addEventListener('click', function() {
-            document.querySelectorAll('.payment-checkbox').forEach(checkbox => {
-                checkbox.checked = true;
-            });
-            document.getElementById('payments-check-all').checked = true;
-        });
-        
-        document.getElementById('deselect-all-payments').addEventListener('click', function() {
-            document.querySelectorAll('.payment-checkbox').forEach(checkbox => {
-                checkbox.checked = false;
-            });
-            document.getElementById('payments-check-all').checked = false;
-        });
-        
-        // 货款支付取消筛选
-        document.getElementById('clear-filter-payments').addEventListener('click', function() {
-            // 这里可以实现筛选逻辑，目前只是重新加载表格
-            updatePaymentTable();
-            alert('筛选已取消！');
-        });
-        
-        // 更新全选框状态
-        function updateCheckAllState(tableType) {
-            const checkboxes = document.querySelectorAll(`.${tableType}-checkbox`);
-            const checkAll = document.getElementById(`${tableType}-check-all`);
+        function deleteSelectedPaymentsProducts() {
+            const checkboxes = document.querySelectorAll('#paymentTableBodyProducts .payment-checkbox:checked');
+            if (checkboxes.length === 0) {
+                showMessage('请先选择要删除的付款记录', 'error');
+                return;
+            }
             
-            const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
-            checkAll.checked = allChecked;
+            showConfirm(`确定要删除选中的 ${checkboxes.length} 条付款记录吗？`, function(result) {
+                if (result) {
+                    const idsToDelete = Array.from(checkboxes).map(cb => parseInt(cb.getAttribute('data-id')));
+                    paymentDataProducts = paymentDataProducts.filter(item => !idsToDelete.includes(item.id));
+                    
+                    savePaymentDataProducts();
+                    renderPaymentTableProducts();
+                    showMessage('已删除选中的付款记录', 'success');
+                }
+            });
+        }
+        
+        function deleteSelectedPaymentsPayment() {
+            const checkboxes = document.querySelectorAll('#paymentTableBodyPayment .payment-checkbox:checked');
+            if (checkboxes.length === 0) {
+                showMessage('请先选择要删除的付款记录', 'error');
+                return;
+            }
+            
+            showConfirm(`确定要删除选中的 ${checkboxes.length} 条付款记录吗？`, function(result) {
+                if (result) {
+                    const idsToDelete = Array.from(checkboxes).map(cb => parseInt(cb.getAttribute('data-id')));
+                    paymentDataPayment = paymentDataPayment.filter(item => !idsToDelete.includes(item.id));
+                    
+                    savePaymentDataPayment();
+                    renderPaymentTablePayment();
+                    showMessage('已删除选中的付款记录', 'success');
+                }
+            });
+        }
+        
+        function deleteSelectedPaymentsShipping() {
+            const checkboxes = document.querySelectorAll('#paymentTableBodyShipping .payment-checkbox:checked');
+            if (checkboxes.length === 0) {
+                showMessage('请先选择要删除的付款记录', 'error');
+                return;
+            }
+            
+            showConfirm(`确定要删除选中的 ${checkboxes.length} 条付款记录吗？`, function(result) {
+                if (result) {
+                    const idsToDelete = Array.from(checkboxes).map(cb => parseInt(cb.getAttribute('data-id')));
+                    paymentDataShipping = paymentDataShipping.filter(item => !idsToDelete.includes(item.id));
+                    
+                    savePaymentDataShipping();
+                    renderPaymentTableShipping();
+                    showMessage('已删除选中的付款记录', 'success');
+                }
+            });
+        }
+        
+        // 更新结算状态
+        function updateSettlementStatus(id, value) {
+            const item = paymentData.find(p => p.id === id);
+            if (item) {
+                item.settlement = value;
+                savePaymentData();
+            }
+        }
+        
+        function updateSettlementStatusPayment(id, value) {
+            const item = paymentDataPayment.find(p => p.id === id);
+            if (item) {
+                item.settlement = value;
+                savePaymentDataPayment();
+            }
+        }
+        
+        function updateSettlementStatusShipping(id, value) {
+            const item = paymentDataShipping.find(p => p.id === id);
+            if (item) {
+                item.settlement = value;
+                savePaymentDataShipping();
+            }
+        }
+        
+        // 更新备注
+        function updateNotes(id, value) {
+            const item = paymentData.find(p => p.id === id);
+            if (item) {
+                item.description = value;
+                savePaymentData();
+            }
+        }
+        
+        function updateNotesProducts(id, value) {
+            const item = paymentDataProducts.find(p => p.id === id);
+            if (item) {
+                item.description = value;
+                savePaymentDataProducts();
+            }
+        }
+        
+        function updateNotesPayment(id, value) {
+            const item = paymentDataPayment.find(p => p.id === id);
+            if (item) {
+                item.notes = value;
+                savePaymentDataPayment();
+            }
+        }
+        
+        function updateNotesShipping(id, value) {
+            const item = paymentDataShipping.find(p => p.id === id);
+            if (item) {
+                item.notes = value;
+                savePaymentDataShipping();
+            }
+        }
+        
+        // 日期筛选下拉框（按年、月、日）- 支持多选筛选
+        function showDateFilterDropdown(button, column) {
+            // 移除现有下拉框
+            const existing = document.querySelector('.filter-dropdown');
+            if (existing) {
+                existing.remove();
+            }
+            
+            // 获取所有日期并提取年、月、日
+            const dates = paymentData.map(item => item.date);
+            const years = [...new Set(dates.map(date => date.split('-')[0]))].sort().reverse();
+            const months = [...new Set(dates.map(date => date.split('-')[1]))].sort().reverse();
+            const days = [...new Set(dates.map(date => date.split('-')[2]))].sort().reverse();
+            
+            // 创建下拉框
+            const dropdown = document.createElement('div');
+            dropdown.className = 'filter-dropdown';
+            
+            // 添加年份筛选
+            if (years.length > 0) {
+                const yearHeader = document.createElement('div');
+                yearHeader.className = 'filter-item';
+                yearHeader.style.fontWeight = 'bold';
+                yearHeader.textContent = '按年筛选:';
+                dropdown.appendChild(yearHeader);
+                
+                years.forEach(year => {
+                    const item = document.createElement('div');
+                    item.className = 'filter-item';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'filter-checkbox';
+                    checkbox.value = year;
+                    checkbox.checked = currentFilters.date.includes(year);
+                    
+                    item.appendChild(checkbox);
+                    item.appendChild(document.createTextNode(`${year}年`));
+                    dropdown.appendChild(item);
+                });
+            }
+            
+            // 添加月份筛选
+            if (months.length > 0) {
+                const monthHeader = document.createElement('div');
+                monthHeader.className = 'filter-item';
+                monthHeader.style.fontWeight = 'bold';
+                monthHeader.textContent = '按月筛选:';
+                dropdown.appendChild(monthHeader);
+                
+                months.forEach(month => {
+                    const item = document.createElement('div');
+                    item.className = 'filter-item';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'filter-checkbox';
+                    checkbox.value = month;
+                    checkbox.checked = currentFilters.date.includes(month);
+                    
+                    item.appendChild(checkbox);
+                    item.appendChild(document.createTextNode(`${month}月`));
+                    dropdown.appendChild(item);
+                });
+            }
+            
+            // 添加日期筛选
+            if (days.length > 0) {
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'filter-item';
+                dayHeader.style.fontWeight = 'bold';
+                dayHeader.textContent = '按日筛选:';
+                dropdown.appendChild(dayHeader);
+                
+                days.forEach(day => {
+                    const item = document.createElement('div');
+                    item.className = 'filter-item';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'filter-checkbox';
+                    checkbox.value = day;
+                    checkbox.checked = currentFilters.date.includes(day);
+                    
+                    item.appendChild(checkbox);
+                    item.appendChild(document.createTextNode(`${day}日`));
+                    dropdown.appendChild(item);
+                });
+            }
+            
+            // 添加操作按钮
+            const actions = document.createElement('div');
+            actions.className = 'filter-actions';
+            
+            const applyBtn = document.createElement('button');
+            applyBtn.className = 'filter-apply-btn';
+            applyBtn.textContent = '应用筛选';
+            applyBtn.addEventListener('click', function() {
+                // 获取选中的筛选条件
+                const selectedValues = Array.from(dropdown.querySelectorAll('.filter-checkbox:checked')).map(cb => cb.value);
+                currentFilters.date = selectedValues;
+                applyDateFilter();
+                dropdown.remove();
+            });
+            
+            const clearBtn = document.createElement('button');
+            clearBtn.className = 'filter-clear-btn';
+            clearBtn.textContent = '清除筛选';
+            clearBtn.addEventListener('click', function() {
+                currentFilters.date = [];
+                applyDateFilter();
+                dropdown.remove();
+            });
+            
+            actions.appendChild(applyBtn);
+            actions.appendChild(clearBtn);
+            dropdown.appendChild(actions);
+            
+            // 定位下拉框
+            const rect = button.getBoundingClientRect();
+            dropdown.style.top = (rect.bottom + window.scrollY) + 'px';
+            dropdown.style.left = (rect.left + window.scrollX) + 'px';
+            
+            document.body.appendChild(dropdown);
+            
+            // 点击其他地方时关闭下拉框
+            document.addEventListener('click', function closeDropdown(e) {
+                if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.remove();
+                    document.removeEventListener('click', closeDropdown);
+                }
+            });
+        }
+        
+        function showDateFilterDropdownProducts(button, column) {
+            // 移除现有下拉框
+            const existing = document.querySelector('.filter-dropdown');
+            if (existing) {
+                existing.remove();
+            }
+            
+            // 获取所有日期并提取年、月、日
+            const dates = paymentDataProducts.map(item => item.date);
+            const years = [...new Set(dates.map(date => date.split('-')[0]))].sort().reverse();
+            const months = [...new Set(dates.map(date => date.split('-')[1]))].sort().reverse();
+            const days = [...new Set(dates.map(date => date.split('-')[2]))].sort().reverse();
+            
+            // 创建下拉框
+            const dropdown = document.createElement('div');
+            dropdown.className = 'filter-dropdown';
+            
+            // 添加年份筛选
+            if (years.length > 0) {
+                const yearHeader = document.createElement('div');
+                yearHeader.className = 'filter-item';
+                yearHeader.style.fontWeight = 'bold';
+                yearHeader.textContent = '按年筛选:';
+                dropdown.appendChild(yearHeader);
+                
+                years.forEach(year => {
+                    const item = document.createElement('div');
+                    item.className = 'filter-item';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'filter-checkbox';
+                    checkbox.value = year;
+                    checkbox.checked = currentFiltersProducts.date.includes(year);
+                    
+                    item.appendChild(checkbox);
+                    item.appendChild(document.createTextNode(`${year}年`));
+                    dropdown.appendChild(item);
+                });
+            }
+            
+            // 添加月份筛选
+            if (months.length > 0) {
+                const monthHeader = document.createElement('div');
+                monthHeader.className = 'filter-item';
+                monthHeader.style.fontWeight = 'bold';
+                monthHeader.textContent = '按月筛选:';
+                dropdown.appendChild(monthHeader);
+                
+                months.forEach(month => {
+                    const item = document.createElement('div');
+                    item.className = 'filter-item';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'filter-checkbox';
+                    checkbox.value = month;
+                    checkbox.checked = currentFiltersProducts.date.includes(month);
+                    
+                    item.appendChild(checkbox);
+                    item.appendChild(document.createTextNode(`${month}月`));
+                    dropdown.appendChild(item);
+                });
+            }
+            
+            // 添加日期筛选
+            if (days.length > 0) {
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'filter-item';
+                dayHeader.style.fontWeight = 'bold';
+                dayHeader.textContent = '按日筛选:';
+                dropdown.appendChild(dayHeader);
+                
+                days.forEach(day => {
+                    const item = document.createElement('div');
+                    item.className = 'filter-item';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'filter-checkbox';
+                    checkbox.value = day;
+                    checkbox.checked = currentFiltersProducts.date.includes(day);
+                    
+                    item.appendChild(checkbox);
+                    item.appendChild(document.createTextNode(`${day}日`));
+                    dropdown.appendChild(item);
+                });
+            }
+            
+            // 添加操作按钮
+            const actions = document.createElement('div');
+            actions.className = 'filter-actions';
+            
+            const applyBtn = document.createElement('button');
+            applyBtn.className = 'filter-apply-btn';
+            applyBtn.textContent = '应用筛选';
+            applyBtn.addEventListener('click', function() {
+                // 获取选中的筛选条件
+                const selectedValues = Array.from(dropdown.querySelectorAll('.filter-checkbox:checked')).map(cb => cb.value);
+                currentFiltersProducts.date = selectedValues;
+                applyDateFilterProducts();
+                dropdown.remove();
+            });
+            
+            const clearBtn = document.createElement('button');
+            clearBtn.className = 'filter-clear-btn';
+            clearBtn.textContent = '清除筛选';
+            clearBtn.addEventListener('click', function() {
+                currentFiltersProducts.date = [];
+                applyDateFilterProducts();
+                dropdown.remove();
+            });
+            
+            actions.appendChild(applyBtn);
+            actions.appendChild(clearBtn);
+            dropdown.appendChild(actions);
+            
+            // 定位下拉框
+            const rect = button.getBoundingClientRect();
+            dropdown.style.top = (rect.bottom + window.scrollY) + 'px';
+            dropdown.style.left = (rect.left + window.scrollX) + 'px';
+            
+            document.body.appendChild(dropdown);
+            
+            // 点击其他地方时关闭下拉框
+            document.addEventListener('click', function closeDropdown(e) {
+                if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.remove();
+                    document.removeEventListener('click', closeDropdown);
+                }
+            });
+        }
+        
+        function showDateFilterDropdownPayment(button, column) {
+            // 移除现有下拉框
+            const existing = document.querySelector('.filter-dropdown');
+            if (existing) {
+                existing.remove();
+            }
+            
+            // 获取所有日期并提取年、月、日
+            const dates = paymentDataPayment.map(item => item.date);
+            const years = [...new Set(dates.map(date => date.split('-')[0]))].sort().reverse();
+            const months = [...new Set(dates.map(date => date.split('-')[1]))].sort().reverse();
+            const days = [...new Set(dates.map(date => date.split('-')[2]))].sort().reverse();
+            
+            // 创建下拉框
+            const dropdown = document.createElement('div');
+            dropdown.className = 'filter-dropdown';
+            
+            // 添加年份筛选
+            if (years.length > 0) {
+                const yearHeader = document.createElement('div');
+                yearHeader.className = 'filter-item';
+                yearHeader.style.fontWeight = 'bold';
+                yearHeader.textContent = '按年筛选:';
+                dropdown.appendChild(yearHeader);
+                
+                years.forEach(year => {
+                    const item = document.createElement('div');
+                    item.className = 'filter-item';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'filter-checkbox';
+                    checkbox.value = year;
+                    checkbox.checked = currentFiltersPayment.date.includes(year);
+                    
+                    item.appendChild(checkbox);
+                    item.appendChild(document.createTextNode(`${year}年`));
+                    dropdown.appendChild(item);
+                });
+            }
+            
+            // 添加月份筛选
+            if (months.length > 0) {
+                const monthHeader = document.createElement('div');
+                monthHeader.className = 'filter-item';
+                monthHeader.style.fontWeight = 'bold';
+                monthHeader.textContent = '按月筛选:';
+                dropdown.appendChild(monthHeader);
+                
+                months.forEach(month => {
+                    const item = document.createElement('div');
+                    item.className = 'filter-item';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'filter-checkbox';
+                    checkbox.value = month;
+                    checkbox.checked = currentFiltersPayment.date.includes(month);
+                    
+                    item.appendChild(checkbox);
+                    item.appendChild(document.createTextNode(`${month}月`));
+                    dropdown.appendChild(item);
+                });
+            }
+            
+            // 添加日期筛选
+            if (days.length > 0) {
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'filter-item';
+                dayHeader.style.fontWeight = 'bold';
+                dayHeader.textContent = '按日筛选:';
+                dropdown.appendChild(dayHeader);
+                
+                days.forEach(day => {
+                    const item = document.createElement('div');
+                    item.className = 'filter-item';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'filter-checkbox';
+                    checkbox.value = day;
+                    checkbox.checked = currentFiltersPayment.date.includes(day);
+                    
+                    item.appendChild(checkbox);
+                    item.appendChild(document.createTextNode(`${day}日`));
+                    dropdown.appendChild(item);
+                });
+            }
+            
+            // 添加操作按钮
+            const actions = document.createElement('div');
+            actions.className = 'filter-actions';
+            
+            const applyBtn = document.createElement('button');
+            applyBtn.className = 'filter-apply-btn';
+            applyBtn.textContent = '应用筛选';
+            applyBtn.addEventListener('click', function() {
+                // 获取选中的筛选条件
+                const selectedValues = Array.from(dropdown.querySelectorAll('.filter-checkbox:checked')).map(cb => cb.value);
+                currentFiltersPayment.date = selectedValues;
+                applyDateFilterPayment();
+                dropdown.remove();
+            });
+            
+            const clearBtn = document.createElement('button');
+            clearBtn.className = 'filter-clear-btn';
+            clearBtn.textContent = '清除筛选';
+            clearBtn.addEventListener('click', function() {
+                currentFiltersPayment.date = [];
+                applyDateFilterPayment();
+                dropdown.remove();
+            });
+            
+            actions.appendChild(applyBtn);
+            actions.appendChild(clearBtn);
+            dropdown.appendChild(actions);
+            
+            // 定位下拉框
+            const rect = button.getBoundingClientRect();
+            dropdown.style.top = (rect.bottom + window.scrollY) + 'px';
+            dropdown.style.left = (rect.left + window.scrollX) + 'px';
+            
+            document.body.appendChild(dropdown);
+            
+            // 点击其他地方时关闭下拉框
+            document.addEventListener('click', function closeDropdown(e) {
+                if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.remove();
+                    document.removeEventListener('click', closeDropdown);
+                }
+            });
+        }
+        
+        function showDateFilterDropdownShipping(button, column) {
+            // 移除现有下拉框
+            const existing = document.querySelector('.filter-dropdown');
+            if (existing) {
+                existing.remove();
+            }
+            
+            // 获取所有日期并提取年、月、日
+            const dates = paymentDataShipping.map(item => item.date);
+            const years = [...new Set(dates.map(date => date.split('-')[0]))].sort().reverse();
+            const months = [...new Set(dates.map(date => date.split('-')[1]))].sort().reverse();
+            const days = [...new Set(dates.map(date => date.split('-')[2]))].sort().reverse();
+            
+            // 创建下拉框
+            const dropdown = document.createElement('div');
+            dropdown.className = 'filter-dropdown';
+            
+            // 添加年份筛选
+            if (years.length > 0) {
+                const yearHeader = document.createElement('div');
+                yearHeader.className = 'filter-item';
+                yearHeader.style.fontWeight = 'bold';
+                yearHeader.textContent = '按年筛选:';
+                dropdown.appendChild(yearHeader);
+                
+                years.forEach(year => {
+                    const item = document.createElement('div');
+                    item.className = 'filter-item';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'filter-checkbox';
+                    checkbox.value = year;
+                    checkbox.checked = currentFiltersShipping.date.includes(year);
+                    
+                    item.appendChild(checkbox);
+                    item.appendChild(document.createTextNode(`${year}年`));
+                    dropdown.appendChild(item);
+                });
+            }
+            
+            // 添加月份筛选
+            if (months.length > 0) {
+                const monthHeader = document.createElement('div');
+                monthHeader.className = 'filter-item';
+                monthHeader.style.fontWeight = 'bold';
+                monthHeader.textContent = '按月筛选:';
+                dropdown.appendChild(monthHeader);
+                
+                months.forEach(month => {
+                    const item = document.createElement('div');
+                    item.className = 'filter-item';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'filter-checkbox';
+                    checkbox.value = month;
+                    checkbox.checked = currentFiltersShipping.date.includes(month);
+                    
+                    item.appendChild(checkbox);
+                    item.appendChild(document.createTextNode(`${month}月`));
+                    dropdown.appendChild(item);
+                });
+            }
+            
+            // 添加日期筛选
+            if (days.length > 0) {
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'filter-item';
+                dayHeader.style.fontWeight = 'bold';
+                dayHeader.textContent = '按日筛选:';
+                dropdown.appendChild(dayHeader);
+                
+                days.forEach(day => {
+                    const item = document.createElement('div');
+                    item.className = 'filter-item';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'filter-checkbox';
+                    checkbox.value = day;
+                    checkbox.checked = currentFiltersShipping.date.includes(day);
+                    
+                    item.appendChild(checkbox);
+                    item.appendChild(document.createTextNode(`${day}日`));
+                    dropdown.appendChild(item);
+                });
+            }
+            
+            // 添加操作按钮
+            const actions = document.createElement('div');
+            actions.className = 'filter-actions';
+            
+            const applyBtn = document.createElement('button');
+            applyBtn.className = 'filter-apply-btn';
+            applyBtn.textContent = '应用筛选';
+            applyBtn.addEventListener('click', function() {
+                // 获取选中的筛选条件
+                const selectedValues = Array.from(dropdown.querySelectorAll('.filter-checkbox:checked')).map(cb => cb.value);
+                currentFiltersShipping.date = selectedValues;
+                applyDateFilterShipping();
+                dropdown.remove();
+            });
+            
+            const clearBtn = document.createElement('button');
+            clearBtn.className = 'filter-clear-btn';
+            clearBtn.textContent = '清除筛选';
+            clearBtn.addEventListener('click', function() {
+                currentFiltersShipping.date = [];
+                applyDateFilterShipping();
+                dropdown.remove();
+            });
+            
+            actions.appendChild(applyBtn);
+            actions.appendChild(clearBtn);
+            dropdown.appendChild(actions);
+            
+            // 定位下拉框
+            const rect = button.getBoundingClientRect();
+            dropdown.style.top = (rect.bottom + window.scrollY) + 'px';
+            dropdown.style.left = (rect.left + window.scrollX) + 'px';
+            
+            document.body.appendChild(dropdown);
+            
+            // 点击其他地方时关闭下拉框
+            document.addEventListener('click', function closeDropdown(e) {
+                if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.remove();
+                    document.removeEventListener('click', closeDropdown);
+                }
+            });
+        }
+        
+        // 应用日期筛选
+        function applyDateFilter() {
+            let filteredData = [...paymentData];
+            
+            // 按日期筛选
+            if (currentFilters.date.length > 0) {
+                filteredData = filteredData.filter(item => {
+                    const dateParts = item.date.split('-');
+                    return currentFilters.date.some(filter => 
+                        dateParts.includes(filter)
+                    );
+                });
+            }
+            
+            renderPaymentTable(filteredData);
+        }
+        
+        function applyDateFilterProducts() {
+            let filteredData = [...paymentDataProducts];
+            
+            // 按日期筛选
+            if (currentFiltersProducts.date.length > 0) {
+                filteredData = filteredData.filter(item => {
+                    const dateParts = item.date.split('-');
+                    return currentFiltersProducts.date.some(filter => 
+                        dateParts.includes(filter)
+                    );
+                });
+            }
+            
+            renderPaymentTableProducts(filteredData);
+        }
+        
+        function applyDateFilterPayment() {
+            let filteredData = [...paymentDataPayment];
+            
+            // 按日期筛选
+            if (currentFiltersPayment.date.length > 0) {
+                filteredData = filteredData.filter(item => {
+                    const dateParts = item.date.split('-');
+                    return currentFiltersPayment.date.some(filter => 
+                        dateParts.includes(filter)
+                    );
+                });
+            }
+            
+            renderPaymentTablePayment(filteredData);
+        }
+        
+        function applyDateFilterShipping() {
+            let filteredData = [...paymentDataShipping];
+            
+            // 按日期筛选
+            if (currentFiltersShipping.date.length > 0) {
+                filteredData = filteredData.filter(item => {
+                    const dateParts = item.date.split('-');
+                    return currentFiltersShipping.date.some(filter => 
+                        dateParts.includes(filter)
+                    );
+                });
+            }
+            
+            renderPaymentTableShipping(filteredData);
+        }
+        
+        // 清除所有筛选
+        function clearAllFilters() {
+            currentFilters = {
+                date: [],
+                type: [],
+                form: [],
+                settlement: [],
+                description: []
+            };
+            renderPaymentTable();
+        }
+        
+        function clearAllFiltersProducts() {
+            currentFiltersProducts = {
+                date: [],
+                productName: [],
+                color: [],
+                quantity: [],
+                unit: [],
+                unitPrice: [],
+                exchangeRate: [],
+                rublePrice: [],
+                cnyAmount: [],
+                rubleAmount: [],
+                description: []
+            };
+            renderPaymentTableProducts();
+        }
+        
+        function clearAllFiltersPayment() {
+            currentFiltersPayment = {
+                date: [],
+                recipient: [],
+                account: [],
+                method: [],
+                amount: [],
+                settlement: [],
+                notes: []
+            };
+            renderPaymentTablePayment();
+        }
+        
+        function clearAllFiltersShipping() {
+            currentFiltersShipping = {
+                date: [],
+                product: [],
+                code: [],
+                quantity: [],
+                weight: [],
+                volume: [],
+                fee: [],
+                currency: [],
+                exchangeRate: [],
+                rubleEquivalent: [],
+                palletFee: [],
+                cubeFee: [],
+                deliveryFee: [],
+                total: [],
+                settlement: [],
+                notes: []
+            };
+            renderPaymentTableShipping();
+        }
+        
+        // 其他列多选筛选函数
+        function showFilterDropdown(button, column) {
+            // 移除现有下拉框
+            const existing = document.querySelector('.filter-dropdown');
+            if (existing) {
+                existing.remove();
+            }
+            
+            // 获取列的所有值
+            const values = [...new Set(paymentData.map(item => item[column]))].filter(v => v);
+            
+            // 创建下拉框
+            const dropdown = document.createElement('div');
+            dropdown.className = 'filter-dropdown';
+            
+            // 添加各值选项
+            values.forEach(value => {
+                const item = document.createElement('div');
+                item.className = 'filter-item';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'filter-checkbox';
+                checkbox.value = value;
+                checkbox.checked = currentFilters[column].includes(value);
+                
+                item.appendChild(checkbox);
+                item.appendChild(document.createTextNode(value));
+                dropdown.appendChild(item);
+            });
+            
+            // 添加操作按钮
+            const actions = document.createElement('div');
+            actions.className = 'filter-actions';
+            
+            const applyBtn = document.createElement('button');
+            applyBtn.className = 'filter-apply-btn';
+            applyBtn.textContent = '应用筛选';
+            applyBtn.addEventListener('click', function() {
+                // 获取选中的筛选条件
+                const selectedValues = Array.from(dropdown.querySelectorAll('.filter-checkbox:checked')).map(cb => cb.value);
+                currentFilters[column] = selectedValues;
+                applyFilter();
+                dropdown.remove();
+            });
+            
+            const clearBtn = document.createElement('button');
+            clearBtn.className = 'filter-clear-btn';
+            clearBtn.textContent = '清除筛选';
+            clearBtn.addEventListener('click', function() {
+                currentFilters[column] = [];
+                applyFilter();
+                dropdown.remove();
+            });
+            
+            actions.appendChild(applyBtn);
+            actions.appendChild(clearBtn);
+            dropdown.appendChild(actions);
+            
+            // 定位下拉框
+            const rect = button.getBoundingClientRect();
+            dropdown.style.top = (rect.bottom + window.scrollY) + 'px';
+            dropdown.style.left = (rect.left + window.scrollX) + 'px';
+            
+            document.body.appendChild(dropdown);
+            
+            // 点击其他地方时关闭下拉框
+            document.addEventListener('click', function closeDropdown(e) {
+                if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.remove();
+                    document.removeEventListener('click', closeDropdown);
+                }
+            });
+        }
+        
+        function showFilterDropdownProducts(button, column) {
+            // 移除现有下拉框
+            const existing = document.querySelector('.filter-dropdown');
+            if (existing) {
+                existing.remove();
+            }
+            
+            // 获取列的所有值
+            const values = [...new Set(paymentDataProducts.map(item => item[column]))].filter(v => v);
+            
+            // 创建下拉框
+            const dropdown = document.createElement('div');
+            dropdown.className = 'filter-dropdown';
+            
+            // 添加各值选项
+            values.forEach(value => {
+                const item = document.createElement('div');
+                item.className = 'filter-item';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'filter-checkbox';
+                checkbox.value = value;
+                checkbox.checked = currentFiltersProducts[column].includes(value);
+                
+                item.appendChild(checkbox);
+                item.appendChild(document.createTextNode(value));
+                dropdown.appendChild(item);
+            });
+            
+            // 添加操作按钮
+            const actions = document.createElement('div');
+            actions.className = 'filter-actions';
+            
+            const applyBtn = document.createElement('button');
+            applyBtn.className = 'filter-apply-btn';
+            applyBtn.textContent = '应用筛选';
+            applyBtn.addEventListener('click', function() {
+                // 获取选中的筛选条件
+                const selectedValues = Array.from(dropdown.querySelectorAll('.filter-checkbox:checked')).map(cb => cb.value);
+                currentFiltersProducts[column] = selectedValues;
+                applyFilterProducts();
+                dropdown.remove();
+            });
+            
+            const clearBtn = document.createElement('button');
+            clearBtn.className = 'filter-clear-btn';
+            clearBtn.textContent = '清除筛选';
+            clearBtn.addEventListener('click', function() {
+                currentFiltersProducts[column] = [];
+                applyFilterProducts();
+                dropdown.remove();
+            });
+            
+            actions.appendChild(applyBtn);
+            actions.appendChild(clearBtn);
+            dropdown.appendChild(actions);
+            
+            // 定位下拉框
+            const rect = button.getBoundingClientRect();
+            dropdown.style.top = (rect.bottom + window.scrollY) + 'px';
+            dropdown.style.left = (rect.left + window.scrollX) + 'px';
+            
+            document.body.appendChild(dropdown);
+            
+            // 点击其他地方时关闭下拉框
+            document.addEventListener('click', function closeDropdown(e) {
+                if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.remove();
+                    document.removeEventListener('click', closeDropdown);
+                }
+            });
+        }
+        
+        function showFilterDropdownPayment(button, column) {
+            // 移除现有下拉框
+            const existing = document.querySelector('.filter-dropdown');
+            if (existing) {
+                existing.remove();
+            }
+            
+            // 获取列的所有值
+            const values = [...new Set(paymentDataPayment.map(item => item[column]))].filter(v => v);
+            
+            // 创建下拉框
+            const dropdown = document.createElement('div');
+            dropdown.className = 'filter-dropdown';
+            
+            // 添加各值选项
+            values.forEach(value => {
+                const item = document.createElement('div');
+                item.className = 'filter-item';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'filter-checkbox';
+                checkbox.value = value;
+                checkbox.checked = currentFiltersPayment[column].includes(value);
+                
+                item.appendChild(checkbox);
+                item.appendChild(document.createTextNode(value));
+                dropdown.appendChild(item);
+            });
+            
+            // 添加操作按钮
+            const actions = document.createElement('div');
+            actions.className = 'filter-actions';
+            
+            const applyBtn = document.createElement('button');
+            applyBtn.className = 'filter-apply-btn';
+            applyBtn.textContent = '应用筛选';
+            applyBtn.addEventListener('click', function() {
+                // 获取选中的筛选条件
+                const selectedValues = Array.from(dropdown.querySelectorAll('.filter-checkbox:checked')).map(cb => cb.value);
+                currentFiltersPayment[column] = selectedValues;
+                applyFilterPayment();
+                dropdown.remove();
+            });
+            
+            const clearBtn = document.createElement('button');
+            clearBtn.className = 'filter-clear-btn';
+            clearBtn.textContent = '清除筛选';
+            clearBtn.addEventListener('click', function() {
+                currentFiltersPayment[column] = [];
+                applyFilterPayment();
+                dropdown.remove();
+            });
+            
+            actions.appendChild(applyBtn);
+            actions.appendChild(clearBtn);
+            dropdown.appendChild(actions);
+            
+            // 定位下拉框
+            const rect = button.getBoundingClientRect();
+            dropdown.style.top = (rect.bottom + window.scrollY) + 'px';
+            dropdown.style.left = (rect.left + window.scrollX) + 'px';
+            
+            document.body.appendChild(dropdown);
+            
+            // 点击其他地方时关闭下拉框
+            document.addEventListener('click', function closeDropdown(e) {
+                if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.remove();
+                    document.removeEventListener('click', closeDropdown);
+                }
+            });
+        }
+        
+        function showFilterDropdownShipping(button, column) {
+            // 移除现有下拉框
+            const existing = document.querySelector('.filter-dropdown');
+            if (existing) {
+                existing.remove();
+            }
+            
+            // 获取列的所有值
+            const values = [...new Set(paymentDataShipping.map(item => item[column]))].filter(v => v);
+            
+            // 创建下拉框
+            const dropdown = document.createElement('div');
+            dropdown.className = 'filter-dropdown';
+            
+            // 添加各值选项
+            values.forEach(value => {
+                const item = document.createElement('div');
+                item.className = 'filter-item';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'filter-checkbox';
+                checkbox.value = value;
+                checkbox.checked = currentFiltersShipping[column].includes(value);
+                
+                item.appendChild(checkbox);
+                item.appendChild(document.createTextNode(value));
+                dropdown.appendChild(item);
+            });
+            
+            // 添加操作按钮
+            const actions = document.createElement('div');
+            actions.className = 'filter-actions';
+            
+            const applyBtn = document.createElement('button');
+            applyBtn.className = 'filter-apply-btn';
+            applyBtn.textContent = '应用筛选';
+            applyBtn.addEventListener('click', function() {
+                // 获取选中的筛选条件
+                const selectedValues = Array.from(dropdown.querySelectorAll('.filter-checkbox:checked')).map(cb => cb.value);
+                currentFiltersShipping[column] = selectedValues;
+                applyFilterShipping();
+                dropdown.remove();
+            });
+            
+            const clearBtn = document.createElement('button');
+            clearBtn.className = 'filter-clear-btn';
+            clearBtn.textContent = '清除筛选';
+            clearBtn.addEventListener('click', function() {
+                currentFiltersShipping[column] = [];
+                applyFilterShipping();
+                dropdown.remove();
+            });
+            
+            actions.appendChild(applyBtn);
+            actions.appendChild(clearBtn);
+            dropdown.appendChild(actions);
+            
+            // 定位下拉框
+            const rect = button.getBoundingClientRect();
+            dropdown.style.top = (rect.bottom + window.scrollY) + 'px';
+            dropdown.style.left = (rect.left + window.scrollX) + 'px';
+            
+            document.body.appendChild(dropdown);
+            
+            // 点击其他地方时关闭下拉框
+            document.addEventListener('click', function closeDropdown(e) {
+                if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.remove();
+                    document.removeEventListener('click', closeDropdown);
+                }
+            });
+        }
+        
+        // 应用多选筛选
+        function applyFilter() {
+            let filteredData = [...paymentData];
+            
+            Object.keys(currentFilters).forEach(column => {
+                if (currentFilters[column].length > 0) {
+                    filteredData = filteredData.filter(item => 
+                        currentFilters[column].includes(item[column])
+                    );
+                }
+            });
+            
+            renderPaymentTable(filteredData);
+        }
+        
+        function applyFilterProducts() {
+            let filteredData = [...paymentDataProducts];
+            
+            Object.keys(currentFiltersProducts).forEach(column => {
+                if (currentFiltersProducts[column].length > 0) {
+                    filteredData = filteredData.filter(item => 
+                        currentFiltersProducts[column].includes(item[column])
+                    );
+                }
+            });
+            
+            renderPaymentTableProducts(filteredData);
+        }
+        
+        function applyFilterPayment() {
+            let filteredData = [...paymentDataPayment];
+            
+            Object.keys(currentFiltersPayment).forEach(column => {
+                if (currentFiltersPayment[column].length > 0) {
+                    filteredData = filteredData.filter(item => 
+                        currentFiltersPayment[column].includes(item[column])
+                    );
+                }
+            });
+            
+            renderPaymentTablePayment(filteredData);
+        }
+        
+        function applyFilterShipping() {
+            let filteredData = [...paymentDataShipping];
+            
+            Object.keys(currentFiltersShipping).forEach(column => {
+                if (currentFiltersShipping[column].length > 0) {
+                    filteredData = filteredData.filter(item => 
+                        currentFiltersShipping[column].includes(item[column])
+                    );
+                }
+            });
+            
+            renderPaymentTableShipping(filteredData);
         }
         
         // 初始化应用
