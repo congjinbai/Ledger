@@ -182,15 +182,20 @@
         
         /* 按钮样式 */
         .btn {
-            padding: 10px 15px;
+            padding: 6px 10px;
             background-color: var(--primary-color);
             color: white;
             border: none;
             border-radius: 2px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 600;
             transition: background-color 0.2s;
+            height: 30px;
+            width: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .btn:hover {
@@ -265,25 +270,21 @@
         .quantity-cell {
             width: 50px;
             min-width: 50px;
-            text-align: center;
         }
         
         .weight-cell {
             width: 70px;
             min-width: 70px;
-            text-align: center;
         }
         
         .volume-cell {
             width: 60px;
             min-width: 60px;
-            text-align: center;
         }
         
         .fee-cell {
             width: 50px;
             min-width: 50px;
-            text-align: center;
         }
         
         .currency-cell {
@@ -294,37 +295,31 @@
         .exchange-rate-cell {
             width: 50px;
             min-width: 50px;
-            text-align: center;
         }
         
         .ruble-equivalent-cell {
             width: 70px;
             min-width: 70px;
-            text-align: center;
         }
         
         .pallet-fee-cell {
             width: 70px;
             min-width: 70px;
-            text-align: center;
         }
         
         .cube-fee-cell {
             width: 70px;
             min-width: 70px;
-            text-align: center;
         }
         
         .delivery-fee-cell {
             width: 80px;
             min-width: 80px;
-            text-align: center;
         }
         
         .total-cell {
             width: 80px;
             min-width: 80px;
-            text-align: center;
         }
         
         .settlement-cell {
@@ -345,7 +340,6 @@
         .unit-price-cell {
             width: 70px;
             min-width: 70px;
-            text-align: center;
         }
         
         .cny-amount-cell {
@@ -760,9 +754,14 @@
             color: white;
             border: none;
             border-radius: 2px;
-            padding: 10px 15px;
+            padding: 6px 10px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 12px;
+            height: 30px;
+            width: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .export-btn:hover {
@@ -789,6 +788,16 @@
         .notes-cell .editable-notes {
             height: 22px;
             min-height: 22px;
+        }
+        
+        /* 数字输入框样式 */
+        .number-input {
+            text-align: right;
+        }
+        
+        /* 金额显示框样式 */
+        .amount-display {
+            text-align: center;
         }
     </style>
 </head>
@@ -863,7 +872,7 @@
                         <div class="form-row">
                             <div class="form-col">
                                 <label class="required">数量</label>
-                                <input type="text" id="quantity" placeholder="输入数量" class="number-input">
+                                <input type="text" id="quantity" class="number-input" placeholder="输入数量">
                             </div>
                             <div class="form-col">
                                 <label>单位</label>
@@ -875,27 +884,27 @@
                         <div class="form-row">
                             <div class="form-col">
                                 <label class="required">单价(¥)</label>
-                                <input type="text" id="unit-price" placeholder="输入单价" class="number-input">
+                                <input type="text" id="unit-price" class="number-input" placeholder="输入单价">
                             </div>
                             <div class="form-col">
                                 <label class="required">汇率</label>
-                                <input type="text" id="exchange-rate" placeholder="输入汇率" class="number-input">
+                                <input type="text" id="exchange-rate" class="number-input" placeholder="输入汇率">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-col">
                                 <label>折合卢布</label>
-                                <div id="ruble-price" class="display-box">0</div>
+                                <div id="ruble-price" class="display-box amount-display">0</div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-col">
                                 <label>金额(¥)</label>
-                                <div id="cny-amount" class="display-box">0</div>
+                                <div id="cny-amount" class="display-box amount-display">0</div>
                             </div>
                             <div class="form-col">
                                 <label>金额(₽)</label>
-                                <div id="ruble-amount" class="display-box">0</div>
+                                <div id="ruble-amount" class="display-box amount-display">0</div>
                             </div>
                         </div>
                         <div class="form-row">
@@ -985,8 +994,8 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td id="totalCnyAmountProducts">0</td>
-                                        <td id="totalRubleAmountProducts">0</td>
+                                        <td id="totalCnyAmountProducts" class="cny-amount-cell">0</td>
+                                        <td id="totalRubleAmountProducts" class="ruble-amount-cell">0</td>
                                         <td></td>
                                     </tr>
                                     <tr class="payment-total-row" id="filteredTotalRowProducts" style="display: none;">
@@ -996,8 +1005,8 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td id="filteredTotalCnyAmountProducts">0</td>
-                                        <td id="filteredTotalRubleAmountProducts">0</td>
+                                        <td id="filteredTotalCnyAmountProducts" class="cny-amount-cell">0</td>
+                                        <td id="filteredTotalRubleAmountProducts" class="ruble-amount-cell">0</td>
                                         <td></td>
                                     </tr>
                                 </tfoot>
@@ -1032,23 +1041,23 @@
                             </div>
                             <div class="form-col">
                                 <label class="required">重量(Kg)</label>
-                                <input type="text" id="shipping-weight" placeholder="输入重量" class="number-input">
+                                <input type="text" id="shipping-weight" class="number-input" placeholder="输入重量">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-col">
                                 <label>体积m³</label>
-                                <input type="text" id="shipping-volume" placeholder="输入体积" class="number-input">
+                                <input type="text" id="shipping-volume" class="number-input" placeholder="输入体积">
                             </div>
                             <div class="form-col">
                                 <label>件数</label>
-                                <input type="text" id="shipping-quantity" placeholder="输入件数" class="number-input">
+                                <input type="text" id="shipping-quantity" class="number-input" placeholder="输入件数">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-col">
                                 <label class="required">运费</label>
-                                <input type="text" id="shipping-fee" placeholder="输入运费" class="number-input">
+                                <input type="text" id="shipping-fee" class="number-input" placeholder="输入运费">
                             </div>
                             <div class="form-col">
                                 <label class="required">币种</label>
@@ -1060,31 +1069,31 @@
                         <div class="form-row">
                             <div class="form-col">
                                 <label class="required">汇率</label>
-                                <input type="text" id="shipping-exchange-rate" placeholder="输入汇率" class="number-input">
+                                <input type="text" id="shipping-exchange-rate" class="number-input" placeholder="输入汇率">
                             </div>
                             <div class="form-col">
                                 <label>折合卢布</label>
-                                <div id="shipping-ruble" class="display-box">0</div>
+                                <div id="shipping-ruble" class="display-box amount-display">0</div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-col">
                                 <label>托盘费(₽)</label>
-                                <input type="text" id="pallet-fee" placeholder="输入托盘费" class="number-input">
+                                <input type="text" id="pallet-fee" class="number-input" placeholder="输入托盘费">
                             </div>
                             <div class="form-col">
                                 <label>立方费(₽)</label>
-                                <input type="text" id="cube-fee" placeholder="输入立方费" class="number-input">
+                                <input type="text" id="cube-fee" class="number-input" placeholder="输入立方费">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-col">
                                 <label>送货车费(₽)</label>
-                                <input type="text" id="delivery-fee" placeholder="输入送货车费" class="number-input">
+                                <input type="text" id="delivery-fee" class="number-input" placeholder="输入送货车费">
                             </div>
                             <div class="form-col">
                                 <label>运费总计(₽)</label>
-                                <div id="shipping-total" class="display-box">0</div>
+                                <div id="shipping-total" class="display-box amount-display">0</div>
                             </div>
                         </div>
                         <div class="form-row">
@@ -1189,30 +1198,30 @@
                                 <tfoot>
                                     <tr class="payment-total-row" id="totalRowShipping">
                                         <td colspan="5" style="text-align: right;">总计:</td>
-                                        <td id="totalWeightShipping">0</td>
+                                        <td id="totalWeightShipping" class="weight-cell">0</td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td id="totalRubleEquivalentShipping">0</td>
+                                        <td id="totalRubleEquivalentShipping" class="ruble-equivalent-cell">0</td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td id="totalShipping">0</td>
+                                        <td id="totalShipping" class="total-cell">0</td>
                                         <td colspan="2"></td>
                                     </tr>
                                     <tr class="payment-total-row" id="filteredTotalRowShipping" style="display: none;">
                                         <td colspan="5" style="text-align: right;">筛选结果总计:</td>
-                                        <td id="filteredTotalWeightShipping">0</td>
+                                        <td id="filteredTotalWeightShipping" class="weight-cell">0</td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td id="filteredTotalRubleEquivalentShipping">0</td>
+                                        <td id="filteredTotalRubleEquivalentShipping" class="ruble-equivalent-cell">0</td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td id="filteredTotalShipping">0</td>
+                                        <td id="filteredTotalShipping" class="total-cell">0</td>
                                         <td colspan="2"></td>
                                     </tr>
                                 </tfoot>
@@ -1250,7 +1259,7 @@
                         <div class="form-row">
                             <div class="form-col">
                                 <label class="required">金额(₽)</label>
-                                <input type="text" id="record-amount" placeholder="输入金额" class="number-input">
+                                <input type="text" id="record-amount" class="number-input" placeholder="输入金额">
                             </div>
                         </div>
                         <div class="form-row">
@@ -1318,12 +1327,12 @@
                                 <tfoot>
                                     <tr class="payment-total-row" id="totalRow">
                                         <td colspan="3" style="text-align: right;">总计:</td>
-                                        <td id="totalAmount">0</td>
+                                        <td id="totalAmount" class="cny-amount-cell">0</td>
                                         <td colspan="3"></td>
                                     </tr>
                                     <tr class="payment-total-row" id="filteredTotalRow" style="display: none;">
                                         <td colspan="3" style="text-align: right;">筛选结果总计:</td>
-                                        <td id="filteredTotalAmount">0</td>
+                                        <td id="filteredTotalAmount" class="cny-amount-cell">0</td>
                                         <td colspan="3"></td>
                                     </tr>
                                 </tfoot>
@@ -1368,7 +1377,7 @@
                         <div class="form-row">
                             <div class="form-col">
                                 <label class="required">金额(¥)</label>
-                                <input type="text" id="payment-amount" placeholder="输入金额" class="number-input">
+                                <input type="text" id="payment-amount" class="number-input" placeholder="输入金额">
                             </div>
                         </div>
                         <div class="form-row">
@@ -1437,12 +1446,12 @@
                                 <tfoot>
                                     <tr class="payment-total-row" id="totalRowPayment">
                                         <td colspan="5" style="text-align: right;">总计:</td>
-                                        <td id="totalAmountPayment">0</td>
+                                        <td id="totalAmountPayment" class="cny-amount-cell">0</td>
                                         <td colspan="2"></td>
                                     </tr>
                                     <tr class="payment-total-row" id="filteredTotalRowPayment" style="display: none;">
                                         <td colspan="5" style="text-align: right;">筛选结果总计:</td>
-                                        <td id="filteredTotalAmountPayment">0</td>
+                                        <td id="filteredTotalAmountPayment" class="cny-amount-cell">0</td>
                                         <td colspan="2"></td>
                                     </tr>
                                 </tfoot>
@@ -1463,24 +1472,24 @@
                             <div class="form-row">
                                 <div class="form-col">
                                     <label>OZON账户余额(₽)</label>
-                                    <input type="text" id="ozon-input" placeholder="输入金额" class="number-input">
+                                    <input type="text" id="ozon-input" class="number-input" placeholder="输入金额">
                                 </div>
                                 <div class="form-col">
                                     <label>WB账户余额(₽)</label>
-                                    <input type="text" id="wb-input" placeholder="输入金额" class="number-input">
+                                    <input type="text" id="wb-input" class="number-input" placeholder="输入金额">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-col">
                                     <label>个体账户余额(₽)</label>
-                                    <input type="text" id="individual-input" placeholder="输入金额" class="number-input">
+                                    <input type="text" id="individual-input" class="number-input" placeholder="输入金额">
                                 </div>
                                 <div class="form-col">
                                     <label>现金余额(₽)</label>
                                     <div id="cash-display" class="display-box">0</div>
                                 </div>
                             </div>
-                            <button class="btn" id="update-balance" style="padding: 10px 15px;">更新金额</button>
+                            <button class="btn" id="update-balance">更新金额</button>
                         </div>
                         
                         <div class="settings-section">
@@ -1548,8 +1557,8 @@
                         
                         <div class="settings-buttons">
                             <div class="settings-buttons-left">
-                                <button class="btn" id="save-settings" style="padding: 10px 15px;">保存设置</button>
-                                <button class="btn btn-danger" id="delete-all-data" style="padding: 10px 15px;">删除所有数据</button>
+                                <button class="btn" id="save-settings">保存设置</button>
+                                <button class="btn btn-danger" id="delete-all-data" style="height: 30px;">删除所有数据</button>
                             </div>
                             <button id="exportAllDataBtn" class="export-btn">生成总表</button>
                         </div>
@@ -1752,22 +1761,18 @@
             // 初始化导出功能
             initExportFunctions();
             
-            // 初始化数字输入限制
+            // 初始化数字输入框限制
             initNumberInputs();
         }
         
-        // 初始化数字输入限制
+        // 初始化数字输入框限制
         function initNumberInputs() {
+            // 限制只能输入数字的输入框
             const numberInputs = document.querySelectorAll('.number-input');
             numberInputs.forEach(input => {
                 input.addEventListener('input', function() {
-                    // 只允许数字、小数点和负号
-                    this.value = this.value.replace(/[^0-9.-]/g, '');
-                    
-                    // 确保只有一个负号
-                    if (this.value.indexOf('-') > 0) {
-                        this.value = this.value.replace('-', '');
-                    }
+                    // 移除非数字字符（除了小数点）
+                    this.value = this.value.replace(/[^\d.]/g, '');
                     
                     // 确保只有一个小数点
                     const parts = this.value.split('.');
@@ -1961,34 +1966,38 @@
             document.getElementById('individual-balance').textContent = formatNumber(balances.individual);
             
             // 计算现金余额
+            const cashBalance = calculateCashBalance();
+            document.getElementById('cash-balance').textContent = formatNumber(cashBalance);
+            
+            const total = balances.ozon + balances.wb + balances.individual + cashBalance;
+            document.getElementById('total-balance').textContent = formatNumber(total);
+            
+            // 更新设置页面的现金余额显示
+            document.getElementById('cash-display').textContent = formatNumber(cashBalance);
+        }
+        
+        // 计算现金余额
+        function calculateCashBalance() {
             const recordsData = JSON.parse(localStorage.getItem('records') || '[]');
             const shippingData = JSON.parse(localStorage.getItem('shipping') || '[]');
             
-            // 计算未结算的现金收入
+            // 计算未结算的现金收入总和
             const cashIncome = recordsData
                 .filter(item => item.settlement === '未结算' && item.form === '现金收入')
                 .reduce((sum, item) => sum + (parseFloat(item.amount) || 0), 0);
             
-            // 计算未结算的现金支出
+            // 计算未结算的现金支付总和
             const cashExpense = recordsData
                 .filter(item => item.settlement === '未结算' && item.form === '现金支付')
                 .reduce((sum, item) => sum + (parseFloat(item.amount) || 0), 0);
             
-            // 计算未结算的运费支出
-            const shippingExpense = shippingData
+            // 计算未结算的运费总计
+            const shippingTotal = shippingData
                 .filter(item => item.settlement === '未结算')
                 .reduce((sum, item) => sum + (parseFloat(item.total) || 0), 0);
             
-            // 计算现金余额
-            const cashBalance = cashIncome - cashExpense - shippingExpense;
-            document.getElementById('cash-balance').textContent = formatNumber(cashBalance);
-            
-            // 更新localStorage中的现金余额
-            balances.cash = cashBalance;
-            localStorage.setItem('accountBalances', JSON.stringify(balances));
-            
-            const total = balances.ozon + balances.wb + balances.individual + cashBalance;
-            document.getElementById('total-balance').textContent = formatNumber(total);
+            // 现金余额 = 现金收入 - 现金支付 - 运费总计
+            return cashIncome - cashExpense - shippingTotal;
         }
         
         // 更新设置页面
@@ -2082,7 +2091,7 @@
                         ozon: ozonValue,
                         wb: wbValue,
                         individual: individualValue,
-                        cash: 0 // 现金余额通过其他页面计算
+                        cash: calculateCashBalance() // 现金余额通过其他页面计算
                     };
                     
                     localStorage.setItem('accountBalances', JSON.stringify(balances));
@@ -2113,7 +2122,7 @@
             
             localStorage.setItem('settings', JSON.stringify(settings));
             updateDropdownOptions();
-            showMessage('已保存成功！', 'success');
+            showMessage('设置已保存！', 'success');
         });
         
         // 删除所有数据
@@ -2628,7 +2637,7 @@
         }
         
         function loadPaymentData() {
-            const saved = localStorage.getItem('records');
+            const saved = localStorage.getItem('paymentData');
             if (saved) {
                 paymentData = JSON.parse(saved);
             } else {
@@ -2638,7 +2647,7 @@
         }
         
         function loadPaymentDataProducts() {
-            const saved = localStorage.getItem('products');
+            const saved = localStorage.getItem('paymentDataProducts');
             if (saved) {
                 paymentDataProducts = JSON.parse(saved);
             } else {
@@ -2648,7 +2657,7 @@
         }
         
         function loadPaymentDataPayment() {
-            const saved = localStorage.getItem('payments');
+            const saved = localStorage.getItem('paymentDataPayment');
             if (saved) {
                 paymentDataPayment = JSON.parse(saved);
             } else {
@@ -2658,7 +2667,7 @@
         }
         
         function loadPaymentDataShipping() {
-            const saved = localStorage.getItem('shipping');
+            const saved = localStorage.getItem('paymentDataShipping');
             if (saved) {
                 paymentDataShipping = JSON.parse(saved);
             } else {
@@ -2668,21 +2677,19 @@
         }
         
         function savePaymentData() {
-            localStorage.setItem('records', JSON.stringify(paymentData));
-            updateOverview(); // 更新现金余额
+            localStorage.setItem('paymentData', JSON.stringify(paymentData));
         }
         
         function savePaymentDataProducts() {
-            localStorage.setItem('products', JSON.stringify(paymentDataProducts));
+            localStorage.setItem('paymentDataProducts', JSON.stringify(paymentDataProducts));
         }
         
         function savePaymentDataPayment() {
-            localStorage.setItem('payments', JSON.stringify(paymentDataPayment));
+            localStorage.setItem('paymentDataPayment', JSON.stringify(paymentDataPayment));
         }
         
         function savePaymentDataShipping() {
-            localStorage.setItem('shipping', JSON.stringify(paymentDataShipping));
-            updateOverview(); // 更新现金余额
+            localStorage.setItem('paymentDataShipping', JSON.stringify(paymentDataShipping));
         }
         
         function renderPaymentTable(data = null) {
@@ -2758,11 +2765,11 @@
                     <td class="date-cell">${item.date}</td>
                     <td class="product-name-cell">${item.productName}</td>
                     <td class="notes-cell">${item.color}</td>
-                    <td class="quantity-cell">${formatNumber(item.quantity)}</td>
+                    <td class="quantity-cell">${item.quantity}</td>
                     <td class="unit-cell">${item.unit}</td>
-                    <td class="unit-price-cell">${formatNumber(item.unitPrice)}</td>
-                    <td class="exchange-rate-cell">${formatNumber(item.exchangeRate)}</td>
-                    <td class="ruble-equivalent-cell">${formatNumber(item.rublePrice)}</td>
+                    <td class="unit-price-cell">${item.unitPrice}</td>
+                    <td class="exchange-rate-cell">${item.exchangeRate}</td>
+                    <td class="ruble-equivalent-cell">${item.rublePrice}</td>
                     <td class="cny-amount-cell">${formatNumber(item.cnyAmount)}</td>
                     <td class="ruble-amount-cell">${formatNumber(item.rubleAmount)}</td>
                     <td class="description-cell">
@@ -2860,16 +2867,16 @@
                     <td class="date-cell">${item.date}</td>
                     <td class="product-name-cell">${item.product}</td>
                     <td class="code-cell">${item.code}</td>
-                    <td class="quantity-cell">${formatNumber(item.quantity)}</td>
-                    <td class="weight-cell">${formatNumber(item.weight)}</td>
-                    <td class="volume-cell">${formatNumber(item.volume)}</td>
-                    <td class="fee-cell">${formatNumber(item.fee)}</td>
+                    <td class="quantity-cell">${item.quantity}</td>
+                    <td class="weight-cell">${item.weight}</td>
+                    <td class="volume-cell">${item.volume}</td>
+                    <td class="fee-cell">${item.fee}</td>
                     <td class="currency-cell">${item.currency}</td>
-                    <td class="exchange-rate-cell">${formatNumber(item.exchangeRate)}</td>
+                    <td class="exchange-rate-cell">${item.exchangeRate}</td>
                     <td class="ruble-equivalent-cell">${formatNumber(item.rubleEquivalent)}</td>
-                    <td class="pallet-fee-cell">${formatNumber(item.palletFee)}</td>
-                    <td class="cube-fee-cell">${formatNumber(item.cubeFee)}</td>
-                    <td class="delivery-fee-cell">${formatNumber(item.deliveryFee)}</td>
+                    <td class="pallet-fee-cell">${item.palletFee}</td>
+                    <td class="cube-fee-cell">${item.cubeFee}</td>
+                    <td class="delivery-fee-cell">${item.deliveryFee}</td>
                     <td class="total-cell">${formatNumber(item.total)}</td>
                     <td class="settlement-cell">
                         <select class="settlement-select" data-id="${item.id}">
@@ -2926,6 +2933,9 @@
             } else {
                 document.getElementById('filteredTotalRow').style.display = 'none';
             }
+            
+            // 更新现金余额
+            updateOverview();
         }
         
         function updateTotalsProducts() {
@@ -3029,6 +3039,9 @@
             } else {
                 document.getElementById('filteredTotalRowShipping').style.display = 'none';
             }
+            
+            // 更新现金余额
+            updateOverview();
         }
         
         function updateFilterStatus() {
@@ -3202,11 +3215,11 @@
                 date,
                 productName,
                 color,
-                quantity: unformatNumber(quantity),
+                quantity,
                 unit,
-                unitPrice: unformatNumber(unitPrice),
-                exchangeRate: unformatNumber(exchangeRate),
-                rublePrice: unformatNumber(rublePrice),
+                unitPrice,
+                exchangeRate,
+                rublePrice,
                 cnyAmount: unformatNumber(cnyAmount),
                 rubleAmount: unformatNumber(rubleAmount),
                 description
@@ -3228,13 +3241,8 @@
             document.getElementById('exchange-rate').value = '';
             document.getElementById('product-description').value = '';
             
-            // 清空显示框
-            document.getElementById('ruble-price').textContent = '0';
-            document.getElementById('cny-amount').textContent = '0';
-            document.getElementById('ruble-amount').textContent = '0';
-            
             // 显示成功消息
-            showMessage('商品记录成功添加！', 'success');
+            showMessage('商品记录已成功添加！', 'success');
         }
         
         function addPaymentRecordPayment() {
@@ -3282,7 +3290,7 @@
             document.getElementById('payment-notes').value = '';
             
             // 显示成功消息
-            showMessage('付款记录成功添加！', 'success');
+            showMessage('货款支付记录已成功添加！', 'success');
         }
         
         function addPaymentRecordShipping() {
@@ -3318,16 +3326,16 @@
                 date,
                 code,
                 product,
-                weight: unformatNumber(weight),
-                volume: unformatNumber(volume),
-                quantity: unformatNumber(quantity),
-                fee: unformatNumber(fee),
+                weight,
+                volume,
+                quantity,
+                fee,
                 currency,
-                exchangeRate: unformatNumber(exchangeRate),
+                exchangeRate,
                 rubleEquivalent: unformatNumber(rubleEquivalent),
-                palletFee: unformatNumber(palletFee),
-                cubeFee: unformatNumber(cubeFee),
-                deliveryFee: unformatNumber(deliveryFee),
+                palletFee,
+                cubeFee,
+                deliveryFee,
                 total: unformatNumber(total),
                 notes,
                 settlement: '未结算' // 默认设置为未结算
@@ -3354,12 +3362,8 @@
             document.getElementById('delivery-fee').value = '';
             document.getElementById('shipping-notes').value = '';
             
-            // 清空显示框
-            document.getElementById('shipping-ruble').textContent = '0';
-            document.getElementById('shipping-total').textContent = '0';
-            
             // 显示成功消息
-            showMessage('运费记录成功添加！', 'success');
+            showMessage('运费支出记录已成功添加！', 'success');
         }
         
         // 删除选中的收支记录
@@ -3445,6 +3449,7 @@
             if (item) {
                 item.settlement = value;
                 savePaymentData();
+                updateOverview(); // 更新现金余额
             }
         }
         
@@ -3461,6 +3466,7 @@
             if (item) {
                 item.settlement = value;
                 savePaymentDataShipping();
+                updateOverview(); // 更新现金余额
             }
         }
         
@@ -3776,7 +3782,7 @@
                 monthHeader.className = 'filter-item';
                 monthHeader.style.fontWeight = 'bold';
                 monthHeader.textContent = '按月筛选:';
-                dropdown.appendChild(yearHeader);
+                dropdown.appendChild(monthHeader);
                 
                 months.forEach(month => {
                     const item = document.createElement('div');
