@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>电商合作账簿系统</title>
+    <!-- 引入SheetJS库用于Excel导出 -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
         :root {
             --primary-color: #0078d7;
@@ -242,8 +244,137 @@
             text-overflow: ellipsis;
             white-space: nowrap;
             height: 25px; /* 设置固定行高 */
-            min-width: 70px; /* 设置最小列宽 */
-            width: 70px; /* 设置固定列宽 */
+        }
+        
+        /* 固定列宽 */
+        .date-cell {
+            width: 40px;
+            min-width: 40px;
+        }
+        
+        .product-name-cell {
+            width: 70px;
+            min-width: 70px;
+        }
+        
+        .code-cell {
+            width: 40px;
+            min-width: 40px;
+        }
+        
+        .quantity-cell {
+            width: 40px;
+            min-width: 40px;
+        }
+        
+        .weight-cell {
+            width: 70px;
+            min-width: 70px;
+        }
+        
+        .volume-cell {
+            width: 60px;
+            min-width: 60px;
+        }
+        
+        .fee-cell {
+            width: 40px;
+            min-width: 40px;
+        }
+        
+        .currency-cell {
+            width: 40px;
+            min-width: 40px;
+        }
+        
+        .exchange-rate-cell {
+            width: 40px;
+            min-width: 40px;
+        }
+        
+        .ruble-equivalent-cell {
+            width: 70px;
+            min-width: 70px;
+        }
+        
+        .pallet-fee-cell {
+            width: 70px;
+            min-width: 70px;
+        }
+        
+        .cube-fee-cell {
+            width: 70px;
+            min-width: 70px;
+        }
+        
+        .delivery-fee-cell {
+            width: 70px;
+            min-width: 70px;
+        }
+        
+        .total-cell {
+            width: 80px;
+            min-width: 80px;
+        }
+        
+        .settlement-cell {
+            width: 80px;
+            min-width: 80px;
+        }
+        
+        .notes-cell {
+            width: 100px;
+            min-width: 100px;
+        }
+        
+        .unit-cell {
+            width: 40px;
+            min-width: 40px;
+        }
+        
+        .unit-price-cell {
+            width: 50px;
+            min-width: 50px;
+        }
+        
+        .cny-amount-cell {
+            width: 70px;
+            min-width: 70px;
+        }
+        
+        .ruble-amount-cell {
+            width: 70px;
+            min-width: 70px;
+        }
+        
+        .description-cell {
+            width: 100px;
+            min-width: 100px;
+        }
+        
+        .income-expense-type-cell {
+            width: 70px;
+            min-width: 70px;
+        }
+        
+        .income-expense-form-cell {
+            width: 70px;
+            min-width: 70px;
+        }
+        
+        .recipient-cell {
+            width: 60px;
+            min-width: 60px;
+        }
+        
+        .account-cell {
+            width: 40px;
+            min-width: 40px;
+        }
+        
+        .payment-method-cell {
+            width: 70px;
+            min-width: 70px;
         }
         
         th {
@@ -388,8 +519,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
             height: 25px; /* 设置固定行高 */
-            min-width: 70px; /* 设置最小列宽 */
-            width: 70px; /* 设置固定列宽 */
         }
         
         .payment-table th {
@@ -429,37 +558,6 @@
             min-width: 25px;
             text-align: center;
             padding: 4px;
-        }
-        
-        .payment-table .date-cell {
-            min-width: 70px;
-            width: 70px;
-        }
-        
-        .payment-table .passenger-cell {
-            min-width: 70px;
-            width: 70px;
-        }
-        
-        .payment-table .amount-cell {
-            min-width: 70px;
-            width: 70px;
-        }
-        
-        .payment-table .difference-cell {
-            min-width: 70px;
-            width: 70px;
-        }
-        
-        .payment-table .settlement-cell {
-            min-width: 70px;
-            width: 70px;
-        }
-        
-        .payment-table .notes-cell {
-            min-width: 65px; /* 备注列宽度设置为65px */
-            width: 65px;
-            white-space: normal;
         }
         
         /* 筛选下拉框样式 - 优化复选框间距 */
@@ -637,6 +735,22 @@
             cursor: pointer;
             font-size: 11px;
         }
+        
+        /* 导出按钮样式 */
+        .export-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .export-btn:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
@@ -752,10 +866,13 @@
                             </div>
                         </div>
                         
+                        <!-- 导出按钮 -->
+                        <button id="exportProductsBtn" class="export-btn">生成表格</button>
+                        
                         <!-- 付款状态管理系统表格 -->
                         <div class="payment-actions">
                             <button id="addPaymentBtnProducts" class="btn btn-success">添加记录</button>
-                            <button id="clearFilterBtnProducts" class="btn btn-secondary">取消所有筛选</button>
+                            <button id="clearFilterBtnProducts" class="btn btn-secondary">取消筛选</button>
                             <button id="deletePaymentBtnProducts" class="btn btn-danger">删除选中</button>
                         </div>
                         
@@ -776,43 +893,43 @@
                                             日期
                                             <button class="filter-btn" data-column="date">▼</button>
                                         </th>
-                                        <th class="passenger-cell">
+                                        <th class="product-name-cell">
                                             商品名称
                                             <button class="filter-btn" data-column="productName">▼</button>
                                         </th>
-                                        <th class="amount-cell">
+                                        <th class="notes-cell">
                                             颜色
                                             <button class="filter-btn" data-column="color">▼</button>
                                         </th>
-                                        <th class="difference-cell">
+                                        <th class="quantity-cell">
                                             数量
                                             <button class="filter-btn" data-column="quantity">▼</button>
                                         </th>
-                                        <th class="settlement-cell">
+                                        <th class="unit-cell">
                                             单位
                                             <button class="filter-btn" data-column="unit">▼</button>
                                         </th>
-                                        <th class="settlement-cell">
+                                        <th class="unit-price-cell">
                                             单价(¥)
                                             <button class="filter-btn" data-column="unitPrice">▼</button>
                                         </th>
-                                        <th class="settlement-cell">
+                                        <th class="exchange-rate-cell">
                                             汇率
                                             <button class="filter-btn" data-column="exchangeRate">▼</button>
                                         </th>
-                                        <th class="settlement-cell">
+                                        <th class="ruble-equivalent-cell">
                                             折合卢布
                                             <button class="filter-btn" data-column="rublePrice">▼</button>
                                         </th>
-                                        <th class="settlement-cell">
+                                        <th class="cny-amount-cell">
                                             金额(¥)
                                             <button class="filter-btn" data-column="cnyAmount">▼</button>
                                         </th>
-                                        <th class="settlement-cell">
+                                        <th class="ruble-amount-cell">
                                             金额(₽)
                                             <button class="filter-btn" data-column="rubleAmount">▼</button>
                                         </th>
-                                        <th class="notes-cell">
+                                        <th class="description-cell">
                                             描述
                                             <button class="filter-btn" data-column="description">▼</button>
                                         </th>
@@ -926,10 +1043,13 @@
                             </div>
                         </div>
                         
+                        <!-- 导出按钮 -->
+                        <button id="exportShippingBtn" class="export-btn">生成表格</button>
+                        
                         <!-- 付款状态管理系统表格 -->
                         <div class="payment-actions">
                             <button id="addPaymentBtnShipping" class="btn btn-success">添加记录</button>
-                            <button id="clearFilterBtnShipping" class="btn btn-secondary">取消所有筛选</button>
+                            <button id="clearFilterBtnShipping" class="btn btn-secondary">取消筛选</button>
                             <button id="deletePaymentBtnShipping" class="btn btn-danger">删除选中</button>
                         </div>
                         
@@ -950,55 +1070,55 @@
                                             日期
                                             <button class="filter-btn" data-column="date">▼</button>
                                         </th>
-                                        <th class="passenger-cell">
+                                        <th class="product-name-cell">
                                             商品名称
                                             <button class="filter-btn" data-column="product">▼</button>
                                         </th>
-                                        <th class="amount-cell">
+                                        <th class="code-cell">
                                             货号
                                             <button class="filter-btn" data-column="code">▼</button>
                                         </th>
-                                        <th class="difference-cell">
+                                        <th class="quantity-cell">
                                             件数
                                             <button class="filter-btn" data-column="quantity">▼</button>
                                         </th>
-                                        <th class="settlement-cell">
+                                        <th class="weight-cell">
                                             重量(Kg)
                                             <button class="filter-btn" data-column="weight">▼</button>
                                         </th>
-                                        <th class="settlement-cell">
+                                        <th class="volume-cell">
                                             体积m³
                                             <button class="filter-btn" data-column="volume">▼</button>
                                         </th>
-                                        <th class="settlement-cell">
+                                        <th class="fee-cell">
                                             运费
                                             <button class="filter-btn" data-column="fee">▼</button>
                                         </th>
-                                        <th class="settlement-cell">
+                                        <th class="currency-cell">
                                             币种
                                             <button class="filter-btn" data-column="currency">▼</button>
                                         </th>
-                                        <th class="settlement-cell">
+                                        <th class="exchange-rate-cell">
                                             汇率
                                             <button class="filter-btn" data-column="exchangeRate">▼</button>
                                         </th>
-                                        <th class="settlement-cell">
+                                        <th class="ruble-equivalent-cell">
                                             折合卢布
                                             <button class="filter-btn" data-column="rubleEquivalent">▼</button>
                                         </th>
-                                        <th class="settlement-cell">
+                                        <th class="pallet-fee-cell">
                                             托盘费(₽)
                                             <button class="filter-btn" data-column="palletFee">▼</button>
                                         </th>
-                                        <th class="settlement-cell">
+                                        <th class="cube-fee-cell">
                                             立方费(₽)
                                             <button class="filter-btn" data-column="cubeFee">▼</button>
                                         </th>
-                                        <th class="settlement-cell">
+                                        <th class="delivery-fee-cell">
                                             送货车费(₽)
                                             <button class="filter-btn" data-column="deliveryFee">▼</button>
                                         </th>
-                                        <th class="settlement-cell">
+                                        <th class="total-cell">
                                             运费总计(₽)
                                             <button class="filter-btn" data-column="total">▼</button>
                                         </th>
@@ -1071,13 +1191,16 @@
                             </div>
                         </div>
                         
+                        <!-- 导出按钮 -->
+                        <button id="exportRecordsBtn" class="export-btn">生成表格</button>
+                        
                         <!-- 消息提示 -->
                         <div id="message" class="message" style="display: none;"></div>
                         
                         <!-- 付款状态管理系统表格 -->
                         <div class="payment-actions">
                             <button id="addPaymentBtn" class="btn btn-success">添加记录</button>
-                            <button id="clearFilterBtn" class="btn btn-secondary">取消所有筛选</button>
+                            <button id="clearFilterBtn" class="btn btn-secondary">取消筛选</button>
                             <button id="deletePaymentBtn" class="btn btn-danger">删除选中</button>
                         </div>
                         
@@ -1098,15 +1221,15 @@
                                             日期
                                             <button class="filter-btn" data-column="date">▼</button>
                                         </th>
-                                        <th class="passenger-cell">
+                                        <th class="income-expense-type-cell">
                                             收支类型
                                             <button class="filter-btn" data-column="type">▼</button>
                                         </th>
-                                        <th class="amount-cell">
+                                        <th class="cny-amount-cell">
                                             金额(₽)
                                             <button class="filter-btn" data-column="amount">▼</button>
                                         </th>
-                                        <th class="difference-cell">
+                                        <th class="income-expense-form-cell">
                                             收支形式
                                             <button class="filter-btn" data-column="form">▼</button>
                                         </th>
@@ -1114,7 +1237,7 @@
                                             结算
                                             <button class="filter-btn" data-column="settlement">▼</button>
                                         </th>
-                                        <th class="notes-cell">
+                                        <th class="description-cell">
                                             描述
                                             <button class="filter-btn" data-column="description">▼</button>
                                         </th>
@@ -1186,10 +1309,13 @@
                             </div>
                         </div>
                         
+                        <!-- 导出按钮 -->
+                        <button id="exportPaymentBtn" class="export-btn">生成表格</button>
+                        
                         <!-- 付款状态管理系统表格 -->
                         <div class="payment-actions">
                             <button id="addPaymentBtnPayment" class="btn btn-success">添加记录</button>
-                            <button id="clearFilterBtnPayment" class="btn btn-secondary">取消所有筛选</button>
+                            <button id="clearFilterBtnPayment" class="btn btn-secondary">取消筛选</button>
                             <button id="deletePaymentBtnPayment" class="btn btn-danger">删除选中</button>
                         </div>
                         
@@ -1210,19 +1336,19 @@
                                             日期
                                             <button class="filter-btn" data-column="date">▼</button>
                                         </th>
-                                        <th class="passenger-cell">
+                                        <th class="recipient-cell">
                                             收款人
                                             <button class="filter-btn" data-column="recipient">▼</button>
                                         </th>
-                                        <th class="amount-cell">
+                                        <th class="account-cell">
                                             账号
                                             <button class="filter-btn" data-column="account">▼</button>
                                         </th>
-                                        <th class="difference-cell">
+                                        <th class="payment-method-cell">
                                             支付方式
                                             <button class="filter-btn" data-column="method">▼</button>
                                         </th>
-                                        <th class="settlement-cell">
+                                        <th class="cny-amount-cell">
                                             金额(¥)
                                             <button class="filter-btn" data-column="amount">▼</button>
                                         </th>
@@ -1262,6 +1388,9 @@
                 <div class="card">
                     <div class="card-header">系统设置</div>
                     <div class="card-body">
+                        <!-- 导出总表按钮 -->
+                        <button id="exportAllDataBtn" class="export-btn">生成总表</button>
+                        
                         <!-- 账户余额设置 -->
                         <div class="settings-section">
                             <h3>账户余额设置</h3>
@@ -1554,6 +1683,163 @@
             initPaymentStatusPageShipping();
             initPaymentStatusPageProducts();
             initPaymentStatusPagePayment();
+            
+            // 初始化导出功能
+            initExportFunctions();
+        }
+        
+        // 初始化导出功能
+        function initExportFunctions() {
+            // 商品清单导出
+            document.getElementById('exportProductsBtn').addEventListener('click', function() {
+                exportTableToExcel('paymentTableBodyProducts', '商品清单');
+            });
+            
+            // 运费支出导出
+            document.getElementById('exportShippingBtn').addEventListener('click', function() {
+                exportTableToExcel('paymentTableBodyShipping', '运费支出');
+            });
+            
+            // 收支记录导出
+            document.getElementById('exportRecordsBtn').addEventListener('click', function() {
+                exportTableToExcel('paymentTableBody', '收支记录');
+            });
+            
+            // 货款支付导出
+            document.getElementById('exportPaymentBtn').addEventListener('click', function() {
+                exportTableToExcel('paymentTableBodyPayment', '货款支付');
+            });
+            
+            // 总表导出
+            document.getElementById('exportAllDataBtn').addEventListener('click', function() {
+                exportAllDataToExcel();
+            });
+        }
+        
+        // 导出表格为Excel
+        function exportTableToExcel(tableId, sheetName) {
+            const table = document.getElementById(tableId);
+            if (!table) {
+                showMessage('没有找到表格数据', 'error');
+                return;
+            }
+            
+            // 获取表头
+            const headers = [];
+            const headerRow = table.previousElementSibling.querySelectorAll('th');
+            headerRow.forEach(th => {
+                // 跳过选择列
+                if (!th.querySelector('input[type="checkbox"]')) {
+                    headers.push(th.textContent.replace('▼', '').trim());
+                }
+            });
+            
+            // 获取数据行
+            const data = [];
+            const rows = table.querySelectorAll('tr');
+            rows.forEach(row => {
+                const rowData = [];
+                const cells = row.querySelectorAll('td');
+                cells.forEach((cell, index) => {
+                    // 跳过选择列
+                    if (index > 0) {
+                        // 处理可编辑字段
+                        if (cell.querySelector('select')) {
+                            rowData.push(cell.querySelector('select').value);
+                        } else if (cell.querySelector('textarea')) {
+                            rowData.push(cell.querySelector('textarea').value);
+                        } else {
+                            rowData.push(cell.textContent.trim());
+                        }
+                    }
+                });
+                if (rowData.length > 0) {
+                    data.push(rowData);
+                }
+            });
+            
+            // 创建工作簿
+            const wb = XLSX.utils.book_new();
+            const wsData = [headers, ...data];
+            const ws = XLSX.utils.aoa_to_sheet(wsData);
+            
+            // 将工作表添加到工作簿
+            XLSX.utils.book_append_sheet(wb, ws, sheetName);
+            
+            // 生成Excel文件并下载
+            XLSX.writeFile(wb, `${sheetName}_${new Date().toISOString().slice(0, 10)}.xlsx`);
+            
+            showMessage(`${sheetName}导出成功！`, 'success');
+        }
+        
+        // 导出所有数据为Excel
+        function exportAllDataToExcel() {
+            const wb = XLSX.utils.book_new();
+            
+            // 导出账户余额
+            const balances = JSON.parse(localStorage.getItem('accountBalances'));
+            const balanceData = [
+                ['账户类型', '余额(₽)'],
+                ['OZON账户余额', balances.ozon],
+                ['WB账户余额', balances.wb],
+                ['个体账户余额', balances.individual],
+                ['现金余额', balances.cash],
+                ['总金额', balances.ozon + balances.wb + balances.individual + balances.cash]
+            ];
+            const balanceWs = XLSX.utils.aoa_to_sheet(balanceData);
+            XLSX.utils.book_append_sheet(wb, balanceWs, '账户余额');
+            
+            // 导出商品清单
+            const productsData = JSON.parse(localStorage.getItem('products') || '[]');
+            if (productsData.length > 0) {
+                const productHeaders = ['日期', '商品名称', '颜色', '数量', '单位', '单价(¥)', '汇率', '折合卢布', '金额(¥)', '金额(₽)', '描述'];
+                const productRows = productsData.map(item => [
+                    item.date, item.productName, item.color, item.quantity, item.unit, 
+                    item.unitPrice, item.exchangeRate, item.rublePrice, item.cnyAmount, item.rubleAmount, item.description
+                ]);
+                const productWs = XLSX.utils.aoa_to_sheet([productHeaders, ...productRows]);
+                XLSX.utils.book_append_sheet(wb, productWs, '商品清单');
+            }
+            
+            // 导出运费支出
+            const shippingData = JSON.parse(localStorage.getItem('shipping') || '[]');
+            if (shippingData.length > 0) {
+                const shippingHeaders = ['日期', '商品名称', '货号', '件数', '重量(Kg)', '体积m³', '运费', '币种', '汇率', '折合卢布', '托盘费(₽)', '立方费(₽)', '送货车费(₽)', '运费总计(₽)', '结算', '备注'];
+                const shippingRows = shippingData.map(item => [
+                    item.date, item.product, item.code, item.quantity, item.weight, item.volume,
+                    item.fee, item.currency, item.exchangeRate, item.rubleEquivalent, 
+                    item.palletFee, item.cubeFee, item.deliveryFee, item.total, item.settlement, item.notes
+                ]);
+                const shippingWs = XLSX.utils.aoa_to_sheet([shippingHeaders, ...shippingRows]);
+                XLSX.utils.book_append_sheet(wb, shippingWs, '运费支出');
+            }
+            
+            // 导出收支记录
+            const recordsData = JSON.parse(localStorage.getItem('records') || '[]');
+            if (recordsData.length > 0) {
+                const recordsHeaders = ['日期', '收支类型', '金额(₽)', '收支形式', '结算', '描述'];
+                const recordsRows = recordsData.map(item => [
+                    item.date, item.type, item.amount, item.form, item.settlement, item.description
+                ]);
+                const recordsWs = XLSX.utils.aoa_to_sheet([recordsHeaders, ...recordsRows]);
+                XLSX.utils.book_append_sheet(wb, recordsWs, '收支记录');
+            }
+            
+            // 导出货款支付
+            const paymentsData = JSON.parse(localStorage.getItem('payments') || '[]');
+            if (paymentsData.length > 0) {
+                const paymentsHeaders = ['日期', '收款人', '账号', '支付方式', '金额(¥)', '结算', '备注'];
+                const paymentsRows = paymentsData.map(item => [
+                    item.date, item.recipient, item.account, item.method, item.amount, item.settlement, item.notes
+                ]);
+                const paymentsWs = XLSX.utils.aoa_to_sheet([paymentsHeaders, ...paymentsRows]);
+                XLSX.utils.book_append_sheet(wb, paymentsWs, '货款支付');
+            }
+            
+            // 生成Excel文件并下载
+            XLSX.writeFile(wb, `电商合作账簿总表_${new Date().toISOString().slice(0, 10)}.xlsx`);
+            
+            showMessage('总表导出成功！', 'success');
         }
         
         // 更新概览页面
@@ -2277,16 +2563,16 @@
                         <input type="checkbox" class="payment-checkbox" data-id="${item.id}">
                     </td>
                     <td class="date-cell">${item.date}</td>
-                    <td class="passenger-cell">${item.type}</td>
-                    <td class="amount-cell">${formatNumber(item.amount)}</td>
-                    <td class="difference-cell">${item.form}</td>
+                    <td class="income-expense-type-cell">${item.type}</td>
+                    <td class="cny-amount-cell">${formatNumber(item.amount)}</td>
+                    <td class="income-expense-form-cell">${item.form}</td>
                     <td class="settlement-cell">
                         <select class="settlement-select" data-id="${item.id}">
                             <option value="未结算" ${item.settlement === '未结算' || !item.settlement ? 'selected' : ''}>未结算</option>
                             <option value="已结算" ${item.settlement === '已结算' ? 'selected' : ''}>已结算</option>
                         </select>
                     </td>
-                    <td class="notes-cell">
+                    <td class="description-cell">
                         <textarea class="editable-notes" data-id="${item.id}">${item.description}</textarea>
                     </td>
                 `;
@@ -2332,16 +2618,16 @@
                         <input type="checkbox" class="payment-checkbox" data-id="${item.id}">
                     </td>
                     <td class="date-cell">${item.date}</td>
-                    <td class="passenger-cell">${item.productName}</td>
-                    <td class="amount-cell">${item.color}</td>
-                    <td class="difference-cell">${item.quantity}</td>
-                    <td class="settlement-cell">${item.unit}</td>
-                    <td class="settlement-cell">${item.unitPrice}</td>
-                    <td class="settlement-cell">${item.exchangeRate}</td>
-                    <td class="settlement-cell">${item.rublePrice}</td>
-                    <td class="settlement-cell">${item.cnyAmount}</td>
-                    <td class="settlement-cell">${item.rubleAmount}</td>
-                    <td class="notes-cell">
+                    <td class="product-name-cell">${item.productName}</td>
+                    <td class="notes-cell">${item.color}</td>
+                    <td class="quantity-cell">${item.quantity}</td>
+                    <td class="unit-cell">${item.unit}</td>
+                    <td class="unit-price-cell">${item.unitPrice}</td>
+                    <td class="exchange-rate-cell">${item.exchangeRate}</td>
+                    <td class="ruble-equivalent-cell">${item.rublePrice}</td>
+                    <td class="cny-amount-cell">${item.cnyAmount}</td>
+                    <td class="ruble-amount-cell">${item.rubleAmount}</td>
+                    <td class="description-cell">
                         <textarea class="editable-notes" data-id="${item.id}">${item.description}</textarea>
                     </td>
                 `;
@@ -2378,10 +2664,10 @@
                         <input type="checkbox" class="payment-checkbox" data-id="${item.id}">
                     </td>
                     <td class="date-cell">${item.date}</td>
-                    <td class="passenger-cell">${item.recipient}</td>
-                    <td class="amount-cell">${item.account}</td>
-                    <td class="difference-cell">${item.method}</td>
-                    <td class="settlement-cell">${formatNumber(item.amount)}</td>
+                    <td class="recipient-cell">${item.recipient}</td>
+                    <td class="account-cell">${item.account}</td>
+                    <td class="payment-method-cell">${item.method}</td>
+                    <td class="cny-amount-cell">${formatNumber(item.amount)}</td>
                     <td class="settlement-cell">
                         <select class="settlement-select" data-id="${item.id}">
                             <option value="未结算" ${item.settlement === '未结算' || !item.settlement ? 'selected' : ''}>未结算</option>
@@ -2434,19 +2720,19 @@
                         <input type="checkbox" class="payment-checkbox" data-id="${item.id}">
                     </td>
                     <td class="date-cell">${item.date}</td>
-                    <td class="passenger-cell">${item.product}</td>
-                    <td class="amount-cell">${item.code}</td>
-                    <td class="difference-cell">${item.quantity}</td>
-                    <td class="settlement-cell">${item.weight}</td>
-                    <td class="settlement-cell">${item.volume}</td>
-                    <td class="settlement-cell">${item.fee}</td>
-                    <td class="settlement-cell">${item.currency}</td>
-                    <td class="settlement-cell">${item.exchangeRate}</td>
-                    <td class="settlement-cell">${item.rubleEquivalent}</td>
-                    <td class="settlement-cell">${item.palletFee}</td>
-                    <td class="settlement-cell">${item.cubeFee}</td>
-                    <td class="settlement-cell">${item.deliveryFee}</td>
-                    <td class="settlement-cell">${item.total}</td>
+                    <td class="product-name-cell">${item.product}</td>
+                    <td class="code-cell">${item.code}</td>
+                    <td class="quantity-cell">${item.quantity}</td>
+                    <td class="weight-cell">${item.weight}</td>
+                    <td class="volume-cell">${item.volume}</td>
+                    <td class="fee-cell">${item.fee}</td>
+                    <td class="currency-cell">${item.currency}</td>
+                    <td class="exchange-rate-cell">${item.exchangeRate}</td>
+                    <td class="ruble-equivalent-cell">${item.rubleEquivalent}</td>
+                    <td class="pallet-fee-cell">${item.palletFee}</td>
+                    <td class="cube-fee-cell">${item.cubeFee}</td>
+                    <td class="delivery-fee-cell">${item.deliveryFee}</td>
+                    <td class="total-cell">${item.total}</td>
                     <td class="settlement-cell">
                         <select class="settlement-select" data-id="${item.id}">
                             <option value="未结算" ${item.settlement === '未结算' || !item.settlement ? 'selected' : ''}>未结算</option>
