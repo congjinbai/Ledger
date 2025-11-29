@@ -65,7 +65,7 @@
             padding: 15px;
         }
         
-        /* 底部导航 */
+        /* 底部导航 - 优化 */
         .footer {
             height: var(--footer-height);
             background-color: var(--secondary-color);
@@ -73,6 +73,9 @@
             justify-content: space-around;
             align-items: center;
             border-top: 1px solid var(--border-color);
+            padding: 0 5px;
+            /* 上移10px */
+            margin-bottom: 10px;
         }
         
         .nav-item {
@@ -80,12 +83,15 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 10px;
             color: var(--text-color);
             cursor: pointer;
-            padding: 5px 10px;
+            padding: 3px 5px;
             border-radius: 4px;
             transition: background-color 0.2s;
+            height: 100%;
+            flex: 1;
+            max-width: 60px;
         }
         
         .nav-item.active {
@@ -94,7 +100,7 @@
         }
         
         .nav-item i {
-            font-size: 18px;
+            font-size: 16px;
             margin-bottom: 2px;
         }
         
@@ -213,22 +219,31 @@
             background-color: #5a6268;
         }
         
-        /* 表格样式 */
+        /* 表格样式 - 优化为紧凑型 */
         .table-container {
             overflow-x: auto;
             margin-top: 15px;
+            width: 100%;
         }
         
         table {
-            width: 100%;
+            width: auto; /* 改为auto以支持横向扩展 */
+            min-width: 100%;
             border-collapse: collapse;
-            font-size: 12px;
+            font-size: 11px;
+            table-layout: auto; /* 改为auto以支持自定义列宽 */
         }
         
         th, td {
             border: 1px solid var(--border-color);
-            padding: 6px 8px;
+            padding: 4px 6px;
             text-align: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            height: 25px; /* 设置固定行高 */
+            min-width: 70px; /* 设置最小列宽 */
+            width: 70px; /* 设置固定列宽 */
         }
         
         th {
@@ -352,20 +367,29 @@
         
         .payment-table-container {
             overflow-x: auto;
+            width: 100%;
         }
         
         .payment-table {
-            width: 100%;
+            width: auto; /* 改为auto以支持横向扩展 */
+            min-width: 100%;
             border-collapse: collapse;
             margin-bottom: 15px;
+            font-size: 11px;
+            table-layout: auto; /* 改为auto以支持自定义列宽 */
         }
         
         .payment-table th,
         .payment-table td {
             border: 1px solid #e2e8f0;
-            padding: 8px;
+            padding: 4px 6px;
             text-align: left;
-            white-space: nowrap; /* 防止文字换行 */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 25px; /* 设置固定行高 */
+            min-width: 70px; /* 设置最小列宽 */
+            width: 70px; /* 设置固定列宽 */
         }
         
         .payment-table th {
@@ -383,7 +407,7 @@
             border: none;
             cursor: pointer;
             font-size: 12px;
-            color: #000; /* 黑色筛选符号 */
+            color: #000;
         }
         
         .payment-table tr:nth-child(even) {
@@ -395,41 +419,50 @@
         }
         
         .payment-table .select-all {
-            width: 20px;
+            width: 25px;
+            min-width: 25px;
             padding: 4px;
         }
         
         .payment-table .select-row {
-            width: 20px;
+            width: 25px;
+            min-width: 25px;
             text-align: center;
             padding: 4px;
         }
         
         .payment-table .date-cell {
-            min-width: 80px;
+            min-width: 70px;
+            width: 70px;
         }
         
         .payment-table .passenger-cell {
-            min-width: 100px;
+            min-width: 70px;
+            width: 70px;
         }
         
         .payment-table .amount-cell {
-            min-width: 60px;
+            min-width: 70px;
+            width: 70px;
         }
         
         .payment-table .difference-cell {
-            min-width: 60px;
+            min-width: 70px;
+            width: 70px;
         }
         
         .payment-table .settlement-cell {
-            min-width: 80px;
+            min-width: 70px;
+            width: 70px;
         }
         
         .payment-table .notes-cell {
-            min-width: 100px;
-            white-space: normal; /* 备注列允许换行 */
+            min-width: 65px; /* 备注列宽度设置为65px */
+            width: 65px;
+            white-space: normal;
         }
         
+        /* 筛选下拉框样式 - 优化复选框间距 */
         .filter-dropdown {
             position: absolute;
             background-color: white;
@@ -441,13 +474,17 @@
             overflow-y: auto;
             padding: 5px;
             min-width: 150px;
+            font-size: 12px;
+            text-align: left; /* 筛选内容靠左对齐 */
         }
         
         .filter-item {
-            padding: 5px 8px;
+            padding: 3px 5px;
             cursor: pointer;
             display: flex;
             align-items: center;
+            justify-content: flex-start; /* 内容靠左对齐 */
+            text-align: left;
         }
         
         .filter-item:hover {
@@ -455,7 +492,8 @@
         }
         
         .filter-checkbox {
-            margin-right: 8px;
+            margin-right: 5px;
+            transform: scale(0.9);
         }
         
         /* 付款表格总计行样式 */
@@ -547,14 +585,14 @@
             color: #323130;
         }
         
-        /* 结算状态下拉选择样式 */
+        /* 结算状态下拉选择样式 - 默认设置为未结算 */
         .settlement-select {
             width: 100%;
             padding: 4px;
             border: 1px solid #d2d0ce;
             border-radius: 2px;
             background-color: white;
-            font-size: 12px;
+            font-size: 11px;
         }
         
         /* 可编辑备注样式 */
@@ -564,9 +602,11 @@
             border: 1px solid #d2d0ce;
             border-radius: 2px;
             background-color: white;
-            font-size: 12px;
+            font-size: 11px;
             resize: vertical;
-            min-height: 60px;
+            min-height: 40px;
+            line-height: 20px; /* 设置行高为20px */
+            height: 20px; /* 设置固定高度 */
         }
         
         /* 多选筛选样式 */
@@ -772,7 +812,7 @@
                                             金额(₽)
                                             <button class="filter-btn" data-column="rubleAmount">▼</button>
                                         </th>
-                                        <th class="settlement-cell">
+                                        <th class="notes-cell">
                                             描述
                                             <button class="filter-btn" data-column="description">▼</button>
                                         </th>
@@ -1074,7 +1114,7 @@
                                             结算
                                             <button class="filter-btn" data-column="settlement">▼</button>
                                         </th>
-                                        <th class="settlement-cell">
+                                        <th class="notes-cell">
                                             描述
                                             <button class="filter-btn" data-column="description">▼</button>
                                         </th>
@@ -1190,7 +1230,7 @@
                                             结算
                                             <button class="filter-btn" data-column="settlement">▼</button>
                                         </th>
-                                        <th class="settlement-cell">
+                                        <th class="notes-cell">
                                             备注
                                             <button class="filter-btn" data-column="notes">▼</button>
                                         </th>
@@ -1999,6 +2039,8 @@
                     const column = this.getAttribute('data-column');
                     if (column === 'date') {
                         showDateFilterDropdown(this, column);
+                    } else if (column === 'settlement') {
+                        showSettlementFilterDropdown(this, column);
                     } else {
                         showFilterDropdown(this, column);
                     }
@@ -2099,6 +2141,8 @@
                     const column = this.getAttribute('data-column');
                     if (column === 'date') {
                         showDateFilterDropdownPayment(this, column);
+                    } else if (column === 'settlement') {
+                        showSettlementFilterDropdownPayment(this, column);
                     } else {
                         showFilterDropdownPayment(this, column);
                     }
@@ -2149,6 +2193,8 @@
                     const column = this.getAttribute('data-column');
                     if (column === 'date') {
                         showDateFilterDropdownShipping(this, column);
+                    } else if (column === 'settlement') {
+                        showSettlementFilterDropdownShipping(this, column);
                     } else {
                         showFilterDropdownShipping(this, column);
                     }
@@ -2236,8 +2282,7 @@
                     <td class="difference-cell">${item.form}</td>
                     <td class="settlement-cell">
                         <select class="settlement-select" data-id="${item.id}">
-                            <option value="">选择状态</option>
-                            <option value="未结算" ${item.settlement === '未结算' ? 'selected' : ''}>未结算</option>
+                            <option value="未结算" ${item.settlement === '未结算' || !item.settlement ? 'selected' : ''}>未结算</option>
                             <option value="已结算" ${item.settlement === '已结算' ? 'selected' : ''}>已结算</option>
                         </select>
                     </td>
@@ -2339,8 +2384,7 @@
                     <td class="settlement-cell">${formatNumber(item.amount)}</td>
                     <td class="settlement-cell">
                         <select class="settlement-select" data-id="${item.id}">
-                            <option value="">选择状态</option>
-                            <option value="未结算" ${item.settlement === '未结算' ? 'selected' : ''}>未结算</option>
+                            <option value="未结算" ${item.settlement === '未结算' || !item.settlement ? 'selected' : ''}>未结算</option>
                             <option value="已结算" ${item.settlement === '已结算' ? 'selected' : ''}>已结算</option>
                         </select>
                     </td>
@@ -2405,8 +2449,7 @@
                     <td class="settlement-cell">${item.total}</td>
                     <td class="settlement-cell">
                         <select class="settlement-select" data-id="${item.id}">
-                            <option value="">选择状态</option>
-                            <option value="未结算" ${item.settlement === '未结算' ? 'selected' : ''}>未结算</option>
+                            <option value="未结算" ${item.settlement === '未结算' || !item.settlement ? 'selected' : ''}>未结算</option>
                             <option value="已结算" ${item.settlement === '已结算' ? 'selected' : ''}>已结算</option>
                         </select>
                     </td>
@@ -2646,7 +2689,7 @@
                 form,
                 amount: unformatNumber(amount),
                 description,
-                settlement: '' // 添加结算字段
+                settlement: '未结算' // 默认设置为未结算
             });
             
             // 保存数据
@@ -2752,7 +2795,7 @@
                 method,
                 amount: unformatNumber(amount),
                 notes,
-                settlement: '' // 添加结算字段
+                settlement: '未结算' // 默认设置为未结算
             });
             
             // 保存数据
@@ -2818,7 +2861,7 @@
                 deliveryFee,
                 total,
                 notes,
-                settlement: '' // 添加结算字段
+                settlement: '未结算' // 默认设置为未结算
             });
             
             // 保存数据
@@ -2981,6 +3024,226 @@
             }
         }
         
+        // 结算状态筛选下拉框
+        function showSettlementFilterDropdown(button, column) {
+            // 移除现有下拉框
+            const existing = document.querySelector('.filter-dropdown');
+            if (existing) {
+                existing.remove();
+            }
+            
+            // 创建下拉框
+            const dropdown = document.createElement('div');
+            dropdown.className = 'filter-dropdown';
+            
+            // 添加结算状态选项
+            const statuses = ['未结算', '已结算'];
+            
+            statuses.forEach(status => {
+                const item = document.createElement('div');
+                item.className = 'filter-item';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'filter-checkbox';
+                checkbox.value = status;
+                checkbox.checked = currentFilters[column].includes(status);
+                
+                item.appendChild(checkbox);
+                item.appendChild(document.createTextNode(status));
+                dropdown.appendChild(item);
+            });
+            
+            // 添加操作按钮
+            const actions = document.createElement('div');
+            actions.className = 'filter-actions';
+            
+            const applyBtn = document.createElement('button');
+            applyBtn.className = 'filter-apply-btn';
+            applyBtn.textContent = '应用筛选';
+            applyBtn.addEventListener('click', function() {
+                // 获取选中的筛选条件
+                const selectedValues = Array.from(dropdown.querySelectorAll('.filter-checkbox:checked')).map(cb => cb.value);
+                currentFilters[column] = selectedValues;
+                applyFilter();
+                dropdown.remove();
+            });
+            
+            const clearBtn = document.createElement('button');
+            clearBtn.className = 'filter-clear-btn';
+            clearBtn.textContent = '清除筛选';
+            clearBtn.addEventListener('click', function() {
+                currentFilters[column] = [];
+                applyFilter();
+                dropdown.remove();
+            });
+            
+            actions.appendChild(applyBtn);
+            actions.appendChild(clearBtn);
+            dropdown.appendChild(actions);
+            
+            // 定位下拉框
+            const rect = button.getBoundingClientRect();
+            dropdown.style.top = (rect.bottom + window.scrollY) + 'px';
+            dropdown.style.left = (rect.left + window.scrollX) + 'px';
+            
+            document.body.appendChild(dropdown);
+            
+            // 点击其他地方时关闭下拉框
+            document.addEventListener('click', function closeDropdown(e) {
+                if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.remove();
+                    document.removeEventListener('click', closeDropdown);
+                }
+            });
+        }
+        
+        function showSettlementFilterDropdownPayment(button, column) {
+            // 移除现有下拉框
+            const existing = document.querySelector('.filter-dropdown');
+            if (existing) {
+                existing.remove();
+            }
+            
+            // 创建下拉框
+            const dropdown = document.createElement('div');
+            dropdown.className = 'filter-dropdown';
+            
+            // 添加结算状态选项
+            const statuses = ['未结算', '已结算'];
+            
+            statuses.forEach(status => {
+                const item = document.createElement('div');
+                item.className = 'filter-item';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'filter-checkbox';
+                checkbox.value = status;
+                checkbox.checked = currentFiltersPayment[column].includes(status);
+                
+                item.appendChild(checkbox);
+                item.appendChild(document.createTextNode(status));
+                dropdown.appendChild(item);
+            });
+            
+            // 添加操作按钮
+            const actions = document.createElement('div');
+            actions.className = 'filter-actions';
+            
+            const applyBtn = document.createElement('button');
+            applyBtn.className = 'filter-apply-btn';
+            applyBtn.textContent = '应用筛选';
+            applyBtn.addEventListener('click', function() {
+                // 获取选中的筛选条件
+                const selectedValues = Array.from(dropdown.querySelectorAll('.filter-checkbox:checked')).map(cb => cb.value);
+                currentFiltersPayment[column] = selectedValues;
+                applyFilterPayment();
+                dropdown.remove();
+            });
+            
+            const clearBtn = document.createElement('button');
+            clearBtn.className = 'filter-clear-btn';
+            clearBtn.textContent = '清除筛选';
+            clearBtn.addEventListener('click', function() {
+                currentFiltersPayment[column] = [];
+                applyFilterPayment();
+                dropdown.remove();
+            });
+            
+            actions.appendChild(applyBtn);
+            actions.appendChild(clearBtn);
+            dropdown.appendChild(actions);
+            
+            // 定位下拉框
+            const rect = button.getBoundingClientRect();
+            dropdown.style.top = (rect.bottom + window.scrollY) + 'px';
+            dropdown.style.left = (rect.left + window.scrollX) + 'px';
+            
+            document.body.appendChild(dropdown);
+            
+            // 点击其他地方时关闭下拉框
+            document.addEventListener('click', function closeDropdown(e) {
+                if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.remove();
+                    document.removeEventListener('click', closeDropdown);
+                }
+            });
+        }
+        
+        function showSettlementFilterDropdownShipping(button, column) {
+            // 移除现有下拉框
+            const existing = document.querySelector('.filter-dropdown');
+            if (existing) {
+                existing.remove();
+            }
+            
+            // 创建下拉框
+            const dropdown = document.createElement('div');
+            dropdown.className = 'filter-dropdown';
+            
+            // 添加结算状态选项
+            const statuses = ['未结算', '已结算'];
+            
+            statuses.forEach(status => {
+                const item = document.createElement('div');
+                item.className = 'filter-item';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'filter-checkbox';
+                checkbox.value = status;
+                checkbox.checked = currentFiltersShipping[column].includes(status);
+                
+                item.appendChild(checkbox);
+                item.appendChild(document.createTextNode(status));
+                dropdown.appendChild(item);
+            });
+            
+            // 添加操作按钮
+            const actions = document.createElement('div');
+            actions.className = 'filter-actions';
+            
+            const applyBtn = document.createElement('button');
+            applyBtn.className = 'filter-apply-btn';
+            applyBtn.textContent = '应用筛选';
+            applyBtn.addEventListener('click', function() {
+                // 获取选中的筛选条件
+                const selectedValues = Array.from(dropdown.querySelectorAll('.filter-checkbox:checked')).map(cb => cb.value);
+                currentFiltersShipping[column] = selectedValues;
+                applyFilterShipping();
+                dropdown.remove();
+            });
+            
+            const clearBtn = document.createElement('button');
+            clearBtn.className = 'filter-clear-btn';
+            clearBtn.textContent = '清除筛选';
+            clearBtn.addEventListener('click', function() {
+                currentFiltersShipping[column] = [];
+                applyFilterShipping();
+                dropdown.remove();
+            });
+            
+            actions.appendChild(applyBtn);
+            actions.appendChild(clearBtn);
+            dropdown.appendChild(actions);
+            
+            // 定位下拉框
+            const rect = button.getBoundingClientRect();
+            dropdown.style.top = (rect.bottom + window.scrollY) + 'px';
+            dropdown.style.left = (rect.left + window.scrollX) + 'px';
+            
+            document.body.appendChild(dropdown);
+            
+            // 点击其他地方时关闭下拉框
+            document.addEventListener('click', function closeDropdown(e) {
+                if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.remove();
+                    document.removeEventListener('click', closeDropdown);
+                }
+            });
+        }
+        
         // 日期筛选下拉框（按年、月、日）- 支持多选筛选
         function showDateFilterDropdown(button, column) {
             // 移除现有下拉框
@@ -2991,9 +3254,20 @@
             
             // 获取所有日期并提取年、月、日
             const dates = paymentData.map(item => item.date);
-            const years = [...new Set(dates.map(date => date.split('-')[0]))].sort().reverse();
-            const months = [...new Set(dates.map(date => date.split('-')[1]))].sort().reverse();
-            const days = [...new Set(dates.map(date => date.split('-')[2]))].sort().reverse();
+            const years = [...new Set(dates.map(date => {
+                const parts = date.split('/');
+                return parts.length === 3 ? parts[0] : null;
+            }))].filter(Boolean).sort().reverse();
+            
+            const months = [...new Set(dates.map(date => {
+                const parts = date.split('/');
+                return parts.length === 3 ? parts[1] : null;
+            }))].filter(Boolean).sort().reverse();
+            
+            const days = [...new Set(dates.map(date => {
+                const parts = date.split('/');
+                return parts.length === 3 ? parts[2] : null;
+            }))].filter(Boolean).sort().reverse();
             
             // 创建下拉框
             const dropdown = document.createElement('div');
@@ -3124,9 +3398,20 @@
             
             // 获取所有日期并提取年、月、日
             const dates = paymentDataProducts.map(item => item.date);
-            const years = [...new Set(dates.map(date => date.split('-')[0]))].sort().reverse();
-            const months = [...new Set(dates.map(date => date.split('-')[1]))].sort().reverse();
-            const days = [...new Set(dates.map(date => date.split('-')[2]))].sort().reverse();
+            const years = [...new Set(dates.map(date => {
+                const parts = date.split('/');
+                return parts.length === 3 ? parts[0] : null;
+            }))].filter(Boolean).sort().reverse();
+            
+            const months = [...new Set(dates.map(date => {
+                const parts = date.split('/');
+                return parts.length === 3 ? parts[1] : null;
+            }))].filter(Boolean).sort().reverse();
+            
+            const days = [...new Set(dates.map(date => {
+                const parts = date.split('/');
+                return parts.length === 3 ? parts[2] : null;
+            }))].filter(Boolean).sort().reverse();
             
             // 创建下拉框
             const dropdown = document.createElement('div');
@@ -3257,9 +3542,20 @@
             
             // 获取所有日期并提取年、月、日
             const dates = paymentDataPayment.map(item => item.date);
-            const years = [...new Set(dates.map(date => date.split('-')[0]))].sort().reverse();
-            const months = [...new Set(dates.map(date => date.split('-')[1]))].sort().reverse();
-            const days = [...new Set(dates.map(date => date.split('-')[2]))].sort().reverse();
+            const years = [...new Set(dates.map(date => {
+                const parts = date.split('/');
+                return parts.length === 3 ? parts[0] : null;
+            }))].filter(Boolean).sort().reverse();
+            
+            const months = [...new Set(dates.map(date => {
+                const parts = date.split('/');
+                return parts.length === 3 ? parts[1] : null;
+            }))].filter(Boolean).sort().reverse();
+            
+            const days = [...new Set(dates.map(date => {
+                const parts = date.split('/');
+                return parts.length === 3 ? parts[2] : null;
+            }))].filter(Boolean).sort().reverse();
             
             // 创建下拉框
             const dropdown = document.createElement('div');
@@ -3390,9 +3686,20 @@
             
             // 获取所有日期并提取年、月、日
             const dates = paymentDataShipping.map(item => item.date);
-            const years = [...new Set(dates.map(date => date.split('-')[0]))].sort().reverse();
-            const months = [...new Set(dates.map(date => date.split('-')[1]))].sort().reverse();
-            const days = [...new Set(dates.map(date => date.split('-')[2]))].sort().reverse();
+            const years = [...new Set(dates.map(date => {
+                const parts = date.split('/');
+                return parts.length === 3 ? parts[0] : null;
+            }))].filter(Boolean).sort().reverse();
+            
+            const months = [...new Set(dates.map(date => {
+                const parts = date.split('/');
+                return parts.length === 3 ? parts[1] : null;
+            }))].filter(Boolean).sort().reverse();
+            
+            const days = [...new Set(dates.map(date => {
+                const parts = date.split('/');
+                return parts.length === 3 ? parts[2] : null;
+            }))].filter(Boolean).sort().reverse();
             
             // 创建下拉框
             const dropdown = document.createElement('div');
@@ -3521,7 +3828,7 @@
             // 按日期筛选
             if (currentFilters.date.length > 0) {
                 filteredData = filteredData.filter(item => {
-                    const dateParts = item.date.split('-');
+                    const dateParts = item.date.split('/');
                     return currentFilters.date.some(filter => 
                         dateParts.includes(filter)
                     );
@@ -3537,7 +3844,7 @@
             // 按日期筛选
             if (currentFiltersProducts.date.length > 0) {
                 filteredData = filteredData.filter(item => {
-                    const dateParts = item.date.split('-');
+                    const dateParts = item.date.split('/');
                     return currentFiltersProducts.date.some(filter => 
                         dateParts.includes(filter)
                     );
@@ -3553,7 +3860,7 @@
             // 按日期筛选
             if (currentFiltersPayment.date.length > 0) {
                 filteredData = filteredData.filter(item => {
-                    const dateParts = item.date.split('-');
+                    const dateParts = item.date.split('/');
                     return currentFiltersPayment.date.some(filter => 
                         dateParts.includes(filter)
                     );
@@ -3569,7 +3876,7 @@
             // 按日期筛选
             if (currentFiltersShipping.date.length > 0) {
                 filteredData = filteredData.filter(item => {
-                    const dateParts = item.date.split('-');
+                    const dateParts = item.date.split('/');
                     return currentFiltersShipping.date.some(filter => 
                         dateParts.includes(filter)
                     );
