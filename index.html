@@ -799,6 +799,36 @@
         .amount-display {
             text-align: center;
         }
+        
+        /* 输入错误样式 */
+        .input-error {
+            border-color: #d13438 !important;
+            background-color: #fef6f6;
+        }
+        
+        .error-message {
+            color: #d13438;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+        
+        /* 设置页账户余额设置新样式 */
+        .balance-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .balance-input {
+            flex: 1;
+            margin-right: 10px;
+        }
+        
+        .balance-btn {
+            width: 100px;
+            height: 30px;
+        }
     </style>
 </head>
 <body>
@@ -873,6 +903,7 @@
                             <div class="form-col">
                                 <label class="required">数量</label>
                                 <input type="text" id="quantity" class="number-input" placeholder="输入数量">
+                                <div class="error-message" id="quantity-error">只能输入数字</div>
                             </div>
                             <div class="form-col">
                                 <label>单位</label>
@@ -885,10 +916,12 @@
                             <div class="form-col">
                                 <label class="required">单价(¥)</label>
                                 <input type="text" id="unit-price" class="number-input" placeholder="输入单价">
+                                <div class="error-message" id="unit-price-error">只能输入数字</div>
                             </div>
                             <div class="form-col">
                                 <label class="required">汇率</label>
                                 <input type="text" id="exchange-rate" class="number-input" placeholder="输入汇率">
+                                <div class="error-message" id="exchange-rate-error">只能输入数字</div>
                             </div>
                         </div>
                         <div class="form-row">
@@ -1042,22 +1075,26 @@
                             <div class="form-col">
                                 <label class="required">重量(Kg)</label>
                                 <input type="text" id="shipping-weight" class="number-input" placeholder="输入重量">
+                                <div class="error-message" id="shipping-weight-error">只能输入数字</div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-col">
                                 <label>体积m³</label>
                                 <input type="text" id="shipping-volume" class="number-input" placeholder="输入体积">
+                                <div class="error-message" id="shipping-volume-error">只能输入数字</div>
                             </div>
                             <div class="form-col">
                                 <label>件数</label>
                                 <input type="text" id="shipping-quantity" class="number-input" placeholder="输入件数">
+                                <div class="error-message" id="shipping-quantity-error">只能输入数字</div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-col">
                                 <label class="required">运费</label>
                                 <input type="text" id="shipping-fee" class="number-input" placeholder="输入运费">
+                                <div class="error-message" id="shipping-fee-error">只能输入数字</div>
                             </div>
                             <div class="form-col">
                                 <label class="required">币种</label>
@@ -1068,11 +1105,12 @@
                         </div>
                         <div class="form-row">
                             <div class="form-col">
-                                <label class="required">汇率</label>
+                                <label id="exchange-rate-label">汇率</label>
                                 <input type="text" id="shipping-exchange-rate" class="number-input" placeholder="输入汇率">
+                                <div class="error-message" id="shipping-exchange-rate-error">只能输入数字</div>
                             </div>
                             <div class="form-col">
-                                <label>折合卢布</label>
+                                <label id="ruble-equivalent-label">折合卢布</label>
                                 <div id="shipping-ruble" class="display-box amount-display">0</div>
                             </div>
                         </div>
@@ -1080,16 +1118,19 @@
                             <div class="form-col">
                                 <label>托盘费(₽)</label>
                                 <input type="text" id="pallet-fee" class="number-input" placeholder="输入托盘费">
+                                <div class="error-message" id="pallet-fee-error">只能输入数字</div>
                             </div>
                             <div class="form-col">
                                 <label>立方费(₽)</label>
                                 <input type="text" id="cube-fee" class="number-input" placeholder="输入立方费">
+                                <div class="error-message" id="cube-fee-error">只能输入数字</div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-col">
                                 <label>送货车费(₽)</label>
                                 <input type="text" id="delivery-fee" class="number-input" placeholder="输入送货车费">
+                                <div class="error-message" id="delivery-fee-error">只能输入数字</div>
                             </div>
                             <div class="form-col">
                                 <label>运费总计(₽)</label>
@@ -1260,6 +1301,7 @@
                             <div class="form-col">
                                 <label class="required">金额(₽)</label>
                                 <input type="text" id="record-amount" class="number-input" placeholder="输入金额">
+                                <div class="error-message" id="record-amount-error">只能输入数字</div>
                             </div>
                         </div>
                         <div class="form-row">
@@ -1378,6 +1420,7 @@
                             <div class="form-col">
                                 <label class="required">金额(¥)</label>
                                 <input type="text" id="payment-amount" class="number-input" placeholder="输入金额">
+                                <div class="error-message" id="payment-amount-error">只能输入数字</div>
                             </div>
                         </div>
                         <div class="form-row">
@@ -1466,30 +1509,33 @@
                 <div class="card">
                     <div class="card-header">系统设置</div>
                     <div class="card-body">
-                        <!-- 账户余额设置 -->
+                        <!-- 账户余额设置 - 新布局 -->
                         <div class="settings-section">
                             <h3>账户余额设置</h3>
-                            <div class="form-row">
-                                <div class="form-col">
+                            <div class="balance-row">
+                                <div class="balance-input">
                                     <label>OZON账户余额(₽)</label>
                                     <input type="text" id="ozon-input" class="number-input" placeholder="输入金额">
+                                    <div class="error-message" id="ozon-input-error">只能输入数字</div>
                                 </div>
-                                <div class="form-col">
+                                <button class="btn balance-btn" id="update-ozon-balance">更新OZON余额</button>
+                            </div>
+                            <div class="balance-row">
+                                <div class="balance-input">
                                     <label>WB账户余额(₽)</label>
                                     <input type="text" id="wb-input" class="number-input" placeholder="输入金额">
+                                    <div class="error-message" id="wb-input-error">只能输入数字</div>
                                 </div>
+                                <button class="btn balance-btn" id="update-wb-balance">更新WB余额</button>
                             </div>
-                            <div class="form-row">
-                                <div class="form-col">
+                            <div class="balance-row">
+                                <div class="balance-input">
                                     <label>个体账户余额(₽)</label>
                                     <input type="text" id="individual-input" class="number-input" placeholder="输入金额">
+                                    <div class="error-message" id="individual-input-error">只能输入数字</div>
                                 </div>
-                                <div class="form-col">
-                                    <label>现金余额(₽)</label>
-                                    <div id="cash-display" class="display-box">0</div>
-                                </div>
+                                <button class="btn balance-btn" id="update-individual-balance">更新个体余额</button>
                             </div>
-                            <button class="btn" id="update-balance">更新金额</button>
                         </div>
                         
                         <div class="settings-section">
@@ -1763,24 +1809,173 @@
             
             // 初始化数字输入框限制
             initNumberInputs();
+            
+            // 初始化新的余额更新按钮
+            initBalanceUpdateButtons();
+        }
+        
+        // 初始化余额更新按钮
+        function initBalanceUpdateButtons() {
+            // 更新OZON余额按钮
+            document.getElementById('update-ozon-balance').addEventListener('click', function() {
+                const ozonValue = unformatNumber(document.getElementById('ozon-input').value) || 0;
+                
+                if (isNaN(ozonValue)) {
+                    showInputError(document.getElementById('ozon-input'), '只能输入数字');
+                    return;
+                }
+                
+                showConfirm('确定要更新OZON账户余额吗？', function(result) {
+                    if (result) {
+                        const balances = JSON.parse(localStorage.getItem('accountBalances'));
+                        balances.ozon = ozonValue;
+                        localStorage.setItem('accountBalances', JSON.stringify(balances));
+                        updateOverview();
+                        
+                        // 清空输入框
+                        document.getElementById('ozon-input').value = '';
+                        
+                        showMessage('OZON账户余额已更新！', 'success');
+                    }
+                });
+            });
+            
+            // 更新WB余额按钮
+            document.getElementById('update-wb-balance').addEventListener('click', function() {
+                const wbValue = unformatNumber(document.getElementById('wb-input').value) || 0;
+                
+                if (isNaN(wbValue)) {
+                    showInputError(document.getElementById('wb-input'), '只能输入数字');
+                    return;
+                }
+                
+                showConfirm('确定要更新WB账户余额吗？', function(result) {
+                    if (result) {
+                        const balances = JSON.parse(localStorage.getItem('accountBalances'));
+                        balances.wb = wbValue;
+                        localStorage.setItem('accountBalances', JSON.stringify(balances));
+                        updateOverview();
+                        
+                        // 清空输入框
+                        document.getElementById('wb-input').value = '';
+                        
+                        showMessage('WB账户余额已更新！', 'success');
+                    }
+                });
+            });
+            
+            // 更新个体余额按钮
+            document.getElementById('update-individual-balance').addEventListener('click', function() {
+                const individualValue = unformatNumber(document.getElementById('individual-input').value) || 0;
+                
+                if (isNaN(individualValue)) {
+                    showInputError(document.getElementById('individual-input'), '只能输入数字');
+                    return;
+                }
+                
+                showConfirm('确定要更新个体账户余额吗？', function(result) {
+                    if (result) {
+                        const balances = JSON.parse(localStorage.getItem('accountBalances'));
+                        balances.individual = individualValue;
+                        localStorage.setItem('accountBalances', JSON.stringify(balances));
+                        updateOverview();
+                        
+                        // 清空输入框
+                        document.getElementById('individual-input').value = '';
+                        
+                        showMessage('个体账户余额已更新！', 'success');
+                    }
+                });
+            });
         }
         
         // 初始化数字输入框限制
         function initNumberInputs() {
-            // 限制只能输入数字的输入框
-            const numberInputs = document.querySelectorAll('.number-input');
-            numberInputs.forEach(input => {
-                input.addEventListener('input', function() {
-                    // 移除非数字字符（除了小数点）
-                    this.value = this.value.replace(/[^\d.]/g, '');
+            // 获取所有需要限制的输入框
+            const numberInputs = [
+                // 商品清单页面
+                'quantity', 'unit-price', 'exchange-rate',
+                // 运费支出页面
+                'shipping-weight', 'shipping-volume', 'shipping-quantity', 'shipping-fee', 
+                'shipping-exchange-rate', 'pallet-fee', 'cube-fee', 'delivery-fee',
+                // 收支记录页面
+                'record-amount',
+                // 货款支付页面
+                'payment-amount',
+                // 设置页面
+                'ozon-input', 'wb-input', 'individual-input'
+            ];
+            
+            // 为每个输入框添加限制
+            numberInputs.forEach(id => {
+                const input = document.getElementById(id);
+                if (input) {
+                    input.addEventListener('input', function() {
+                        validateNumberInput(this);
+                    });
                     
-                    // 确保只有一个小数点
-                    const parts = this.value.split('.');
-                    if (parts.length > 2) {
-                        this.value = parts[0] + '.' + parts.slice(1).join('');
-                    }
-                });
+                    // 添加粘贴事件处理
+                    input.addEventListener('paste', function(e) {
+                        // 获取粘贴的内容
+                        const pastedData = e.clipboardData.getData('text');
+                        
+                        // 检查粘贴内容是否为数字
+                        if (!/^[\d.]*$/.test(pastedData)) {
+                            e.preventDefault();
+                            showInputError(this, '粘贴内容包含非数字字符');
+                        }
+                    });
+                }
             });
+        }
+        
+        // 验证数字输入
+        function validateNumberInput(input) {
+            const errorId = input.id + '-error';
+            const errorElement = document.getElementById(errorId);
+            
+            // 移除非数字字符（除了小数点）
+            let value = input.value.replace(/[^\d.]/g, '');
+            
+            // 确保只有一个小数点
+            const parts = value.split('.');
+            if (parts.length > 2) {
+                value = parts[0] + '.' + parts.slice(1).join('');
+            }
+            
+            // 检查是否包含非数字字符
+            if (input.value !== value) {
+                input.value = value;
+                showInputError(input, '只能输入数字');
+                return false;
+            }
+            
+            // 清除错误状态
+            clearInputError(input);
+            return true;
+        }
+        
+        // 显示输入错误
+        function showInputError(input, message) {
+            const errorId = input.id + '-error';
+            const errorElement = document.getElementById(errorId);
+            
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+                input.classList.add('input-error');
+            }
+        }
+        
+        // 清除输入错误
+        function clearInputError(input) {
+            const errorId = input.id + '-error';
+            const errorElement = document.getElementById(errorId);
+            
+            if (errorElement) {
+                errorElement.style.display = 'none';
+                input.classList.remove('input-error');
+            }
         }
         
         // 初始化导出功能
@@ -1971,9 +2166,6 @@
             
             const total = balances.ozon + balances.wb + balances.individual + cashBalance;
             document.getElementById('total-balance').textContent = formatNumber(total);
-            
-            // 更新设置页面的现金余额显示
-            document.getElementById('cash-display').textContent = formatNumber(cashBalance);
         }
         
         // 计算现金余额
@@ -2078,34 +2270,6 @@
                 paymentMethodSelect.appendChild(option);
             });
         }
-        
-        // 更新账户余额
-        document.getElementById('update-balance').addEventListener('click', function() {
-            showConfirm('确定要更新账户余额吗？', function(result) {
-                if (result) {
-                    const ozonValue = unformatNumber(document.getElementById('ozon-input').value) || 0;
-                    const wbValue = unformatNumber(document.getElementById('wb-input').value) || 0;
-                    const individualValue = unformatNumber(document.getElementById('individual-input').value) || 0;
-                    
-                    const balances = {
-                        ozon: ozonValue,
-                        wb: wbValue,
-                        individual: individualValue,
-                        cash: calculateCashBalance() // 现金余额通过其他页面计算
-                    };
-                    
-                    localStorage.setItem('accountBalances', JSON.stringify(balances));
-                    updateOverview();
-                    
-                    // 清空输入框
-                    document.getElementById('ozon-input').value = '';
-                    document.getElementById('wb-input').value = '';
-                    document.getElementById('individual-input').value = '';
-                    
-                    showMessage('账户余额已更新！', 'success');
-                }
-            });
-        });
         
         // 保存设置
         document.getElementById('save-settings').addEventListener('click', function() {
@@ -2275,20 +2439,32 @@
             const shippingTotal = rubleEquivalent + palletFee + cubeFee + deliveryFee;
             document.getElementById('shipping-total').textContent = formatNumber(shippingTotal);
             
-            // 显示/隐藏折合卢布框
+            // 显示/隐藏折合卢布框和汇率输入框
             if (currency === '卢布') {
                 document.getElementById('shipping-ruble').classList.add('hidden');
-                document.querySelector('label[for="shipping-ruble"]').classList.add('hidden');
+                document.getElementById('exchange-rate-label').classList.add('hidden');
+                document.getElementById('shipping-exchange-rate').classList.add('hidden');
+                document.getElementById('ruble-equivalent-label').classList.add('hidden');
             } else {
                 document.getElementById('shipping-ruble').classList.remove('hidden');
-                document.querySelector('label[for="shipping-ruble"]').classList.remove('hidden');
+                document.getElementById('exchange-rate-label').classList.remove('hidden');
+                document.getElementById('shipping-exchange-rate').classList.remove('hidden');
+                document.getElementById('ruble-equivalent-label').classList.remove('hidden');
             }
         }
         
         // 监听运费相关输入变化
         document.getElementById('shipping-fee').addEventListener('input', calculateShipping);
         document.getElementById('shipping-exchange-rate').addEventListener('input', calculateShipping);
-        document.getElementById('shipping-currency').addEventListener('change', calculateShipping);
+        document.getElementById('shipping-currency').addEventListener('change', function() {
+            calculateShipping();
+            // 当选择卢布时，移除汇率输入框的必填验证
+            if (this.value === '卢布') {
+                document.getElementById('exchange-rate-label').classList.remove('required');
+            } else {
+                document.getElementById('exchange-rate-label').classList.add('required');
+            }
+        });
         document.getElementById('pallet-fee').addEventListener('input', calculateShipping);
         document.getElementById('cube-fee').addEventListener('input', calculateShipping);
         document.getElementById('delivery-fee').addEventListener('input', calculateShipping);
@@ -3155,6 +3331,12 @@
                 return;
             }
             
+            // 验证金额是否为数字
+            if (!/^[\d.]*$/.test(amount)) {
+                showInputError(document.getElementById('record-amount'), '只能输入数字');
+                return;
+            }
+            
             // 生成新ID
             const newId = paymentData.length > 0 ? Math.max(...paymentData.map(p => p.id)) + 1 : 1;
             
@@ -3206,6 +3388,20 @@
                 return;
             }
             
+            // 验证数字输入
+            if (!/^[\d.]*$/.test(quantity)) {
+                showInputError(document.getElementById('quantity'), '只能输入数字');
+                return;
+            }
+            if (!/^[\d.]*$/.test(unitPrice)) {
+                showInputError(document.getElementById('unit-price'), '只能输入数字');
+                return;
+            }
+            if (!/^[\d.]*$/.test(exchangeRate)) {
+                showInputError(document.getElementById('exchange-rate'), '只能输入数字');
+                return;
+            }
+            
             // 生成新ID
             const newId = paymentDataProducts.length > 0 ? Math.max(...paymentDataProducts.map(p => p.id)) + 1 : 1;
             
@@ -3236,7 +3432,8 @@
             document.getElementById('product-name').value = '';
             document.getElementById('color-select').value = '';
             document.getElementById('quantity').value = '';
-            document.getElementById('unit-select').value = '';
+            // 单位选择器恢复到默认值"件"
+            document.getElementById('unit-select').value = '件';
             document.getElementById('unit-price').value = '';
             document.getElementById('exchange-rate').value = '';
             document.getElementById('product-description').value = '';
@@ -3257,6 +3454,12 @@
             // 验证必填项
             if (!date || !recipient || !account || !method || !amount) {
                 showMessage('请填写所有必填项！', 'error');
+                return;
+            }
+            
+            // 验证金额是否为数字
+            if (!/^[\d.]*$/.test(amount)) {
+                showInputError(document.getElementById('payment-amount'), '只能输入数字');
                 return;
             }
             
@@ -3312,8 +3515,28 @@
             const notes = document.getElementById('shipping-notes').value;
             
             // 验证必填项 - 移除了件数的必填验证
-            if (!date || !product || !weight || !fee || !currency || !exchangeRate) {
+            if (!date || !product || !weight || !fee || !currency) {
                 showMessage('请填写所有必填项！', 'error');
+                return;
+            }
+            
+            // 如果币种不是卢布，则验证汇率
+            if (currency !== '卢布' && !exchangeRate) {
+                showMessage('请填写汇率！', 'error');
+                return;
+            }
+            
+            // 验证数字输入
+            if (!/^[\d.]*$/.test(weight)) {
+                showInputError(document.getElementById('shipping-weight'), '只能输入数字');
+                return;
+            }
+            if (!/^[\d.]*$/.test(fee)) {
+                showInputError(document.getElementById('shipping-fee'), '只能输入数字');
+                return;
+            }
+            if (currency !== '卢布' && !/^[\d.]*$/.test(exchangeRate)) {
+                showInputError(document.getElementById('shipping-exchange-rate'), '只能输入数字');
                 return;
             }
             
