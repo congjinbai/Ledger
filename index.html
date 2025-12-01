@@ -43,7 +43,7 @@
             background-color: white;
         }
         
-        /* 头部导航 - 修改为居中 */
+        /* 头部导航 */
         .header {
             height: var(--header-height);
             background-color: var(--primary-color);
@@ -54,95 +54,91 @@
             justify-content: center;
             padding: 0 15px;
             border-bottom: 1px solid var(--border-color);
-            text-align: center;
         }
         
         .header h1 {
-            font-size: 22px; /* 加大2个字号 */
+            font-size: 24px; /* 加大2个字号 */
             font-weight: 600;
             margin-bottom: 2px;
         }
         
         .header .slogan {
-            font-size: 10px;
+            font-size: 12px;
             opacity: 0.9;
         }
         
-        /* 密码登录页面 */
+        /* 登录页面 */
         .login-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: white;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            z-index: 10000;
+            justify-content: center;
+            height: 100vh;
             padding: 20px;
-        }
-        
-        .login-container.hidden {
-            display: none;
+            background-color: white;
         }
         
         .login-box {
             width: 100%;
             max-width: 300px;
             padding: 30px;
-            background-color: white;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             text-align: center;
         }
         
         .login-title {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             color: var(--primary-color);
         }
         
-        .login-subtitle {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 30px;
-        }
-        
-        .user-type-buttons {
+        .login-options {
             display: flex;
-            justify-content: center;
             gap: 10px;
             margin-bottom: 20px;
         }
         
-        .user-type-btn {
-            padding: 8px 15px;
-            border: 2px solid var(--border-color);
+        .login-option-btn {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid var(--border-color);
             border-radius: 4px;
-            background: white;
+            background-color: white;
             cursor: pointer;
-            font-size: 14px;
             transition: all 0.3s;
         }
         
-        .user-type-btn.active {
+        .login-option-btn.active {
+            background-color: var(--primary-color);
+            color: white;
             border-color: var(--primary-color);
-            background-color: var(--hover-color);
-            color: var(--primary-color);
         }
         
-        .password-input {
+        .login-form {
+            text-align: left;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .form-group input {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             border: 1px solid var(--border-color);
             border-radius: 4px;
             font-size: 16px;
             text-align: center;
             letter-spacing: 3px;
-            margin-bottom: 15px;
         }
         
         .login-btn {
@@ -155,7 +151,8 @@
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: background-color 0.3s;
+            margin-top: 10px;
         }
         
         .login-btn:hover {
@@ -167,58 +164,25 @@
             padding: 10px;
             border-radius: 4px;
             font-size: 14px;
-            display: none;
+            text-align: center;
         }
         
         .login-message.error {
             background-color: #fed7d7;
             color: #742a2a;
             border: 1px solid #feb2b2;
-            display: block;
         }
         
-        .login-message.success {
-            background-color: #c6f6d5;
-            color: #22543d;
-            border: 1px solid #9ae6b4;
-            display: block;
-        }
-        
-        /* 权限状态显示 */
-        .permission-status {
+        /* 权限指示器 */
+        .permission-indicator {
             position: absolute;
             top: 10px;
-            right: 10px;
-            font-size: 11px;
-            background-color: var(--secondary-color);
-            padding: 3px 8px;
+            right: 15px;
+            background-color: rgba(255,255,255,0.2);
+            padding: 4px 8px;
             border-radius: 12px;
-            border: 1px solid var(--border-color);
-            z-index: 1000;
-        }
-        
-        /* 权限控制样式 */
-        .readonly-mode input,
-        .readonly-mode select,
-        .readonly-mode textarea {
-            background-color: #f5f5f5 !important;
-            cursor: not-allowed !important;
-            opacity: 0.7;
-        }
-        
-        .readonly-mode .btn:not(.export-btn):not(.nav-item) {
-            display: none !important;
-        }
-        
-        .readonly-mode .transfer-btn {
-            display: none !important;
-        }
-        
-        .readonly-mode #save-settings,
-        .readonly-mode #delete-all-data,
-        .readonly-mode .settings-btn,
-        .readonly-mode .balance-input input {
-            display: none !important;
+            font-size: 10px;
+            backdrop-filter: blur(10px);
         }
         
         /* 内容区域 */
@@ -237,6 +201,7 @@
             align-items: center;
             border-top: 1px solid var(--border-color);
             padding: 0 5px;
+            /* 上移20px */
             margin-bottom: 20px;
         }
         
@@ -1055,36 +1020,110 @@
             justify-content: flex-end;
             margin-left: auto;
         }
+        
+        /* 新增样式：权限控制 */
+        .readonly-mode .btn:not(.export-btn):not(.transfer-btn),
+        .readonly-mode input:not([readonly]),
+        .readonly-mode select:not([disabled]),
+        .readonly-mode textarea:not([readonly]),
+        .readonly-mode .editable-notes,
+        .readonly-mode .settlement-select {
+            background-color: #f5f5f5;
+            color: #666;
+            cursor: not-allowed;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        
+        .readonly-mode .btn-danger.delete-all-data {
+            width: 120px !important;
+        }
+        
+        /* 新增样式：密码管理 */
+        .password-management {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        
+        .password-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .password-input-group input {
+            flex: 1;
+        }
+        
+        /* 数据同步状态 */
+        .sync-status {
+            position: fixed;
+            bottom: 70px;
+            right: 10px;
+            background-color: #0078d7;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 11px;
+            display: none;
+            z-index: 1000;
+        }
+        
+        .sync-status.syncing {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        
+        .sync-status.success {
+            background-color: #28a745;
+        }
+        
+        .sync-status.error {
+            background-color: #dc3545;
+        }
     </style>
 </head>
 <body>
-    <!-- 密码登录页面 -->
-    <div id="loginPage" class="login-container">
+    <!-- 登录页面 -->
+    <div id="login-page" class="login-container">
         <div class="login-box">
             <div class="login-title">电商合作账簿系统</div>
-            <div class="login-subtitle">诚实互信 · 合作共赢</div>
+            <p style="margin-bottom: 20px; font-size: 12px; color: #666;">诚实互信  合作共赢</p>
             
-            <div class="user-type-buttons">
-                <button class="user-type-btn active" data-type="cooperator">合作方</button>
-                <button class="user-type-btn" data-type="manager">管理者</button>
+            <div class="login-options">
+                <button id="manager-btn" class="login-option-btn active">管理者</button>
+                <button id="partner-btn" class="login-option-btn">合作方</button>
             </div>
             
-            <div id="passwordSection">
-                <input type="password" id="passwordInput" class="password-input" placeholder="请输入6位数字密码" maxlength="6" oninput="this.value=this.value.replace(/\D/g,'')">
-                <button id="loginBtn" class="login-btn">登录系统</button>
+            <div id="manager-login" class="login-form">
+                <div class="form-group">
+                    <label for="password">请输入6位数字密码</label>
+                    <input type="password" id="password" maxlength="6" placeholder="000000" pattern="[0-9]{6}" inputmode="numeric">
+                </div>
+                <button id="login-btn" class="login-btn">登录</button>
             </div>
             
-            <div id="loginMessage" class="login-message"></div>
+            <div id="partner-login" class="login-form" style="display: none;">
+                <div style="margin-bottom: 20px; color: #666; font-size: 14px;">
+                    <p>合作方权限仅限浏览和下载功能</p>
+                    <p>无法进行编辑和设置操作</p>
+                </div>
+                <button id="partner-login-btn" class="login-btn">以合作方身份进入</button>
+            </div>
+            
+            <div id="login-message" class="login-message" style="display: none;"></div>
         </div>
     </div>
     
-    <div class="app-container" style="display: none;">
-        <!-- 权限状态显示 -->
-        <div class="permission-status" id="permissionStatus"></div>
-        
+    <!-- 主应用页面 -->
+    <div id="app-container" class="app-container" style="display: none;">
         <div class="header">
             <h1>电商合作账簿系统</h1>
-            <div class="slogan">诚实互信 · 合作共赢</div>
+            <div class="slogan">诚实互信  合作共赢</div>
+            <div id="permission-indicator" class="permission-indicator"></div>
         </div>
         
         <div class="content">
@@ -1754,6 +1793,26 @@
                 <div class="card">
                     <div class="card-header">系统设置</div>
                     <div class="card-body">
+                        <!-- 密码管理 -->
+                        <div class="settings-section password-management">
+                            <h3>密码管理</h3>
+                            <div class="form-group">
+                                <label>当前密码</label>
+                                <input type="password" id="current-password" placeholder="输入当前6位数字密码" maxlength="6">
+                            </div>
+                            <div class="password-input-group">
+                                <div class="form-group" style="flex: 1;">
+                                    <label>新密码</label>
+                                    <input type="password" id="new-password" placeholder="新6位数字密码" maxlength="6">
+                                </div>
+                                <div class="form-group" style="flex: 1;">
+                                    <label>确认新密码</label>
+                                    <input type="password" id="confirm-new-password" placeholder="确认新密码" maxlength="6">
+                                </div>
+                            </div>
+                            <button id="change-password-btn" class="btn settings-btn">更改密码</button>
+                        </div>
+                        
                         <!-- 账户余额设置 -->
                         <div class="settings-section">
                             <h3>账户余额设置</h3>
@@ -1866,7 +1925,7 @@
                         <div class="settings-buttons">
                             <div class="settings-buttons-left">
                                 <button class="btn" id="save-settings">保存设置</button>
-                                <button class="btn btn-danger" id="delete-all-data" style="height: 25px;">删除所有数据</button>
+                                <button class="btn btn-danger delete-all-data" id="delete-all-data" style="height: 25px; width: 120px;">删除所有数据</button>
                             </div>
                             <button id="exportAllDataBtn" class="export-btn">生成总表</button>
                         </div>
@@ -1914,190 +1973,16 @@
         </div>
     </div>
 
+    <!-- 数据同步状态 -->
+    <div id="sync-status" class="sync-status"></div>
+
     <script>
         // 全局变量
-        let currentUserType = 'cooperator'; // 'cooperator' or 'manager'
-        let hasManagerPermission = false;
-        let isInitialized = false;
-        
-        // 初始化密码登录功能
-        function initLoginSystem() {
-            // 用户类型选择
-            document.querySelectorAll('.user-type-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    // 移除所有活动状态
-                    document.querySelectorAll('.user-type-btn').forEach(b => {
-                        b.classList.remove('active');
-                    });
-                    
-                    // 添加当前活动状态
-                    this.classList.add('active');
-                    currentUserType = this.getAttribute('data-type');
-                    
-                    // 更新界面
-                    updateLoginUI();
-                });
-            });
-            
-            // 登录按钮
-            document.getElementById('loginBtn').addEventListener('click', login);
-            
-            // 密码输入框回车登录
-            document.getElementById('passwordInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    login();
-                }
-            });
-            
-            // 初始界面
-            updateLoginUI();
-        }
-        
-        // 更新登录界面
-        function updateLoginUI() {
-            const passwordInput = document.getElementById('passwordInput');
-            const passwordSection = document.getElementById('passwordSection');
-            
-            if (currentUserType === 'cooperator') {
-                passwordInput.style.display = 'none';
-                passwordInput.value = '';
-                document.getElementById('loginBtn').textContent = '合作方登录';
-            } else {
-                passwordInput.style.display = 'block';
-                document.getElementById('loginBtn').textContent = '管理者登录';
-            }
-        }
-        
-        // 登录功能
-        function login() {
-            const passwordInput = document.getElementById('passwordInput');
-            const loginMessage = document.getElementById('loginMessage');
-            
-            loginMessage.className = 'login-message';
-            loginMessage.textContent = '';
-            loginMessage.style.display = 'none';
-            
-            if (currentUserType === 'manager') {
-                // 管理者需要密码
-                const password = passwordInput.value;
-                
-                if (!password || password.length !== 6 || !/^\d+$/.test(password)) {
-                    loginMessage.textContent = '请输入6位数字密码';
-                    loginMessage.className = 'login-message error';
-                    loginMessage.style.display = 'block';
-                    return;
-                }
-                
-                // 验证密码（默认密码：123456）
-                if (password === '123456') {
-                    hasManagerPermission = true;
-                    loginSuccess();
-                } else {
-                    loginMessage.textContent = '密码错误，请重新输入';
-                    loginMessage.className = 'login-message error';
-                    loginMessage.style.display = 'block';
-                }
-            } else {
-                // 合作方直接登录
-                hasManagerPermission = false;
-                loginSuccess();
-            }
-        }
-        
-        // 登录成功
-        function loginSuccess() {
-            // 隐藏登录页面
-            document.getElementById('loginPage').classList.add('hidden');
-            
-            // 显示主应用
-            document.querySelector('.app-container').style.display = 'flex';
-            
-            // 更新权限状态显示
-            updatePermissionStatus();
-            
-            // 应用权限控制
-            applyPermissionControl();
-            
-            // 初始化数据
-            if (!isInitialized) {
-                initData();
-                isInitialized = true;
-            }
-        }
-        
-        // 更新权限状态显示
-        function updatePermissionStatus() {
-            const statusElement = document.getElementById('permissionStatus');
-            if (hasManagerPermission) {
-                statusElement.textContent = '管理者模式';
-                statusElement.style.backgroundColor = '#d4edda';
-                statusElement.style.color = '#155724';
-                statusElement.style.borderColor = '#c3e6cb';
-            } else {
-                statusElement.textContent = '合作方模式';
-                statusElement.style.backgroundColor = '#fff3cd';
-                statusElement.style.color = '#856404';
-                statusElement.style.borderColor = '#ffeaa7';
-            }
-        }
-        
-        // 应用权限控制
-        function applyPermissionControl() {
-            const appContainer = document.querySelector('.app-container');
-            
-            if (hasManagerPermission) {
-                // 管理者权限：完全访问
-                appContainer.classList.remove('readonly-mode');
-                
-                // 启用所有编辑功能
-                enableAllEditFunctions();
-            } else {
-                // 合作方权限：只读模式
-                appContainer.classList.add('readonly-mode');
-                
-                // 禁用编辑功能
-                disableEditFunctions();
-            }
-        }
-        
-        // 禁用编辑功能
-        function disableEditFunctions() {
-            // 禁用所有表单输入
-            document.querySelectorAll('input, select, textarea').forEach(element => {
-                if (!element.classList.contains('filter-btn') && 
-                    !element.classList.contains('export-btn') &&
-                    !element.closest('.nav-item')) {
-                    element.disabled = true;
-                }
-            });
-            
-            // 禁用结算状态和备注编辑
-            document.querySelectorAll('.settlement-select, .editable-notes').forEach(element => {
-                element.disabled = true;
-            });
-            
-            // 启用筛选功能（合作方可以使用筛选）
-            document.querySelectorAll('.filter-btn, .clear-filter').forEach(btn => {
-                btn.disabled = false;
-            });
-            
-            // 启用导出功能（合作方可以导出）
-            document.querySelectorAll('.export-btn').forEach(btn => {
-                btn.disabled = false;
-            });
-        }
-        
-        // 启用编辑功能
-        function enableAllEditFunctions() {
-            // 启用所有表单输入
-            document.querySelectorAll('input, select, textarea').forEach(element => {
-                element.disabled = false;
-            });
-        }
-        
-        // ================================================
-        // 以下为原始系统的功能，保持不变
-        // ================================================
+        let currentUserType = null; // 'manager' 或 'partner'
+        let isLoggedIn = false;
+        let lastSyncTime = null;
+        let syncInterval = null;
+        const SYNC_INTERVAL = 30000; // 30秒同步一次
         
         // 页面切换功能
         document.querySelectorAll('.nav-item').forEach(item => {
@@ -2126,6 +2011,9 @@
                     renderPaymentTableProducts();
                 } else if (pageId === 'payment-page') {
                     renderPaymentTablePayment();
+                } else if (pageId === 'settings-page') {
+                    // 更新设置页面显示
+                    updateSettings();
                 }
             });
         });
@@ -2163,6 +2051,19 @@
             }, 3000);
         }
         
+        // 显示登录消息
+        function showLoginMessage(message, type) {
+            const messageEl = document.getElementById('login-message');
+            messageEl.textContent = message;
+            messageEl.className = `login-message ${type}`;
+            messageEl.style.display = 'block';
+            
+            // 3秒后自动隐藏
+            setTimeout(() => {
+                messageEl.style.display = 'none';
+            }, 3000);
+        }
+        
         // 自定义确认对话框
         function showConfirm(message, callback) {
             const dialog = document.getElementById('confirmDialog');
@@ -2191,6 +2092,249 @@
             });
         }
         
+        // 显示同步状态
+        function showSyncStatus(message, type = '') {
+            const statusEl = document.getElementById('sync-status');
+            statusEl.textContent = message;
+            statusEl.className = `sync-status ${type}`;
+            statusEl.style.display = 'block';
+            
+            setTimeout(() => {
+                statusEl.style.display = 'none';
+            }, 3000);
+        }
+        
+        // 初始化登录页面
+        function initLoginPage() {
+            // 切换登录选项
+            document.getElementById('manager-btn').addEventListener('click', function() {
+                document.getElementById('manager-btn').classList.add('active');
+                document.getElementById('partner-btn').classList.remove('active');
+                document.getElementById('manager-login').style.display = 'block';
+                document.getElementById('partner-login').style.display = 'none';
+            });
+            
+            document.getElementById('partner-btn').addEventListener('click', function() {
+                document.getElementById('partner-btn').classList.add('active');
+                document.getElementById('manager-btn').classList.remove('active');
+                document.getElementById('manager-login').style.display = 'none';
+                document.getElementById('partner-login').style.display = 'block';
+            });
+            
+            // 管理者登录
+            document.getElementById('login-btn').addEventListener('click', function() {
+                const password = document.getElementById('password').value;
+                
+                if (!password || password.length !== 6 || !/^\d+$/.test(password)) {
+                    showLoginMessage('请输入6位数字密码', 'error');
+                    return;
+                }
+                
+                // 检查密码
+                checkManagerPassword(password);
+            });
+            
+            // 合作方登录
+            document.getElementById('partner-login-btn').addEventListener('click', function() {
+                loginAsPartner();
+            });
+            
+            // 密码输入框回车登录
+            document.getElementById('password').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('login-btn').click();
+                }
+            });
+        }
+        
+        // 检查管理者密码
+        function checkManagerPassword(password) {
+            // 从云端获取密码
+            const savedPassword = localStorage.getItem('managerPassword');
+            
+            // 如果是第一次登录，设置默认密码为123456
+            if (!savedPassword) {
+                if (password === '123456') {
+                    // 保存密码到云端
+                    localStorage.setItem('managerPassword', password);
+                    loginAsManager();
+                } else {
+                    showLoginMessage('默认密码为123456，请使用默认密码登录', 'error');
+                }
+            } else {
+                if (password === savedPassword) {
+                    loginAsManager();
+                } else {
+                    showLoginMessage('密码错误，请重新输入', 'error');
+                }
+            }
+        }
+        
+        // 以管理者身份登录
+        function loginAsManager() {
+            currentUserType = 'manager';
+            isLoggedIn = true;
+            
+            // 更新权限指示器
+            document.getElementById('permission-indicator').textContent = '管理者模式';
+            
+            // 切换到主应用
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('app-container').style.display = 'flex';
+            
+            // 初始化数据
+            initData();
+            
+            // 开始数据同步
+            startDataSync();
+            
+            showLoginMessage('管理者登录成功', 'success');
+        }
+        
+        // 以合作方身份登录
+        function loginAsPartner() {
+            currentUserType = 'partner';
+            isLoggedIn = true;
+            
+            // 更新权限指示器
+            document.getElementById('permission-indicator').textContent = '合作方模式';
+            
+            // 切换到主应用
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('app-container').style.display = 'flex';
+            
+            // 添加只读模式类
+            document.getElementById('app-container').classList.add('readonly-mode');
+            
+            // 初始化数据
+            initData();
+            
+            // 开始数据同步
+            startDataSync();
+            
+            showLoginMessage('合作方登录成功', 'success');
+        }
+        
+        // 开始数据同步
+        function startDataSync() {
+            // 立即同步一次
+            syncData();
+            
+            // 设置定时同步
+            syncInterval = setInterval(syncData, SYNC_INTERVAL);
+            
+            // 监听页面可见性变化
+            document.addEventListener('visibilitychange', function() {
+                if (!document.hidden) {
+                    syncData();
+                }
+            });
+            
+            // 监听页面关闭前保存数据
+            window.addEventListener('beforeunload', function() {
+                saveAllDataToCloud();
+            });
+        }
+        
+        // 同步数据
+        function syncData() {
+            if (!isLoggedIn) return;
+            
+            showSyncStatus('同步数据中...', 'syncing');
+            
+            // 从云端加载数据
+            loadAllDataFromCloud();
+            
+            // 更新同步时间
+            lastSyncTime = new Date().toLocaleString();
+            
+            setTimeout(() => {
+                showSyncStatus('数据已同步', 'success');
+            }, 500);
+        }
+        
+        // 从云端加载所有数据
+        function loadAllDataFromCloud() {
+            // 账户余额
+            const balances = localStorage.getItem('accountBalances');
+            if (balances) {
+                localStorage.setItem('accountBalances', balances);
+            }
+            
+            // 设置
+            const settings = localStorage.getItem('settings');
+            if (settings) {
+                localStorage.setItem('settings', settings);
+                updateDropdownOptions();
+            }
+            
+            // 付款数据
+            const paymentDataStr = localStorage.getItem('paymentData');
+            if (paymentDataStr) {
+                paymentData = JSON.parse(paymentDataStr);
+            }
+            
+            // 商品数据
+            const productsDataStr = localStorage.getItem('paymentDataProducts');
+            if (productsDataStr) {
+                paymentDataProducts = JSON.parse(productsDataStr);
+            }
+            
+            // 运费数据
+            const shippingDataStr = localStorage.getItem('paymentDataShipping');
+            if (shippingDataStr) {
+                paymentDataShipping = JSON.parse(shippingDataStr);
+            }
+            
+            // 货款数据
+            const paymentDataPaymentStr = localStorage.getItem('paymentDataPayment');
+            if (paymentDataPaymentStr) {
+                paymentDataPayment = JSON.parse(paymentDataPaymentStr);
+            }
+            
+            // 更新页面显示
+            updateOverview();
+            renderPaymentTable();
+            renderPaymentTableProducts();
+            renderPaymentTableShipping();
+            renderPaymentTablePayment();
+        }
+        
+        // 保存所有数据到云端
+        function saveAllDataToCloud() {
+            // 账户余额
+            const balances = localStorage.getItem('accountBalances');
+            if (balances) {
+                localStorage.setItem('accountBalances', balances);
+            }
+            
+            // 设置
+            const settings = localStorage.getItem('settings');
+            if (settings) {
+                localStorage.setItem('settings', settings);
+            }
+            
+            // 付款数据
+            localStorage.setItem('paymentData', JSON.stringify(paymentData));
+            
+            // 商品数据
+            localStorage.setItem('paymentDataProducts', JSON.stringify(paymentDataProducts));
+            
+            // 运费数据
+            localStorage.setItem('paymentDataShipping', JSON.stringify(paymentDataShipping));
+            
+            // 货款数据
+            localStorage.setItem('paymentDataPayment', JSON.stringify(paymentDataPayment));
+            
+            // 密码
+            const password = localStorage.getItem('managerPassword');
+            if (password) {
+                localStorage.setItem('managerPassword', password);
+            }
+            
+            showSyncStatus('数据已保存到云端', 'success');
+        }
+        
         // 初始化数据
         function initData() {
             // 从localStorage加载数据或设置默认值
@@ -2216,20 +2360,20 @@
                 }));
             }
             
-            if (!localStorage.getItem('products')) {
-                localStorage.setItem('products', JSON.stringify([]));
+            if (!localStorage.getItem('paymentData')) {
+                localStorage.setItem('paymentData', JSON.stringify([]));
             }
             
-            if (!localStorage.getItem('shipping')) {
-                localStorage.setItem('shipping', JSON.stringify([]));
+            if (!localStorage.getItem('paymentDataProducts')) {
+                localStorage.setItem('paymentDataProducts', JSON.stringify([]));
             }
             
-            if (!localStorage.getItem('records')) {
-                localStorage.setItem('records', JSON.stringify([]));
+            if (!localStorage.getItem('paymentDataShipping')) {
+                localStorage.setItem('paymentDataShipping', JSON.stringify([]));
             }
             
-            if (!localStorage.getItem('payments')) {
-                localStorage.setItem('payments', JSON.stringify([]));
+            if (!localStorage.getItem('paymentDataPayment')) {
+                localStorage.setItem('paymentDataPayment', JSON.stringify([]));
             }
             
             // 更新概览页面显示
@@ -2261,17 +2405,118 @@
             
             // 初始化传输数据按钮
             initTransferButtons();
+            
+            // 初始化密码管理
+            initPasswordManagement();
+            
+            // 根据权限控制界面
+            applyPermissionControls();
+        }
+        
+        // 根据权限控制界面
+        function applyPermissionControls() {
+            if (currentUserType === 'partner') {
+                // 合作方只能浏览和下载，不能编辑
+                const appContainer = document.getElementById('app-container');
+                appContainer.classList.add('readonly-mode');
+                
+                // 隐藏设置页面的保存设置按钮
+                document.getElementById('save-settings').style.display = 'none';
+                
+                // 隐藏密码管理部分
+                document.querySelector('.password-management').style.display = 'none';
+                
+                // 禁用所有表单输入（除了筛选和导出按钮）
+                const allInputs = document.querySelectorAll('input, select, textarea');
+                allInputs.forEach(input => {
+                    if (!input.classList.contains('filter-btn') && 
+                        !input.classList.contains('export-btn') &&
+                        !input.classList.contains('transfer-btn')) {
+                        input.disabled = true;
+                        input.style.backgroundColor = '#f5f5f5';
+                    }
+                });
+            }
+        }
+        
+        // 初始化密码管理
+        function initPasswordManagement() {
+            // 更改密码按钮
+            document.getElementById('change-password-btn').addEventListener('click', function() {
+                changePassword();
+            });
+            
+            // 密码输入框限制为数字
+            const passwordInputs = document.querySelectorAll('#current-password, #new-password, #confirm-new-password');
+            passwordInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    this.value = this.value.replace(/\D/g, '').substring(0, 6);
+                });
+            });
+        }
+        
+        // 更改密码
+        function changePassword() {
+            if (currentUserType !== 'manager') {
+                showMessage('只有管理者可以更改密码', 'error');
+                return;
+            }
+            
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-new-password').value;
+            
+            // 验证输入
+            if (!currentPassword || currentPassword.length !== 6) {
+                showMessage('请输入当前6位数字密码', 'error');
+                return;
+            }
+            
+            if (!newPassword || newPassword.length !== 6) {
+                showMessage('新密码必须是6位数字', 'error');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                showMessage('新密码和确认密码不一致', 'error');
+                return;
+            }
+            
+            // 验证当前密码
+            const savedPassword = localStorage.getItem('managerPassword');
+            if (currentPassword !== savedPassword) {
+                showMessage('当前密码错误', 'error');
+                return;
+            }
+            
+            // 更改密码
+            localStorage.setItem('managerPassword', newPassword);
+            
+            // 清空输入框
+            document.getElementById('current-password').value = '';
+            document.getElementById('new-password').value = '';
+            document.getElementById('confirm-new-password').value = '';
+            
+            showMessage('密码更改成功', 'success');
         }
         
         // 初始化传输数据按钮
         function initTransferButtons() {
             // 运费支出页面的传输数据按钮
             document.getElementById('transferShippingBtn').addEventListener('click', function() {
+                if (currentUserType !== 'manager') {
+                    showMessage('只有管理者可以传输数据', 'error');
+                    return;
+                }
                 transferShippingData();
             });
             
             // 收支记录页面的传输数据按钮
             document.getElementById('transferRecordsBtn').addEventListener('click', function() {
+                if (currentUserType !== 'manager') {
+                    showMessage('只有管理者可以传输数据', 'error');
+                    return;
+                }
                 transferRecordsData();
             });
         }
@@ -2379,8 +2624,8 @@
         function initBalanceButtons() {
             // 更新OZON余额按钮
             document.getElementById('update-ozon').addEventListener('click', function() {
-                if (!hasManagerPermission) {
-                    showMessage('合作方无权执行此操作', 'error');
+                if (currentUserType !== 'manager') {
+                    showMessage('只有管理者可以更新账户余额', 'error');
                     return;
                 }
                 
@@ -2393,12 +2638,13 @@
                 updateOverview();
                 document.getElementById('ozon-input').value = '';
                 showMessage('OZON账户余额已更新！', 'success');
+                saveAllDataToCloud();
             });
             
             // 更新WB余额按钮
             document.getElementById('update-wb').addEventListener('click', function() {
-                if (!hasManagerPermission) {
-                    showMessage('合作方无权执行此操作', 'error');
+                if (currentUserType !== 'manager') {
+                    showMessage('只有管理者可以更新账户余额', 'error');
                     return;
                 }
                 
@@ -2411,12 +2657,13 @@
                 updateOverview();
                 document.getElementById('wb-input').value = '';
                 showMessage('WB账户余额已更新！', 'success');
+                saveAllDataToCloud();
             });
             
             // 更新个体余额按钮
             document.getElementById('update-individual').addEventListener('click', function() {
-                if (!hasManagerPermission) {
-                    showMessage('合作方无权执行此操作', 'error');
+                if (currentUserType !== 'manager') {
+                    showMessage('只有管理者可以更新账户余额', 'error');
                     return;
                 }
                 
@@ -2429,15 +2676,15 @@
                 updateOverview();
                 document.getElementById('individual-input').value = '';
                 showMessage('个体账户余额已更新！', 'success');
+                saveAllDataToCloud();
             });
             
             // 计算现金余额按钮
             document.getElementById('calculate-cash').addEventListener('click', function() {
-                if (!hasManagerPermission) {
-                    showMessage('合作方无权执行此操作', 'error');
+                if (currentUserType !== 'manager') {
+                    showMessage('只有管理者可以计算现金余额', 'error');
                     return;
                 }
-                
                 calculateCashBalance();
             });
         }
@@ -2463,6 +2710,7 @@
             document.getElementById('cash-display').textContent = formatNumber(cashBalance);
             
             showMessage(`现金余额已计算并更新！当前现金余额: ${formatNumber(cashBalance)}₽`, 'success');
+            saveAllDataToCloud();
         }
         
         // 初始化导出功能
@@ -2569,334 +2817,72 @@
             showMessage(`${sheetName}导出成功！`, 'success');
         }
         
-        // 导出所有数据为Excel - 修复版本
+        // 导出所有数据为Excel
         function exportAllDataToExcel() {
             const wb = XLSX.utils.book_new();
             
-            // ==================== 第一页：概览信息 ====================
+            // 导出账户余额
             const balances = JSON.parse(localStorage.getItem('accountBalances'));
             const balanceData = [
-                ['电商合作账簿系统 - 总表'],
-                ['生成时间', new Date().toLocaleString('zh-CN')],
-                [''],
-                ['账户余额概览'],
                 ['账户类型', '余额(₽)'],
-                ['OZON账户余额', formatNumber(balances.ozon)],
-                ['WB账户余额', formatNumber(balances.wb)],
-                ['个体账户余额', formatNumber(balances.individual)],
-                ['现金余额', formatNumber(balances.cash)],
-                ['总金额', formatNumber(balances.ozon + balances.wb + balances.individual + balances.cash)],
-                [''],
-                ['各模块数据统计'],
-                ['数据模块', '记录数量', '总计金额(₽)', '总计金额(¥)'],
-                ['商品清单', paymentDataProducts.length, formatNumber(paymentDataProducts.reduce((sum, item) => sum + (parseInt(item.rubleAmount) || 0), 0)), formatNumber(paymentDataProducts.reduce((sum, item) => sum + (parseInt(item.cnyAmount) || 0), 0))],
-                ['运费支出', paymentDataShipping.length, formatNumber(paymentDataShipping.reduce((sum, item) => sum + (parseInt(item.total) || 0), 0)), '-'],
-                ['收支记录', paymentData.length, formatNumber(paymentData.reduce((sum, item) => sum + (parseInt(item.amount) || 0), 0)), '-'],
-                ['货款支付', paymentDataPayment.length, '-', formatNumber(paymentDataPayment.reduce((sum, item) => sum + (parseInt(item.amount) || 0), 0))]
+                ['OZON账户余额', balances.ozon],
+                ['WB账户余额', balances.wb],
+                ['个体账户余额', balances.individual],
+                ['现金余额', balances.cash],
+                ['总金额', balances.ozon + balances.wb + balances.individual + balances.cash]
             ];
             const balanceWs = XLSX.utils.aoa_to_sheet(balanceData);
+            XLSX.utils.book_append_sheet(wb, balanceWs, '账户余额');
             
-            // 设置列宽
-            balanceWs['!cols'] = [
-                { wch: 20 }, // 第一列宽度
-                { wch: 15 }  // 第二列宽度
-            ];
-            
-            XLSX.utils.book_append_sheet(wb, balanceWs, '系统概览');
-            
-            // ==================== 第二页：商品清单 ====================
-            if (paymentDataProducts.length > 0) {
-                const productHeaders = [
-                    '日期', '商品名称', '颜色', '数量', '单位', 
-                    '单价(¥)', '汇率', '折合卢布', '金额(¥)', '金额(₽)', '描述'
-                ];
-                
-                // 获取表格中的显示数据（包括筛选后的数据）
-                const displayDataProducts = filteredPaymentDataProducts || paymentDataProducts;
-                
-                const productRows = displayDataProducts.map(item => [
+            // 导出商品清单
+            const productsData = JSON.parse(localStorage.getItem('paymentDataProducts') || '[]');
+            if (productsData.length > 0) {
+                const productHeaders = ['日期', '商品名称', '颜色', '数量', '单位', '单价(¥)', '汇率', '折合卢布', '金额(¥)', '金额(₽)', '描述'];
+                const productRows = productsData.map(item => [
                     item.date, item.productName, item.color, item.quantity, item.unit, 
                     item.unitPrice, item.exchangeRate, item.rublePrice, item.cnyAmount, item.rubleAmount, item.description
                 ]);
-                
-                // 添加总计行
-                if (displayDataProducts.length > 0) {
-                    // 计算总计
-                    const totalQuantity = displayDataProducts.reduce((sum, item) => sum + (parseInt(item.quantity) || 0), 0);
-                    const totalCnyAmount = displayDataProducts.reduce((sum, item) => sum + (parseInt(item.cnyAmount) || 0), 0);
-                    const totalRubleAmount = displayDataProducts.reduce((sum, item) => sum + (parseInt(item.rubleAmount) || 0), 0);
-                    
-                    productRows.push(['']); // 空行分隔
-                    
-                    // 添加总计行
-                    productRows.push([
-                        '总计', '', '', totalQuantity, '', '', '', '', 
-                        totalCnyAmount, totalRubleAmount, ''
-                    ]);
-                }
-                
-                // 添加筛选结果总计行（如果存在筛选）
-                if (filteredPaymentDataProducts && filteredPaymentDataProducts.length !== paymentDataProducts.length) {
-                    productRows.push(['']); // 空行分隔
-                    
-                    // 计算筛选结果总计
-                    const filteredTotalQuantity = filteredPaymentDataProducts.reduce((sum, item) => sum + (parseInt(item.quantity) || 0), 0);
-                    const filteredTotalCnyAmount = filteredPaymentDataProducts.reduce((sum, item) => sum + (parseInt(item.cnyAmount) || 0), 0);
-                    const filteredTotalRubleAmount = filteredPaymentDataProducts.reduce((sum, item) => sum + (parseInt(item.rubleAmount) || 0), 0);
-                    
-                    productRows.push([
-                        '筛选结果总计', '', '', filteredTotalQuantity, '', '', '', '', 
-                        filteredTotalCnyAmount, filteredTotalRubleAmount, ''
-                    ]);
-                }
-                
                 const productWs = XLSX.utils.aoa_to_sheet([productHeaders, ...productRows]);
-                
-                // 设置列宽
-                productWs['!cols'] = [
-                    { wch: 10 }, // 日期
-                    { wch: 15 }, // 商品名称
-                    { wch: 8 },  // 颜色
-                    { wch: 8 },  // 数量
-                    { wch: 6 },  // 单位
-                    { wch: 10 }, // 单价(¥)
-                    { wch: 8 },  // 汇率
-                    { wch: 10 }, // 折合卢布
-                    { wch: 10 }, // 金额(¥)
-                    { wch: 10 }, // 金额(₽)
-                    { wch: 20 }  // 描述
-                ];
-                
                 XLSX.utils.book_append_sheet(wb, productWs, '商品清单');
             }
             
-            // ==================== 第三页：运费支出 ====================
-            if (paymentDataShipping.length > 0) {
-                const shippingHeaders = [
-                    '日期', '商品名称', '货号', '件数', '重量(Kg)', '体积m³', '运费', 
-                    '币种', '汇率', '折合卢布', '托盘费(₽)', '立方费(₽)', '送货车费(₽)', 
-                    '运费总计(₽)', '结算', '备注'
-                ];
-                
-                // 获取表格中的显示数据（包括筛选后的数据）
-                const displayDataShipping = filteredPaymentDataShipping || paymentDataShipping;
-                
-                const shippingRows = displayDataShipping.map(item => [
+            // 导出运费支出
+            const shippingData = JSON.parse(localStorage.getItem('paymentDataShipping') || '[]');
+            if (shippingData.length > 0) {
+                const shippingHeaders = ['日期', '商品名称', '货号', '件数', '重量(Kg)', '体积m³', '运费', '币种', '汇率', '折合卢布', '托盘费(₽)', '立方费(₽)', '送货车费(₽)', '运费总计(₽)', '结算', '备注'];
+                const shippingRows = shippingData.map(item => [
                     item.date, item.product, item.code, item.quantity, item.weight, item.volume,
                     item.fee, item.currency, item.exchangeRate, item.rubleEquivalent, 
                     item.palletFee, item.cubeFee, item.deliveryFee, item.total, item.settlement, item.notes
                 ]);
-                
-                // 添加总计行
-                if (displayDataShipping.length > 0) {
-                    // 计算总计
-                    const totalWeight = displayDataShipping.reduce((sum, item) => sum + (parseInt(item.weight) || 0), 0);
-                    const totalRubleEquivalent = displayDataShipping.reduce((sum, item) => sum + (parseInt(item.rubleEquivalent) || 0), 0);
-                    const totalShipping = displayDataShipping.reduce((sum, item) => sum + (parseInt(item.total) || 0), 0);
-                    
-                    shippingRows.push(['']); // 空行分隔
-                    
-                    // 添加总计行
-                    shippingRows.push([
-                        '总计', '', '', '', totalWeight, '', '', '', '', 
-                        totalRubleEquivalent, '', '', '', totalShipping, '', ''
-                    ]);
-                }
-                
-                // 添加筛选结果总计行（如果存在筛选）
-                if (filteredPaymentDataShipping && filteredPaymentDataShipping.length !== paymentDataShipping.length) {
-                    shippingRows.push(['']); // 空行分隔
-                    
-                    // 计算筛选结果总计
-                    const filteredTotalWeight = filteredPaymentDataShipping.reduce((sum, item) => sum + (parseInt(item.weight) || 0), 0);
-                    const filteredTotalRubleEquivalent = filteredPaymentDataShipping.reduce((sum, item) => sum + (parseInt(item.rubleEquivalent) || 0), 0);
-                    const filteredTotalShipping = filteredPaymentDataShipping.reduce((sum, item) => sum + (parseInt(item.total) || 0), 0);
-                    
-                    shippingRows.push([
-                        '筛选结果总计', '', '', '', filteredTotalWeight, '', '', '', '', 
-                        filteredTotalRubleEquivalent, '', '', '', filteredTotalShipping, '', ''
-                    ]);
-                }
-                
                 const shippingWs = XLSX.utils.aoa_to_sheet([shippingHeaders, ...shippingRows]);
-                
-                // 设置列宽
-                shippingWs['!cols'] = [
-                    { wch: 10 }, // 日期
-                    { wch: 15 }, // 商品名称
-                    { wch: 8 },  // 货号
-                    { wch: 8 },  // 件数
-                    { wch: 10 }, // 重量(Kg)
-                    { wch: 8 },  // 体积m³
-                    { wch: 10 }, // 运费
-                    { wch: 8 },  // 币种
-                    { wch: 8 },  // 汇率
-                    { wch: 10 }, // 折合卢布
-                    { wch: 10 }, // 托盘费(₽)
-                    { wch: 10 }, // 立方费(₽)
-                    { wch: 12 }, // 送货车费(₽)
-                    { wch: 12 }, // 运费总计(₽)
-                    { wch: 8 },  // 结算
-                    { wch: 20 }  // 备注
-                ];
-                
                 XLSX.utils.book_append_sheet(wb, shippingWs, '运费支出');
             }
             
-            // ==================== 第四页：收支记录 ====================
-            if (paymentData.length > 0) {
-                const recordsHeaders = [
-                    '日期', '收支类型', '金额(₽)', '收支形式', '结算', '描述'
-                ];
-                
-                // 获取表格中的显示数据（包括筛选后的数据）
-                const displayDataRecords = filteredPaymentData || paymentData;
-                
-                const recordsRows = displayDataRecords.map(item => [
-                    item.date, item.type, formatNumber(item.amount), item.form, item.settlement, item.description
+            // 导出收支记录
+            const recordsData = JSON.parse(localStorage.getItem('paymentData') || '[]');
+            if (recordsData.length > 0) {
+                const recordsHeaders = ['日期', '收支类型', '金额(₽)', '收支形式', '结算', '描述'];
+                const recordsRows = recordsData.map(item => [
+                    item.date, item.type, item.amount, item.form, item.settlement, item.description
                 ]);
-                
-                // 添加总计行
-                if (displayDataRecords.length > 0) {
-                    // 计算总计
-                    const totalAmount = displayDataRecords.reduce((sum, item) => sum + (parseInt(item.amount) || 0), 0);
-                    
-                    recordsRows.push(['']); // 空行分隔
-                    
-                    // 添加总计行
-                    recordsRows.push([
-                        '总计', '', totalAmount, '', '', ''
-                    ]);
-                }
-                
-                // 添加筛选结果总计行（如果存在筛选）
-                if (filteredPaymentData && filteredPaymentData.length !== paymentData.length) {
-                    recordsRows.push(['']); // 空行分隔
-                    
-                    // 计算筛选结果总计
-                    const filteredTotalAmount = filteredPaymentData.reduce((sum, item) => sum + (parseInt(item.amount) || 0), 0);
-                    
-                    recordsRows.push([
-                        '筛选结果总计', '', filteredTotalAmount, '', '', ''
-                    ]);
-                }
-                
                 const recordsWs = XLSX.utils.aoa_to_sheet([recordsHeaders, ...recordsRows]);
-                
-                // 设置列宽
-                recordsWs['!cols'] = [
-                    { wch: 10 }, // 日期
-                    { wch: 12 }, // 收支类型
-                    { wch: 12 }, // 金额(₽)
-                    { wch: 12 }, // 收支形式
-                    { wch: 8 },  // 结算
-                    { wch: 20 }  // 描述
-                ];
-                
                 XLSX.utils.book_append_sheet(wb, recordsWs, '收支记录');
             }
             
-            // ==================== 第五页：货款支付 ====================
-            if (paymentDataPayment.length > 0) {
-                const paymentsHeaders = [
-                    '日期', '收款人', '账号', '支付方式', '金额(¥)', '结算', '备注'
-                ];
-                
-                // 获取表格中的显示数据（包括筛选后的数据）
-                const displayDataPayments = filteredPaymentDataPayment || paymentDataPayment;
-                
-                const paymentsRows = displayDataPayments.map(item => [
-                    item.date, item.recipient, item.account, item.method, 
-                    formatNumber(item.amount), item.settlement, item.notes
+            // 导出货款支付
+            const paymentsData = JSON.parse(localStorage.getItem('paymentDataPayment') || '[]');
+            if (paymentsData.length > 0) {
+                const paymentsHeaders = ['日期', '收款人', '账号', '支付方式', '金额(¥)', '结算', '备注'];
+                const paymentsRows = paymentsData.map(item => [
+                    item.date, item.recipient, item.account, item.method, item.amount, item.settlement, item.notes
                 ]);
-                
-                // 添加总计行
-                if (displayDataPayments.length > 0) {
-                    // 计算总计
-                    const totalAmount = displayDataPayments.reduce((sum, item) => sum + (parseInt(item.amount) || 0), 0);
-                    
-                    paymentsRows.push(['']); // 空行分隔
-                    
-                    // 添加总计行
-                    paymentsRows.push([
-                        '总计', '', '', '', totalAmount, '', ''
-                    ]);
-                }
-                
-                // 添加筛选结果总计行（如果存在筛选）
-                if (filteredPaymentDataPayment && filteredPaymentDataPayment.length !== paymentDataPayment.length) {
-                    paymentsRows.push(['']); // 空行分隔
-                    
-                    // 计算筛选结果总计
-                    const filteredTotalAmount = filteredPaymentDataPayment.reduce((sum, item) => sum + (parseInt(item.amount) || 0), 0);
-                    
-                    paymentsRows.push([
-                        '筛选结果总计', '', '', '', filteredTotalAmount, '', ''
-                    ]);
-                }
-                
                 const paymentsWs = XLSX.utils.aoa_to_sheet([paymentsHeaders, ...paymentsRows]);
-                
-                // 设置列宽
-                paymentsWs['!cols'] = [
-                    { wch: 10 }, // 日期
-                    { wch: 12 }, // 收款人
-                    { wch: 15 }, // 账号
-                    { wch: 12 }, // 支付方式
-                    { wch: 12 }, // 金额(¥)
-                    { wch: 8 },  // 结算
-                    { wch: 20 }  // 备注
-                ];
-                
                 XLSX.utils.book_append_sheet(wb, paymentsWs, '货款支付');
             }
             
-            // ==================== 第六页：设置信息 ====================
-            const settings = JSON.parse(localStorage.getItem('settings'));
-            if (settings) {
-                const settingsData = [
-                    ['系统设置信息'],
-                    ['导出时间', new Date().toLocaleString('zh-CN')],
-                    [''],
-                    ['商品名称列表'],
-                    ...settings.productNames.map(name => [name]),
-                    [''],
-                    ['颜色列表'],
-                    ...settings.colors.map(color => [color]),
-                    [''],
-                    ['单位列表'],
-                    ...settings.units.map(unit => [unit]),
-                    [''],
-                    ['收支类型列表'],
-                    ...settings.incomeExpenseTypes.map(type => [type]),
-                    [''],
-                    ['收支形式列表'],
-                    ...settings.incomeExpenseForms.map(form => [form]),
-                    [''],
-                    ['币种列表'],
-                    ...settings.currencies.map(currency => [currency]),
-                    [''],
-                    ['收款人-账号对应关系'],
-                    ...settings.paymentRelations.map(rel => [rel]),
-                    [''],
-                    ['支付方式列表'],
-                    ...settings.paymentMethods.map(method => [method])
-                ];
-                
-                const settingsWs = XLSX.utils.aoa_to_sheet(settingsData);
-                
-                // 设置列宽
-                settingsWs['!cols'] = [
-                    { wch: 30 } // 设置列宽度
-                ];
-                
-                XLSX.utils.book_append_sheet(wb, settingsWs, '系统设置');
-            }
-            
-            // ==================== 生成并下载文件 ====================
             // 生成Excel文件并下载
-            const fileName = `电商合作账簿系统总表_${new Date().toISOString().slice(0, 10)}_${new Date().getHours()}${new Date().getMinutes()}${new Date().getSeconds()}.xlsx`;
-            XLSX.writeFile(wb, fileName);
+            XLSX.writeFile(wb, `电商合作账簿总表_${new Date().toISOString().slice(0, 10)}.xlsx`);
             
             showMessage('总表导出成功！', 'success');
         }
@@ -2995,8 +2981,8 @@
         
         // 保存设置
         document.getElementById('save-settings').addEventListener('click', function() {
-            if (!hasManagerPermission) {
-                showMessage('合作方无权执行此操作', 'error');
+            if (currentUserType !== 'manager') {
+                showMessage('只有管理者可以保存设置', 'error');
                 return;
             }
             
@@ -3014,20 +3000,29 @@
             localStorage.setItem('settings', JSON.stringify(settings));
             updateDropdownOptions();
             showMessage('设置已保存！', 'success');
+            saveAllDataToCloud();
         });
         
         // 删除所有数据
         document.getElementById('delete-all-data').addEventListener('click', function() {
-            if (!hasManagerPermission) {
-                showMessage('合作方无权执行此操作', 'error');
+            if (currentUserType !== 'manager') {
+                showMessage('只有管理者可以删除数据', 'error');
                 return;
             }
             
             showConfirm('确定要删除所有数据吗？此操作不可恢复！', function(result) {
                 if (result) {
+                    // 只删除业务数据，保留密码
+                    const password = localStorage.getItem('managerPassword');
                     localStorage.clear();
+                    
+                    if (password) {
+                        localStorage.setItem('managerPassword', password);
+                    }
+                    
                     initData();
                     showMessage('所有数据已删除！', 'success');
+                    saveAllDataToCloud();
                 }
             });
         });
@@ -3324,8 +3319,8 @@
             
             // 添加付款记录按钮
             document.getElementById('addPaymentBtn').addEventListener('click', function() {
-                if (!hasManagerPermission) {
-                    showMessage('合作方无权添加记录', 'error');
+                if (currentUserType !== 'manager') {
+                    showMessage('只有管理者可以添加记录', 'error');
                     return;
                 }
                 addPaymentRecord();
@@ -3333,8 +3328,8 @@
             
             // 删除付款记录按钮
             document.getElementById('deletePaymentBtn').addEventListener('click', function() {
-                if (!hasManagerPermission) {
-                    showMessage('合作方无权删除记录', 'error');
+                if (currentUserType !== 'manager') {
+                    showMessage('只有管理者可以删除记录', 'error');
                     return;
                 }
                 deleteSelectedPayments();
@@ -3384,8 +3379,8 @@
             
             // 添加付款记录按钮
             document.getElementById('addPaymentBtnProducts').addEventListener('click', function() {
-                if (!hasManagerPermission) {
-                    showMessage('合作方无权添加记录', 'error');
+                if (currentUserType !== 'manager') {
+                    showMessage('只有管理者可以添加记录', 'error');
                     return;
                 }
                 addPaymentRecordProducts();
@@ -3393,8 +3388,8 @@
             
             // 删除付款记录按钮
             document.getElementById('deletePaymentBtnProducts').addEventListener('click', function() {
-                if (!hasManagerPermission) {
-                    showMessage('合作方无权删除记录', 'error');
+                if (currentUserType !== 'manager') {
+                    showMessage('只有管理者可以删除记录', 'error');
                     return;
                 }
                 deleteSelectedPaymentsProducts();
@@ -3442,8 +3437,8 @@
             
             // 添加付款记录按钮
             document.getElementById('addPaymentBtnPayment').addEventListener('click', function() {
-                if (!hasManagerPermission) {
-                    showMessage('合作方无权添加记录', 'error');
+                if (currentUserType !== 'manager') {
+                    showMessage('只有管理者可以添加记录', 'error');
                     return;
                 }
                 addPaymentRecordPayment();
@@ -3451,8 +3446,8 @@
             
             // 删除付款记录按钮
             document.getElementById('deletePaymentBtnPayment').addEventListener('click', function() {
-                if (!hasManagerPermission) {
-                    showMessage('合作方无权删除记录', 'error');
+                if (currentUserType !== 'manager') {
+                    showMessage('只有管理者可以删除记录', 'error');
                     return;
                 }
                 deleteSelectedPaymentsPayment();
@@ -3502,8 +3497,8 @@
             
             // 添加付款记录按钮
             document.getElementById('addPaymentBtnShipping').addEventListener('click', function() {
-                if (!hasManagerPermission) {
-                    showMessage('合作方无权添加记录', 'error');
+                if (currentUserType !== 'manager') {
+                    showMessage('只有管理者可以添加记录', 'error');
                     return;
                 }
                 addPaymentRecordShipping();
@@ -3511,8 +3506,8 @@
             
             // 删除付款记录按钮
             document.getElementById('deletePaymentBtnShipping').addEventListener('click', function() {
-                if (!hasManagerPermission) {
-                    showMessage('合作方无权删除记录', 'error');
+                if (currentUserType !== 'manager') {
+                    showMessage('只有管理者可以删除记录', 'error');
                     return;
                 }
                 deleteSelectedPaymentsShipping();
@@ -3597,18 +3592,22 @@
         
         function savePaymentData() {
             localStorage.setItem('paymentData', JSON.stringify(paymentData));
+            saveAllDataToCloud();
         }
         
         function savePaymentDataProducts() {
             localStorage.setItem('paymentDataProducts', JSON.stringify(paymentDataProducts));
+            saveAllDataToCloud();
         }
         
         function savePaymentDataPayment() {
             localStorage.setItem('paymentDataPayment', JSON.stringify(paymentDataPayment));
+            saveAllDataToCloud();
         }
         
         function savePaymentDataShipping() {
             localStorage.setItem('paymentDataShipping', JSON.stringify(paymentDataShipping));
+            saveAllDataToCloud();
         }
         
         function renderPaymentTable(data = null) {
@@ -3631,13 +3630,13 @@
                     <td class="cny-amount-cell">${formatNumber(item.amount)}</td>
                     <td class="income-expense-form-cell">${item.form}</td>
                     <td class="settlement-cell">
-                        <select class="settlement-select" data-id="${item.id}" ${!hasManagerPermission ? 'disabled' : ''}>
+                        <select class="settlement-select" data-id="${item.id}" ${currentUserType === 'partner' ? 'disabled' : ''}>
                             <option value="未结算" ${item.settlement === '未结算' || !item.settlement ? 'selected' : ''}>未结算</option>
                             <option value="已结算" ${item.settlement === '已结算' ? 'selected' : ''}>已结算</option>
                         </select>
                     </td>
                     <td class="description-cell">
-                        <textarea class="editable-notes" data-id="${item.id}" ${!hasManagerPermission ? 'disabled' : ''}>${item.description}</textarea>
+                        <textarea class="editable-notes" data-id="${item.id}" ${currentUserType === 'partner' ? 'readonly' : ''}>${item.description}</textarea>
                     </td>
                 `;
                 
@@ -3645,41 +3644,41 @@
             });
             
             // 添加结算状态变化事件监听
-            if (hasManagerPermission) {
-                document.querySelectorAll('#paymentTableBody .settlement-select').forEach(select => {
-                    select.addEventListener('change', function() {
-                        const id = parseInt(this.getAttribute('data-id'));
-                        const value = this.value;
-                        updateSettlementStatus(id, value);
-                    });
+            document.querySelectorAll('#paymentTableBody .settlement-select').forEach(select => {
+                select.addEventListener('change', function() {
+                    if (currentUserType !== 'manager') return;
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const value = this.value;
+                    updateSettlementStatus(id, value);
+                });
+            });
+            
+            // 添加备注编辑事件监听
+            document.querySelectorAll('#paymentTableBody .editable-notes').forEach(textarea => {
+                textarea.addEventListener('blur', function() {
+                    if (currentUserType !== 'manager') return;
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const value = this.value;
+                    updateNotes(id, value);
                 });
                 
-                // 添加备注编辑事件监听
-                document.querySelectorAll('#paymentTableBody .editable-notes').forEach(textarea => {
-                    textarea.addEventListener('blur', function() {
-                        const id = parseInt(this.getAttribute('data-id'));
-                        const value = this.value;
-                        updateNotes(id, value);
-                    });
+                // 添加自适应高度功能
+                textarea.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
                     
-                    // 添加自适应高度功能
-                    textarea.addEventListener('input', function() {
-                        this.style.height = 'auto';
-                        this.style.height = (this.scrollHeight) + 'px';
-                        
-                        // 更新表格行高
-                        const row = this.closest('tr');
-                        if (row) {
-                            row.style.height = 'auto';
-                            row.style.height = (this.scrollHeight + 8) + 'px';
-                        }
-                    });
-                    
-                    // 初始设置高度
-                    textarea.style.height = 'auto';
-                    textarea.style.height = (textarea.scrollHeight) + 'px';
+                    // 更新表格行高
+                    const row = this.closest('tr');
+                    if (row) {
+                        row.style.height = 'auto';
+                        row.style.height = (this.scrollHeight + 8) + 'px';
+                    }
                 });
-            }
+                
+                // 初始设置高度
+                textarea.style.height = 'auto';
+                textarea.style.height = (textarea.scrollHeight) + 'px';
+            });
             
             updateTotals();
             updateFilterStatus();
@@ -3711,7 +3710,7 @@
                     <td class="cny-amount-cell">${item.cnyAmount}</td>
                     <td class="ruble-amount-cell">${item.rubleAmount}</td>
                     <td class="description-cell">
-                        <textarea class="editable-notes" data-id="${item.id}" ${!hasManagerPermission ? 'disabled' : ''}>${item.description}</textarea>
+                        <textarea class="editable-notes" data-id="${item.id}" ${currentUserType === 'partner' ? 'readonly' : ''}>${item.description}</textarea>
                     </td>
                 `;
                 
@@ -3719,32 +3718,31 @@
             });
             
             // 添加备注编辑事件监听
-            if (hasManagerPermission) {
-                document.querySelectorAll('#paymentTableBodyProducts .editable-notes').forEach(textarea => {
-                    textarea.addEventListener('blur', function() {
-                        const id = parseInt(this.getAttribute('data-id'));
-                        const value = this.value;
-                        updateNotesProducts(id, value);
-                    });
-                    
-                    // 添加自适应高度功能
-                    textarea.addEventListener('input', function() {
-                        this.style.height = 'auto';
-                        this.style.height = (this.scrollHeight) + 'px';
-                        
-                        // 更新表格行高
-                        const row = this.closest('tr');
-                        if (row) {
-                            row.style.height = 'auto';
-                            row.style.height = (this.scrollHeight + 8) + 'px';
-                        }
-                    });
-                    
-                    // 初始设置高度
-                    textarea.style.height = 'auto';
-                    textarea.style.height = (textarea.scrollHeight) + 'px';
+            document.querySelectorAll('#paymentTableBodyProducts .editable-notes').forEach(textarea => {
+                textarea.addEventListener('blur', function() {
+                    if (currentUserType !== 'manager') return;
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const value = this.value;
+                    updateNotesProducts(id, value);
                 });
-            }
+                
+                // 添加自适应高度功能
+                textarea.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                    
+                    // 更新表格行高
+                    const row = this.closest('tr');
+                    if (row) {
+                        row.style.height = 'auto';
+                        row.style.height = (this.scrollHeight + 8) + 'px';
+                    }
+                });
+                
+                // 初始设置高度
+                textarea.style.height = 'auto';
+                textarea.style.height = (textarea.scrollHeight) + 'px';
+            });
             
             updateTotalsProducts();
             updateFilterStatusProducts();
@@ -3771,13 +3769,13 @@
                     <td class="payment-method-cell">${item.method}</td>
                     <td class="cny-amount-cell">${formatNumber(item.amount)}</td>
                     <td class="settlement-cell">
-                        <select class="settlement-select" data-id="${item.id}" ${!hasManagerPermission ? 'disabled' : ''}>
+                        <select class="settlement-select" data-id="${item.id}" ${currentUserType === 'partner' ? 'disabled' : ''}>
                             <option value="未结算" ${item.settlement === '未结算' || !item.settlement ? 'selected' : ''}>未结算</option>
                             <option value="已结算" ${item.settlement === '已结算' ? 'selected' : ''}>已结算</option>
                         </select>
                     </td>
                     <td class="notes-cell">
-                        <textarea class="editable-notes" data-id="${item.id}" ${!hasManagerPermission ? 'disabled' : ''}>${item.notes}</textarea>
+                        <textarea class="editable-notes" data-id="${item.id}" ${currentUserType === 'partner' ? 'readonly' : ''}>${item.notes}</textarea>
                     </td>
                 `;
                 
@@ -3785,41 +3783,41 @@
             });
             
             // 添加结算状态变化事件监听
-            if (hasManagerPermission) {
-                document.querySelectorAll('#paymentTableBodyPayment .settlement-select').forEach(select => {
-                    select.addEventListener('change', function() {
-                        const id = parseInt(this.getAttribute('data-id'));
-                        const value = this.value;
-                        updateSettlementStatusPayment(id, value);
-                    });
+            document.querySelectorAll('#paymentTableBodyPayment .settlement-select').forEach(select => {
+                select.addEventListener('change', function() {
+                    if (currentUserType !== 'manager') return;
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const value = this.value;
+                    updateSettlementStatusPayment(id, value);
+                });
+            });
+            
+            // 添加备注编辑事件监听
+            document.querySelectorAll('#paymentTableBodyPayment .editable-notes').forEach(textarea => {
+                textarea.addEventListener('blur', function() {
+                    if (currentUserType !== 'manager') return;
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const value = this.value;
+                    updateNotesPayment(id, value);
                 });
                 
-                // 添加备注编辑事件监听
-                document.querySelectorAll('#paymentTableBodyPayment .editable-notes').forEach(textarea => {
-                    textarea.addEventListener('blur', function() {
-                        const id = parseInt(this.getAttribute('data-id'));
-                        const value = this.value;
-                        updateNotesPayment(id, value);
-                    });
+                // 添加自适应高度功能
+                textarea.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
                     
-                    // 添加自适应高度功能
-                    textarea.addEventListener('input', function() {
-                        this.style.height = 'auto';
-                        this.style.height = (this.scrollHeight) + 'px';
-                        
-                        // 更新表格行高
-                        const row = this.closest('tr');
-                        if (row) {
-                            row.style.height = 'auto';
-                            row.style.height = (this.scrollHeight + 8) + 'px';
-                        }
-                    });
-                    
-                    // 初始设置高度
-                    textarea.style.height = 'auto';
-                    textarea.style.height = (textarea.scrollHeight) + 'px';
+                    // 更新表格行高
+                    const row = this.closest('tr');
+                    if (row) {
+                        row.style.height = 'auto';
+                        row.style.height = (this.scrollHeight + 8) + 'px';
+                    }
                 });
-            }
+                
+                // 初始设置高度
+                textarea.style.height = 'auto';
+                textarea.style.height = (textarea.scrollHeight) + 'px';
+            });
             
             updateTotalsPayment();
             updateFilterStatusPayment();
@@ -3855,13 +3853,13 @@
                     <td class="delivery-fee-cell">${item.deliveryFee}</td>
                     <td class="total-cell">${item.total}</td>
                     <td class="settlement-cell">
-                        <select class="settlement-select" data-id="${item.id}" ${!hasManagerPermission ? 'disabled' : ''}>
+                        <select class="settlement-select" data-id="${item.id}" ${currentUserType === 'partner' ? 'disabled' : ''}>
                             <option value="未结算" ${item.settlement === '未结算' || !item.settlement ? 'selected' : ''}>未结算</option>
                             <option value="已结算" ${item.settlement === '已结算' ? 'selected' : ''}>已结算</option>
                         </select>
                     </td>
                     <td class="notes-cell">
-                        <textarea class="editable-notes" data-id="${item.id}" ${!hasManagerPermission ? 'disabled' : ''}>${item.notes}</textarea>
+                        <textarea class="editable-notes" data-id="${item.id}" ${currentUserType === 'partner' ? 'readonly' : ''}>${item.notes}</textarea>
                     </td>
                 `;
                 
@@ -3869,41 +3867,41 @@
             });
             
             // 添加结算状态变化事件监听
-            if (hasManagerPermission) {
-                document.querySelectorAll('#paymentTableBodyShipping .settlement-select').forEach(select => {
-                    select.addEventListener('change', function() {
-                        const id = parseInt(this.getAttribute('data-id'));
-                        const value = this.value;
-                        updateSettlementStatusShipping(id, value);
-                    });
+            document.querySelectorAll('#paymentTableBodyShipping .settlement-select').forEach(select => {
+                select.addEventListener('change', function() {
+                    if (currentUserType !== 'manager') return;
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const value = this.value;
+                    updateSettlementStatusShipping(id, value);
+                });
+            });
+            
+            // 添加备注编辑事件监听
+            document.querySelectorAll('#paymentTableBodyShipping .editable-notes').forEach(textarea => {
+                textarea.addEventListener('blur', function() {
+                    if (currentUserType !== 'manager') return;
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const value = this.value;
+                    updateNotesShipping(id, value);
                 });
                 
-                // 添加备注编辑事件监听
-                document.querySelectorAll('#paymentTableBodyShipping .editable-notes').forEach(textarea => {
-                    textarea.addEventListener('blur', function() {
-                        const id = parseInt(this.getAttribute('data-id'));
-                        const value = this.value;
-                        updateNotesShipping(id, value);
-                    });
+                // 添加自适应高度功能
+                textarea.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
                     
-                    // 添加自适应高度功能
-                    textarea.addEventListener('input', function() {
-                        this.style.height = 'auto';
-                        this.style.height = (this.scrollHeight) + 'px';
-                        
-                        // 更新表格行高
-                        const row = this.closest('tr');
-                        if (row) {
-                            row.style.height = 'auto';
-                            row.style.height = (this.scrollHeight + 8) + 'px';
-                        }
-                    });
-                    
-                    // 初始设置高度
-                    textarea.style.height = 'auto';
-                    textarea.style.height = (textarea.scrollHeight) + 'px';
+                    // 更新表格行高
+                    const row = this.closest('tr');
+                    if (row) {
+                        row.style.height = 'auto';
+                        row.style.height = (this.scrollHeight + 8) + 'px';
+                    }
                 });
-            }
+                
+                // 初始设置高度
+                textarea.style.height = 'auto';
+                textarea.style.height = (textarea.scrollHeight) + 'px';
+            });
             
             updateTotalsShipping();
             updateFilterStatusShipping();
@@ -3954,8 +3952,13 @@
                     return sum + (parseInt(item.quantity) || 0);
                 }, 0);
                 
-                const filteredTotalCnyAmount = filteredPaymentDataProducts.reduce((sum, item) => sum + (parseInt(item.cnyAmount) || 0), 0);
-                const filteredTotalRubleAmount = filteredPaymentDataProducts.reduce((sum, item) => sum + (parseInt(item.rubleAmount) || 0), 0);
+                const filteredTotalCnyAmount = filteredPaymentDataProducts.reduce((sum, item) => {
+                    return sum + (parseInt(item.cnyAmount) || 0);
+                }, 0);
+                
+                const filteredTotalRubleAmount = filteredPaymentDataProducts.reduce((sum, item) => {
+                    return sum + (parseInt(item.rubleAmount) || 0);
+                }, 0);
                 
                 document.getElementById('filteredTotalQuantityProducts').textContent = formatNumber(filteredTotalQuantity);
                 document.getElementById('filteredTotalCnyAmountProducts').textContent = formatNumber(filteredTotalCnyAmount);
@@ -4126,12 +4129,6 @@
         
         // 添加收支记录
         function addPaymentRecord() {
-            // 权限检查
-            if (!hasManagerPermission) {
-                showMessage('合作方无权添加记录', 'error');
-                return;
-            }
-            
             // 获取表单数据
             const date = document.getElementById('record-date').value;
             const type = document.getElementById('record-type').value;
@@ -4177,12 +4174,6 @@
         }
         
         function addPaymentRecordProducts() {
-            // 权限检查
-            if (!hasManagerPermission) {
-                showMessage('合作方无权添加记录', 'error');
-                return;
-            }
-            
             // 获取表单数据
             const date = document.getElementById('arrival-date').value;
             const productName = document.getElementById('product-name').value;
@@ -4242,12 +4233,6 @@
         }
         
         function addPaymentRecordPayment() {
-            // 权限检查
-            if (!hasManagerPermission) {
-                showMessage('合作方无权添加记录', 'error');
-                return;
-            }
-            
             // 获取表单数据
             const date = document.getElementById('payment-date').value;
             const recipient = document.getElementById('payment-recipient').value;
@@ -4296,12 +4281,6 @@
         }
         
         function addPaymentRecordShipping() {
-            // 权限检查
-            if (!hasManagerPermission) {
-                showMessage('合作方无权添加记录', 'error');
-                return;
-            }
-            
             // 获取表单数据
             const date = document.getElementById('shipping-date').value;
             const code = document.getElementById('shipping-code').value;
@@ -4382,12 +4361,6 @@
         
         // 删除选中的收支记录
         function deleteSelectedPayments() {
-            // 权限检查
-            if (!hasManagerPermission) {
-                showMessage('合作方无权删除记录', 'error');
-                return;
-            }
-            
             const checkboxes = document.querySelectorAll('#paymentTableBody .payment-checkbox:checked');
             if (checkboxes.length === 0) {
                 showMessage('请先选择要删除的收支记录', 'error');
@@ -4407,12 +4380,6 @@
         }
         
         function deleteSelectedPaymentsProducts() {
-            // 权限检查
-            if (!hasManagerPermission) {
-                showMessage('合作方无权删除记录', 'error');
-                return;
-            }
-            
             const checkboxes = document.querySelectorAll('#paymentTableBodyProducts .payment-checkbox:checked');
             if (checkboxes.length === 0) {
                 showMessage('请先选择要删除的付款记录', 'error');
@@ -4432,12 +4399,6 @@
         }
         
         function deleteSelectedPaymentsPayment() {
-            // 权限检查
-            if (!hasManagerPermission) {
-                showMessage('合作方无权删除记录', 'error');
-                return;
-            }
-            
             const checkboxes = document.querySelectorAll('#paymentTableBodyPayment .payment-checkbox:checked');
             if (checkboxes.length === 0) {
                 showMessage('请先选择要删除的付款记录', 'error');
@@ -4457,12 +4418,6 @@
         }
         
         function deleteSelectedPaymentsShipping() {
-            // 权限检查
-            if (!hasManagerPermission) {
-                showMessage('合作方无权删除记录', 'error');
-                return;
-            }
-            
             const checkboxes = document.querySelectorAll('#paymentTableBodyShipping .payment-checkbox:checked');
             if (checkboxes.length === 0) {
                 showMessage('请先选择要删除的付款记录', 'error');
@@ -5819,10 +5774,8 @@
             renderPaymentTableShipping(filteredData);
         }
         
-        // 页面加载完成后初始化登录系统
-        document.addEventListener('DOMContentLoaded', function() {
-            initLoginSystem();
-        });
+        // 初始化登录页面
+        initLoginPage();
     </script>
 </body>
 </html>
